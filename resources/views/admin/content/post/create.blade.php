@@ -2,6 +2,7 @@
 
 @section('head-tag')
     <title>ایجاد پست</title>
+    <link rel="stylesheet" href="{{asset('admin-assets/jalalidatepicker/persian-datepicker.min.css')}}">
 @endsection
 
 
@@ -31,8 +32,15 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">عنوان پست</label>
-                                    <input type="text" class="form-control form-control-sm" name="title">
+                                    <input type="text" class="form-control form-control-sm" name="title" value="{{old('title')}}">
                                 </div>
+                                @error('title')
+                                    <span class="alert-danger text-white rounded p-1">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
@@ -40,16 +48,30 @@
                                     <select name="category_id" id="category_id" class="form-control form-control-sm">
                                         <option value="" disabled selected>دسته را انتخاب کنید</option>
                                         @foreach($postCategories as $postCategory)
-                                        <option value="{{$postCategory->id}}">{{$postCategory->name}}</option>
+                                        <option value="{{$postCategory->id}}" @if(old('category_id') == $postCategory->id) selected @endif>{{$postCategory->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                @error('category_id')
+                                <span class="alert-danger text-white rounded p-1">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">تصویر</label>
                                     <input type="file" class="form-control form-control-sm" name="image">
                                 </div>
+                                @error('image')
+                                <span class="alert-danger text-white rounded p-1">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
@@ -88,8 +110,16 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">تاریخ انتشار</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="text" class="form-control form-control-sm d-none" name="published_at" id="published_at">
+                                    <input type="text" class="form-control form-control-sm" id="published_at_view">
                                 </div>
+                                @error('published_at')
+                                <span class="alert-danger text-white rounded p-1">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12">
                                 <div class="form-group">
@@ -110,14 +140,32 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">خلاصه پست</label>
-                                    <textarea name="body" id="summary" rows="10" class="form-control form-control-sm"></textarea>
+                                    <textarea name="summary" id="summary" rows="10" class="form-control form-control-sm">
+                                        {{old('summary')}}
+                                    </textarea>
                                 </div>
+                                @error('summary')
+                                <span class="alert-danger text-white rounded p-1">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">متن پست</label>
-                                    <textarea name="body" id="body" rows="10" class="form-control form-control-sm"></textarea>
+                                    <textarea name="body" id="body" rows="10" class="form-control form-control-sm">
+                                        {{old('body')}}
+                                    </textarea>
                                 </div>
+                                @error('body')
+                                <span class="alert-danger text-white rounded p-1">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12">
                                 <button class="btn btn-primary btn-sm">ثبت</button>
@@ -133,9 +181,19 @@
 
 @section('script')
     <script src="{{asset('admin-assets/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('admin-assets/jalalidatepicker/persian-date.min.js')}}"></script>
+    <script src="{{asset('admin-assets/jalalidatepicker/persian-datepicker.min.js')}}"></script>
     <script>
         CKEDITOR.replace('body');
         CKEDITOR.replace('summary');
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#published_at_view').persianDatepicker({
+                format: 'YYYY/MM/DD',
+                altField: '#published_at',
+            })
+        });
     </script>
     <script>
         $(document).ready(function () {
