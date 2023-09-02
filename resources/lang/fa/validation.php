@@ -186,6 +186,8 @@ return [
         "tags" => "برچسب ها",
         "image" => "تصویر",
         "status" => "وضعیت",
-        "category_id" => "دسته بندی"
+        "category_id" => "دسته بندی",
+        "summary" => "خلاصه",
+        "body" => "بدنه",
     ],
 ];

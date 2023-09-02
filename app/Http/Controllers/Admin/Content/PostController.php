@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\Image\ImageService;
 use App\Models\Content\PostCategory;
 use Illuminate\Http\Request;
 use App\Models\Content\Post;
@@ -31,9 +32,24 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PostRequest $request)
+    public function store(PostRequest $request,ImageService $imageService)
     {
-        dd($request->all());
+        $inputs = $request->all();
+
+        $realTimestampStart = substr($request->published_at,0,10);
+        $inputs['published_at'] = date("Y-m-d H:i:s",(int)$realTimestampStart);
+
+        if ($request->has('image')){
+            $imageService->setExclusiveDirectory('images'.DIRECTORY_SEPARATOR.'post');
+            $result = $imageService->createIndexAndSave($request->file('image'));
+            if ($result === false){
+                return redirect()->route('admin.content.post.index')->with('swal-error','آپلود عکس با خطا مواجه شد');
+            }
+            $inputs['image'] = $result;
+        }
+        $inputs['author_id'] = 1;
+        $post = Post::create($inputs);
+        return redirect()->route('admin.content.post.index')->with('swal-success','پست شما با موفقیت ثبت شد');
     }
 
     /**

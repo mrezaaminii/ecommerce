@@ -44,9 +44,8 @@ class CategoryController extends Controller
             if ($result === false){
                 return redirect()->route('admin.content.category.index')->with('swal-error', 'آپلود عکس با خطا مواجه شد');
             }
+            $inputs['image'] = $result;
         }
-
-        $inputs['image'] = $result;
         $postCategory = PostCategory::create($inputs);
         return redirect()->route('admin.content.category.index')->with('swal-success', 'دسته بندی جدید شما با موفقیت ثبت شد');
     }

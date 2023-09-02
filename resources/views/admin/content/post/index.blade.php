@@ -4,7 +4,6 @@
     <title>پست ها</title>
 @endsection
 
-
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -44,7 +43,7 @@
                             <td>{{$post->title}}</td>
                             <td>{{$post->postCategory->name}}</td>
                             <td>
-{{--                                <img src="{{asset($postCategory->image['indexArray'][$postCategory->image['currentImage']])}}" alt="" width="40" height="40">--}}
+                                <img src="{{asset($post->image['indexArray'][$post->image['currentImage']])}}" alt="" width="40" height="40">
                             </td>
                             <td class="text-left width-16-rem">
                                 <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
@@ -52,26 +51,6 @@
                             </td>
                         </tr>
                         @endforeach
-                        <tr>
-                            <th>2</th>
-                            <td>ایلان ماسک کیست؟</td>
-                            <td>دنیای فناوری</td>
-                            <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="" class="max-height-2-rem"></td>
-                            <td class="text-left width-16-rem">
-                                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>3</th>
-                            <td>چگونه ویندوز لپ تاپ را عوض کنیم؟</td>
-                            <td>کالای الکترونیکی</td>
-                            <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="" class="max-height-2-rem"></td>
-                            <td class="text-left width-16-rem">
-                                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
                 </section>
