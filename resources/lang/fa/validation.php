@@ -185,6 +185,7 @@ return [
 		"fullname" => "نام کامل",
         "tags" => "برچسب ها",
         "image" => "تصویر",
-        "status" => "وضعیت"
+        "status" => "وضعیت",
+        "category_id" => "دسته بندی"
     ],
 ];
