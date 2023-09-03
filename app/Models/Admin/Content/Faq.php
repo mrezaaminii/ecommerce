@@ -1,25 +1,23 @@
 <?php
 
-namespace App\Models\Content;
+namespace App\Models\Admin\Content;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PostCategory extends Model
+class Faq extends Model
 {
     use HasFactory,SoftDeletes,Sluggable;
-
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => 'question'
             ]
         ];
     }
 
-    protected $casts = ['image' => 'array'];
-    protected $fillable = ['name','description','slug','image','status','tags'];
+    protected $fillable = ['question','answer','slug','status','tags'];
 }

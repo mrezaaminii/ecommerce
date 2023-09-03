@@ -189,5 +189,7 @@ return [
         "category_id" => "دسته بندی",
         "summary" => "خلاصه",
         "body" => "بدنه",
+        "question" => "پرسش",
+        "answer" => "پاسخ"
     ],
 ];

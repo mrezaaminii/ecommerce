@@ -4,12 +4,8 @@ namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;
-use App\Http\Services\Image\ImageCacheService;
 use App\Http\Services\Image\ImageService;
-use App\Models\Content\PostCategory;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use function Symfony\Component\VarDumper\Dumper\esc;
+use App\Models\Admin\Content\PostCategory;
 
 class CategoryController extends Controller
 {

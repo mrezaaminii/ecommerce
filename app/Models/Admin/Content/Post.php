@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Models\Content;
+namespace App\Models\Admin\Content;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Content\PostCategory;
 
 class Post extends Model
 {
