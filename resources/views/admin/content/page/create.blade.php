@@ -22,7 +22,7 @@
                     <h4>ایجاد پیج</h4>
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                    <a href="{{route('admin.market.product.index')}}" class="btn btn-info">بازگشت</a>
+                    <a href="{{route('admin.content.page.index')}}" class="btn btn-info">بازگشت</a>
                 </section>
                 <section>
                     <form action="#" method="">
@@ -35,8 +35,8 @@
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="">آدرس url</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <label for=""></label>
+
                                 </div>
                             </section>
                             <section class="col-12">

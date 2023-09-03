@@ -48,25 +48,29 @@ class FAQController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Faq $faq)
     {
-        //
+        return view('admin.content.faq.edit',compact('faq'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(FaqRequest $request,Faq $faq)
     {
-        //
+        $inputs = $request->all();
+        $inputs['slug'] = null;
+        $faq->update($inputs);
+        return redirect()->route('admin.content.faq.index')->with('swal-success','پرسش با موفقیت ویرایش شد');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Faq $faq)
     {
-        //
+        $result = $faq->delete();
+        return redirect()->route('admin.content.faq.index')->with('swal-success','پرسش با موفقیت حذف شد');
     }
 
     public function status(Faq $faq)

@@ -11,10 +11,6 @@
 	font-family:IRANSans;
 }
 
-
-/*
- **********************************public styles*************************************
-*/
 	.bg-gray{
 		background-color: #404E67;
 		color: #dcdcdc;
@@ -24,10 +20,6 @@
 		cursor: pointer;
 	}
 
-
-/*
- **************************************box styles**********************************
-*/
 	.info-box-body h5{
 		font-size: .9rem;
 		line-height: 1rem;
@@ -168,7 +160,6 @@
 	transform: translateX(26px);
   }
 
-  /* Rounded sliders */
   .slider.round {
 	border-radius: 34px;
 	margin: 4px;
@@ -179,14 +170,10 @@
   }
 
 
-
-  /* sweet alert reform */
   .swal2-html-container {
 	  text-align: center;
   }
 
-
-  /* toast wrapper */
 	.toast-wrapper {
 		position: fixed;
 		z-index: 9999;
@@ -196,3 +183,11 @@
 		max-width: 80%;
 		padding: 2rem;
 	}
+
+    .max-width-8-rem{
+        max-width: 8rem;
+    }
+
+.width-11-rem{
+        width: 11rem;
+    }
