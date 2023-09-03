@@ -190,6 +190,8 @@ return [
         "summary" => "خلاصه",
         "body" => "بدنه",
         "question" => "پرسش",
-        "answer" => "پاسخ"
+        "answer" => "پاسخ",
+        "url" => "آدرس",
+        "parent_id" => "منوی والد",
     ],
 ];

@@ -53,7 +53,7 @@
                                     </label>
                                 </td>
                                 <td class="text-left width-16-rem width-11-rem">
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <a href="{{route('admin.content.menu.edit',$menu->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
                                     <form class="d-inline" action="{{route('admin.content.menu.destroy',$menu->id)}}" method="POST" id="deleteForm">
                                         @csrf
                                         @method('delete')
