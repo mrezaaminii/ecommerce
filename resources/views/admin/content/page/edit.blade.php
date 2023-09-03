@@ -11,7 +11,7 @@
             <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
             <li class="breadcrumb-item font-size-12"> <a href="#">پیج ساز</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد پیج</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش پیج</li>
         </ol>
     </nav>
 
@@ -21,7 +21,7 @@
             <section class="main-body-container">
                 <section class="main-body-container-header">
                     <h5>
-                        ایجاد پیج
+                        ویرایش پیج
                     </h5>
                 </section>
 
@@ -30,13 +30,14 @@
                 </section>
 
                 <section>
-                    <form action="{{route('admin.content.page.store')}}" method="POST" id="form">
+                    <form action="{{route('admin.content.page.update',$page->id)}}" method="POST" id="form">
                         @csrf
+                        @method('put')
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">عنوان </label>
-                                    <input type="text" class="form-control form-control-sm" name="title" value="{{old('title')}}">
+                                    <input type="text" class="form-control form-control-sm" name="title" value="{{old('title',$page->title)}}">
                                 </div>
                                 @error('title')
                                 <span class="alert-danger text-white p-1 rounded">
@@ -50,8 +51,8 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="0" @if(old('status' == 0)) selected @endif>غیرفعال</option>
-                                        <option value="1" @if(old('status' == 1)) selected @endif>فعال</option>
+                                        <option value="0" @if(old('status',$page->status == 0)) selected @endif>غیرفعال</option>
+                                        <option value="1" @if(old('status',$page->status == 1)) selected @endif>فعال</option>
                                     </select>
                                 </div>
                                 @error('status')
@@ -62,9 +63,9 @@
                                     </span>
                                 @enderror
                             </section>
-                            <section class="col-12">
+                            <section class="col-12 mt-3">
                                 <div class="form-group">
-                                    <input type="hidden" name="tags" id="tags_input" class="form-control form-control-sm" value="{{old('tags')}}">
+                                    <input type="hidden" name="tags" id="tags_input" class="form-control form-control-sm" value="{{old('tags',$page->tags)}}">
                                     <select id="select_tags" class="form-control form-control-sm select2" multiple>
 
                                     </select>
@@ -77,11 +78,11 @@
                                     </span>
                                 @enderror
                             </section>
-                            <section class="col-12">
+                            <section class="col-12 mt-3">
                                 <div class="form-group">
                                     <label for="">محتوی</label>
                                     <textarea name="body" id="body"  class="form-control form-control-sm" rows="6">
-                                        {{old('body')}}
+                                        {{old('body',$page->body)}}
                                     </textarea>
                                 </div>
                                 @error('body')
@@ -92,7 +93,7 @@
                                     </span>
                                 @enderror
                             </section>
-                            <section class="col-12">
+                            <section class="col-12 mt-3">
                                 <button class="btn btn-primary btn-sm">ثبت</button>
                             </section>
                         </section>
@@ -134,3 +135,4 @@
     </script>
 
 @endsection
+

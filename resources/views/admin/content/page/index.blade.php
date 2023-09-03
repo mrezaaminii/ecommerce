@@ -51,8 +51,12 @@
                                 </label>
                             </td>
                             <td class="text-left width-11-rem">
-                                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
+                                <a href="{{route('admin.content.page.edit',$page->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form action="{{route('admin.content.page.destroy',$page->id)}}" class="d-inline" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i>حذف </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -120,4 +124,5 @@
         }
     </script>
 
+    @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])
 @endsection

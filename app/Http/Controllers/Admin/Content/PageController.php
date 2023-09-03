@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Content\PageRequest;
 use App\Models\Admin\Content\Page;
 use Illuminate\Http\Request;
 
@@ -28,9 +29,11 @@ class PageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PageRequest $request)
     {
-        //
+        $inputs = $request->all();
+        $page = Page::create($inputs);
+        return redirect()->route('admin.content.page.index')->with('swal-success','صفحه جدید با موفقیت ساخته شد');
     }
 
     /**
@@ -44,25 +47,29 @@ class PageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Page $page)
     {
-        //
+        return view('admin.content.page.edit',compact('page'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PageRequest $request,Page $page)
     {
-        //
+        $inputs = $request->all();
+        $inputs['slug'] = null;
+        $page->update($inputs);
+        return redirect()->route('admin.content.page.index')->with('swal-success','صفحه با موفقیت ویرایش شد');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Page $page)
     {
-        //
+        $result = $page->delete();
+        return redirect()->route('admin.content.page.index')->with('swal-success','صفحه با موفقیت حذف شد');
     }
 
     public function status(Page $page)
