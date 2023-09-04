@@ -16,7 +16,8 @@ class SMSController extends Controller
     public function index()
     {
         $sms = SMS::orderBy('created_at','desc')->simplePaginate(15);
-        return view('admin.notify.sms.index',compact('sms'));    }
+        return view('admin.notify.sms.index',compact('sms'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -49,25 +50,30 @@ class SMSController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(SMS $sms)
     {
-        //
+        return view('admin.notify.sms.edit',compact('sms'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SMSRequest $request,SMS $sms)
     {
-        //
+        $inputs = $request->all();
+        $realTimestampStart = substr($request->published_at,0,10);
+        $inputs['published_at'] = date("Y-m-d H:i:s",(int)$realTimestampStart);
+        $sms->update($inputs);
+        return redirect()->route('admin.notify.sms.index')->with('swal-success', 'پیامک شما با موفقیت ویرایش شد');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(SMS $sms)
     {
-        //
+        $result = $sms->delete();
+        return redirect()->route('admin.notify.sms.index')->with('swal-success', 'پیامک شما با موفقیت حذف شد');
     }
 
     public function status(SMS $sms)

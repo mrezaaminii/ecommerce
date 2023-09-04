@@ -35,7 +35,7 @@
                                     <input type="text" class="form-control form-control-sm" name="title" value="{{old('title')}}">
                                 </div>
                                 @error('title')
-                                    <span class="alert-danger text-white rounded p-1">
+                                <span class="alert-danger text-white rounded p-1">
                                         <strong>
                                             {{$message}}
                                         </strong>
@@ -48,7 +48,7 @@
                                     <select name="category_id" id="category_id" class="form-control form-control-sm">
                                         <option value="" disabled selected>دسته را انتخاب کنید</option>
                                         @foreach($postCategories as $postCategory)
-                                        <option value="{{$postCategory->id}}" @if(old('category_id') == $postCategory->id) selected @endif>{{$postCategory->name}}</option>
+                                            <option value="{{$postCategory->id}}" @if(old('category_id') == $postCategory->id) selected @endif>{{$postCategory->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -192,6 +192,12 @@
             $('#published_at_view').persianDatepicker({
                 format: 'YYYY/MM/DD',
                 altField: '#published_at',
+                timePicker: {
+                    enabled: true,
+                    meridiem: {
+                        enabled: true
+                    }
+                }
             })
         });
     </script>

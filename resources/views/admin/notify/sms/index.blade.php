@@ -47,15 +47,19 @@ use App\Helpers\helper;
                                 <th>{{$key += 1}}</th>
                                 <th>{{$singleSms->title}}</th>
                                 <td>{{$singleSms->body}}</td>
-                                <td>{{helper::jalaliDate($singleSms->published_at)}}</td>
+                                <td>{{helper::jalaliDate($singleSms->published_at,'H:i:s Y-m-d')}}</td>
                                 <td>
                                     <label for="">
                                         <input type="checkbox" id="{{$singleSms->id}}" data-url="{{route('admin.notify.sms.status',$singleSms->id)}}" onchange="changeStatus({{$singleSms->id}})" @if($singleSms->status == 1) checked @endif>
                                     </label>
                                 </td>
                                 <td class="text-left width-11-rem">
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
+                                    <a href="{{route('admin.notify.sms.edit',$singleSms->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <form action="{{route('admin.notify.sms.destroy',$singleSms->id)}}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i>حذف </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -122,4 +126,5 @@ use App\Helpers\helper;
             }
         }
     </script>
+    @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])
 @endsection

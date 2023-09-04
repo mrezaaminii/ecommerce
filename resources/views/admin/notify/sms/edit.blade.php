@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-    <title>ایجاد اطلاعیه پیامکی</title>
+    <title>ویرایش اطلاعیه پیامکی</title>
     <link rel="stylesheet" href="{{asset('admin-assets/jalalidatepicker/persian-datepicker.min.css')}}">
 @endsection
 
@@ -12,7 +12,7 @@
             <li class="breadcrumb-item font-size-12"><a href="#">خانه </a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> اطلاع رسانی</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> اطلاعیه پیامکی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد اطلاعیه پیامکی</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش اطلاعیه پیامکی</li>
         </ol>
     </nav>
 
@@ -20,19 +20,20 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h4>ایجاد اطلاعیه پیامکی</h4>
+                    <h4>ویرایش اطلاعیه پیامکی</h4>
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                     <a href="{{route('admin.notify.sms.index')}}" class="btn btn-info">بازگشت</a>
                 </section>
                 <section>
-                    <form action="{{route('admin.notify.sms.store')}}" method="POST">
+                    <form action="{{route('admin.notify.sms.update',$sms->id)}}" method="POST">
                         @csrf
+                        @method('put')
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">عنوان پیامک</label>
-                                    <input type="text" class="form-control form-control-sm" name="title" value="{{old('title')}}">
+                                    <input type="text" class="form-control form-control-sm" name="title" value="{{old('title',$sms->title)}}">
                                 </div>
                                 @error('title')
                                 <span class="alert-danger text-white rounded p-1" role="alert">
@@ -45,8 +46,8 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">تاریخ انتشار</label>
-                                    <input type="text" class="form-control form-control-sm d-none" name="published_at" id="published_at">
-                                    <input type="text" class="form-control form-control-sm" id="published_at_view">
+                                    <input type="text" class="form-control form-control-sm d-none" name="published_at" id="published_at" value="{{$sms->published_at}}">
+                                    <input type="text" class="form-control form-control-sm" id="published_at_view" value="{{$sms->published_at}}">
                                 </div>
                                 @error('published_at')
                                 <span class="alert-danger text-white rounded p-1" role="alert">
@@ -60,8 +61,8 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
-                                        <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                                        <option value="0" @if(old('status',$sms->status) == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if(old('status',$sms->status) == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
                                 @error('status')
@@ -75,8 +76,8 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">متن پیامک</label>
-                                    <textarea name="body" id="body" rows="5" class="form-control form-control-sm">
-                                        {{old('body')}}
+                                    <textarea name="body" id="body" rows="4" class="form-control form-control-sm">
+                                        {{old('body',$sms->body)}}
                                     </textarea>
                                 </div>
                                 @error('body')
@@ -116,3 +117,4 @@
         })
     </script>
 @endsection
+
