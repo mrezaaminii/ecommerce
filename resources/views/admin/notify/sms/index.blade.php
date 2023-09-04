@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 
+@php
+use App\Helpers\helper;
+@endphp
 @section('head-tag')
     <title>اطلاعیه پیامکی</title>
 @endsection
@@ -31,43 +34,92 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>عنوان اطلاعیه</th>
+                                <th>عنوان پیامک</th>
+                                <th>متن پیامک</th>
                                 <th>تاریخ ارسال</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th>وضعیت</th>
+                                <th class="width-11-rem text-right"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($sms as $key => $singleSms)
                             <tr>
-                                <th>1</th>
-                                <td>فروش ویژه بهاری</td>
-                                <td>24 اردیبهشت 99</td>
-                                <td class="text-left width-16-rem">
+                                <th>{{$key += 1}}</th>
+                                <th>{{$singleSms->title}}</th>
+                                <td>{{$singleSms->body}}</td>
+                                <td>{{helper::jalaliDate($singleSms->published_at)}}</td>
+                                <td>
+                                    <label for="">
+                                        <input type="checkbox" id="{{$singleSms->id}}" data-url="{{route('admin.notify.sms.status',$singleSms->id)}}" onchange="changeStatus({{$singleSms->id}})" @if($singleSms->status == 1) checked @endif>
+                                    </label>
+                                </td>
+                                <td class="text-left width-11-rem">
                                     <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>تخفیف ها</td>
-                                <td>24 اردیبهشت 99</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>محصولات ویژه فصل بهار</td>
-                                <td>24 اردیبهشت 99</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        function changeStatus(id){
+            var element = $('#' + id);
+            var url = element.attr('data-url');
+            var elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response) {
+                    if (response.status){
+                        if (response.checked){
+                            element.prop('checked',true);
+                            successToast('پیامک با موفقیت فعال شد');
+                        }
+                        else{
+                            element.prop('checked',false);
+                            successToast('پیامک با موفقیت غیر فعال شد');
+                        }
+                    }
+                    else{
+                        element.prop('checked',elementValue);
+                        errorToast('هنگام ویرایش مشکلی پیش آمده است');
+                    }
+                },
+                error: function () {
+                    element.prop('checked',elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+            function successToast(message){
+                var successToastTag = '<div class="toast" data-delay="5000">\n' +
+                    '<div class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">\n' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</div>\n' + '</div>';
+
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5500).queue(function () {
+                    $(this).remove();
+                })
+            }
+            function errorToast(message){
+                var errorToastTag = '<div class="toast" data-delay="5000">\n' +
+                    '<div class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">\n' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</div>\n' + '</div>';
+
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5500).queue(function () {
+                    $(this).remove();
+                })
+            }
+        }
+    </script>
 @endsection
