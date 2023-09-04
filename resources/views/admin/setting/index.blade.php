@@ -30,17 +30,23 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام سایت</th>
                                 <th>عنوان سایت</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th>توضیحات سایت</th>
+                                <th>کلمات کلیدی سایت</th>
+                                <th>لوگو سایت</th>
+                                <th>آیکون سایت</th>
+                                <th class="width-11-rem text-right"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>1</th>
-                                <td>فروشگاه من</td>
-                                <td>فروشگاه من</td>
-                                <td class="text-left width-22-rem">
+                                <td>{{$settings->title}}</td>
+                                <td>{{$settings->description}}</td>
+                                <td>{{$settings->keywords}}</td>
+                                <td>{{$settings->logo}}</td>
+                                <td>{{$settings->icon}}</td>
+                                <td class="text-left width-11-rem">
                                     <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
                                     <button disabled type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
                                 </td>
