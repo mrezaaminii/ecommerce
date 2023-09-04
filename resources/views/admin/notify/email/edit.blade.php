@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-    <title>ایجاد اطلاعیه ایمیلی</title>
+    <title>ویرایش اطلاعیه ایمیلی</title>
     <link rel="stylesheet" href="{{asset('admin-assets/jalalidatepicker/persian-datepicker.min.css')}}">
 @endsection
 
@@ -12,7 +12,7 @@
             <li class="breadcrumb-item font-size-12"><a href="#">خانه </a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> اطلاع رسانی</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> اطلاعیه ایمیلی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد اطلاعیه ایمیلی</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش اطلاعیه ایمیلی</li>
         </ol>
     </nav>
 
@@ -20,22 +20,23 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h4>ایجاد اطلاعیه ایمیلی</h4>
+                    <h4>ویرایش اطلاعیه ایمیلی</h4>
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                     <a href="{{route('admin.notify.email.index')}}" class="btn btn-info">بازگشت</a>
                 </section>
                 <section>
-                    <form action="{{route('admin.notify.email.store')}}" method="POST">
+                    <form action="{{route('admin.notify.email.update',$email->id)}}" method="POST">
                         @csrf
+                        @method('put')
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">عنوان ایمیل</label>
-                                    <input type="text" class="form-control form-control-sm" name="subject" value="{{old('subject')}}">
+                                    <input type="text" class="form-control form-control-sm" name="subject" value="{{old('subject',$email->subject)}}">
                                 </div>
                                 @error('subject')
-                                    <span class="alert-danger text-white rounded p-1">
+                                <span class="alert-danger text-white rounded p-1">
                                         <strong>
                                             {{$message}}
                                         </strong>
@@ -45,8 +46,8 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="published_at_view">تاریخ انتشار</label>
-                                    <input type="text" class="form-control form-control-sm d-none" id="published_at" name="published_at">
-                                    <input type="text" class="form-control form-control-sm" id="published_at_view">
+                                    <input type="text" class="form-control form-control-sm d-none" id="published_at" name="published_at" value="{{$email->published_at}}">
+                                    <input type="text" class="form-control form-control-sm" id="published_at_view" value="{{$email->published_at}}">
                                 </div>
                                 @error('published_at')
                                 <span class="alert-danger text-white rounded p-1">
@@ -60,8 +61,8 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
-                                        <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                                        <option value="0" @if(old('status',$email->status) == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if(old('status',$email->status) == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
                                 @error('status')
@@ -76,7 +77,7 @@
                                 <div class="form-group">
                                     <label for="">متن ایمیل</label>
                                     <textarea name="body" id="body" rows="5" class="form-control form-control-sm">
-                                        {{old('body')}}
+                                        {{old('body',$email->body)}}
                                     </textarea>
                                 </div>
                                 @error('body')
@@ -120,3 +121,4 @@
         })
     </script>
 @endsection
+
