@@ -4,7 +4,7 @@
     use App\Helpers\helper;
 @endphp
 @section('head-tag')
-    <title>اطلاعیه ایمیلی</title>
+    <title>فایل های اطلاعیه ایمیلی</title>
 @endsection
 
 
@@ -13,7 +13,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"><a href="#">خانه </a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> اطلاع رسانی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> اطلاعیه ایمیلی</li>
+            <li class="breadcrumb-item font-size-12" aria-current="page"> اطلاعیه ایمیلی</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> فایل های اطلاعیه ایمیلی</li>
         </ol>
     </nav>
 
@@ -21,10 +22,10 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h4>اطلاعیه ایمیلی</h4>
+                    <h4>فایل های اطلاعیه ایمیلی</h4>
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                    <a href="{{route('admin.notify.email.create')}}" class="btn btn-info">ایجاد اطلاعیه ایمیلی</a>
+                    <a href="{{route('admin.notify.email-file.create',$email->id)}}" class="btn btn-info">ایجاد فایل اطلاعیه ایمیلی</a>
                     <div class="max-width-16-rem">
                         <input type="text" placeholder="جستجو" class="form-text form-control form-control-sm">
                     </div>
@@ -34,27 +35,28 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>عنوان اطلاعیه</th>
-                                <th>تاریخ ارسال</th>
+                                <th>عنوان ایمیل</th>
+                                <th>سایز فایل</th>
+                                <th>نوع فایل</th>
                                 <th>وضعیت</th>
                                 <th class="text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($emails as $key => $email)
+                        @foreach($email->files as $key => $file)
                             <tr>
                                 <th>{{$key += 1}}</th>
                                 <td>{{$email->subject}}</td>
-                                <td>{{helper::jalaliDate($email->published_at,"H:i:s---Y-m-d")}}</td>
+                                <td>{{$file->file_size}}</td>
+                                <td>{{$file->file_type}}</td>
                                 <td>
-                                    <label for="{{$email->id}}">
-                                        <input type="checkbox" data-url="{{route('admin.notify.email.status',$email->id)}}" id="{{$email->id}}" onchange="changeStatus({{$email->id}})" @if($email->status == 1) checked @endif>
+                                    <label for="{{$file->id}}">
+                                        <input type="checkbox" data-url="{{route('admin.notify.email-file.status',$file->id)}}" id="{{$file->id}}" onchange="changeStatus({{$file->id}})" @if($file->status == 1) checked @endif>
                                     </label>
                                 </td>
                                 <td class="text-left">
-                                    <a href="{{route('admin.notify.email-file.index',$email->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-file"></i> فایل های ضمیمه شده</a>
-                                    <a href="{{route('admin.notify.email.edit',$email->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <form action="{{route('admin.notify.email.destroy',$email->id)}}" method="POST" class="d-inline">
+                                    <a href="{{route('admin.notify.email-file.edit',$file->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <form action="{{route('admin.notify.email-file.destroy',$file->id)}}" method="POST" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i> حذف</button>

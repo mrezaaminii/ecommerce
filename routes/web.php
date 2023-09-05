@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\Notify\EmailController;
 use App\Http\Controllers\Admin\Notify\SMSController;
 use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Admin\Setting\SettingController;
+use App\Http\Controllers\Admin\Notify\EmailFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -250,6 +251,15 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::put('/update/{email}',[EmailController::class,'update'])->name('admin.notify.email.update');
             Route::delete('/destroy/{email}',[EmailController::class,'destroy'])->name('admin.notify.email.destroy');
             Route::get('/status/{email}',[EmailController::class,'status'])->name('admin.notify.email.status');
+        });
+        Route::prefix('email-file')->group(function (){
+            Route::get('/{email}',[EmailFileController::class,'index'])->name('admin.notify.email-file.index');
+            Route::get('/create/{email}',[EmailFileController::class,'create'])->name('admin.notify.email-file.create');
+            Route::post('/store/{email}',[EmailFileController::class,'store'])->name('admin.notify.email-file.store');
+            Route::get('/edit/{file}',[EmailFileController::class,'edit'])->name('admin.notify.email-file.edit');
+            Route::put('/update/{file}',[EmailFileController::class,'update'])->name('admin.notify.email-file.update');
+            Route::delete('/destroy/{file}',[EmailFileController::class,'destroy'])->name('admin.notify.email-file.destroy');
+            Route::get('/status/{file}',[EmailFileController::class,'status'])->name('admin.notify.email-file.status');
         });
         Route::prefix('sms')->group(function (){
             Route::get('/',[SMSController::class,'index'])->name('admin.notify.sms.index');
