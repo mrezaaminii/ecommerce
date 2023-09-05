@@ -37,7 +37,7 @@
                                 <th>عنوان اطلاعیه</th>
                                 <th>تاریخ ارسال</th>
                                 <th>وضعیت</th>
-                                <th class="width-11-rem text-right"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th class="text-right"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,7 +51,8 @@
                                         <input type="checkbox" data-url="{{route('admin.notify.email.status',$email->id)}}" id="{{$email->id}}" onchange="changeStatus({{$email->id}})" @if($email->status == 1) checked @endif>
                                     </label>
                                 </td>
-                                <td class="text-left width-11-rem">
+                                <td class="text-left">
+                                    <a href="{{route('admin.notify.email.edit',$email->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> فایل های ضمیمه شده</a>
                                     <a href="{{route('admin.notify.email.edit',$email->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
                                     <form action="{{route('admin.notify.email.destroy',$email->id)}}" method="POST" class="d-inline">
                                         @csrf

@@ -41,13 +41,17 @@
                         <tbody>
                             <tr>
                                 <th>1</th>
-                                <td>{{$settings->title}}</td>
-                                <td>{{$settings->description}}</td>
-                                <td>{{$settings->keywords}}</td>
-                                <td>{{$settings->logo}}</td>
-                                <td>{{$settings->icon}}</td>
+                                <td>{{$setting->title}}</td>
+                                <td>{{$setting->description}}</td>
+                                <td>{{$setting->keywords}}</td>
+                                <td>
+                                    <img src="{{asset($setting->logo)}}" alt="" width="40" height="40">
+                                </td>
+                                <td>
+                                    <img src="{{asset($setting->icon)}}" alt="" width="40" height="40">
+                                </td>
                                 <td class="text-left width-11-rem">
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <a href="{{route('admin.setting.edit',$setting->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
                                     <button disabled type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
                                 </td>
                             </tr>
