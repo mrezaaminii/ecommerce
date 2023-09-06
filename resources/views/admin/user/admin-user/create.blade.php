@@ -31,7 +31,7 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">نام</label>
-                                    <input type="text" class="form-control form-control-sm" name="first_name">
+                                    <input type="text" class="form-control form-control-sm" name="first_name" value="{{old('first_name')}}">
                                 </div>
                                 @error('first_name')
                                 <span class="alert-danger text-white rounded p-1" role="alert">
@@ -44,7 +44,7 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">نام خانوادگی</label>
-                                    <input type="text" class="form-control form-control-sm" name="last_name">
+                                    <input type="text" class="form-control form-control-sm" name="last_name" value="{{old('last_name')}}">
                                 </div>
                                 @error('last_name')
                                 <span class="alert-danger text-white rounded p-1" role="alert">
@@ -57,7 +57,7 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">ایمیل</label>
-                                    <input type="text" class="form-control form-control-sm" name="email">
+                                    <input type="text" class="form-control form-control-sm" name="email" value="{{old('email')}}">
                                 </div>
                                 @error('email')
                                 <span class="alert-danger text-white rounded p-1" role="alert">
@@ -70,7 +70,7 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">شماره موبایل</label>
-                                    <input type="text" class="form-control form-control-sm" name="mobile">
+                                    <input type="text" class="form-control form-control-sm" name="mobile" value="{{old('mobile')}}">
                                 </div>
                                 @error('mobile')
                                 <span class="alert-danger text-white rounded p-1" role="alert">

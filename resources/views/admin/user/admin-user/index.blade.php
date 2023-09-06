@@ -35,6 +35,8 @@
                                 <th>شماره موبایل</th>
                                 <th>نام</th>
                                 <th>نام خانوادگی</th>
+                                <th>فعال سازی</th>
+                                <th>وضعیت</th>
                                 <th>نقش</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
@@ -47,6 +49,20 @@
                                 <td>{{$admin->mobile}}</td>
                                 <td>{{$admin->first_name}}</td>
                                 <td>{{$admin->last_name}}</td>
+                                <td>
+                                    <label for="{{$admin->id}}">
+                                        <input id="{{$admin->id}}-active" onchange="changeActive({{$admin->id}})" data-url="{{route('admin.user.admin-user.activation',$admin->id)}}" type="checkbox" @if($admin->activation === 1) checked
+
+                                            @endif>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label for="{{$admin->id}}">
+                                        <input id="{{$admin->id}}" onchange="changeStatus({{$admin->id}})" data-url="{{route('admin.user.admin-user.status',$admin->id)}}" type="checkbox" @if($admin->status === 1) checked
+
+                                            @endif>
+                                    </label>
+                                </td>
                                 <td>سوپر ادمین</td>
                                 <td class="text-left width-22-rem">
                                     <a href="" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> نقش</a>
@@ -61,4 +77,142 @@
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        function changeActive(id){
+            var element = $('#' + id + '-active');
+            var url = element.attr('data-url');
+            var elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response) {
+                    if (response.status){
+                        if (response.checked){
+                            element.prop('checked',true);
+                            successToast('فعالسازی ادمین با موفقیت انجام شد');
+                        }
+                        else{
+                            element.prop('checked',false);
+                            successToast('غیر فعالسازی ادمین با موفقیت انجام شد');
+                        }
+                    }
+                    else{
+                        element.prop('checked',elementValue);
+                        errorToast('هنگام ویرایش مشکلی پیش آمده است');
+                    }
+                },
+                error: function () {
+                    element.prop('checked',elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+            function successToast(message){
+                var successToastTag = '<div class="toast" data-delay="5000">\n' +
+                    '<div class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">\n' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</div>\n' + '</div>';
+
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5500).queue(function () {
+                    $(this).remove();
+                })
+            }
+            function errorToast(message){
+                var errorToastTag = '<div class="toast" data-delay="5000">\n' +
+                    '<div class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">\n' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</div>\n' + '</div>';
+
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5500).queue(function () {
+                    $(this).remove();
+                })
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        function changeStatus(id){
+            var element = $('#' + id);
+            var url = element.attr('data-url');
+            var elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response) {
+                    if (response.status){
+                        if (response.checked){
+                            element.prop('checked',true);
+                            successToast('ادمین با موفقیت فعال شد');
+                        }
+                        else{
+                            element.prop('checked',false);
+                            successToast('ادمین با موفقیت غیر فعال شد');
+                        }
+                    }
+                    else{
+                        element.prop('checked',elementValue);
+                        errorToast('هنگام ویرایش مشکلی پیش آمده است');
+                    }
+                },
+                error: function () {
+                    element.prop('checked',elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+            function successToast(message){
+                var successToastTag = '<div class="toast" data-delay="5000">\n' +
+                    '<div class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">\n' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</div>\n' + '</div>';
+
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5500).queue(function () {
+                    $(this).remove();
+                })
+            }
+            function errorToast(message){
+                var errorToastTag = '<div class="toast" data-delay="5000">\n' +
+                    '<div class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">\n' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</div>\n' + '</div>';
+
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5500).queue(function () {
+                    $(this).remove();
+                })
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#deleteForm').submit(function (event) {
+                event.preventDefault();
+                // if (confirm('آیا مطمئن هستید که می‌خواهید این رکورد را حذف کنید؟')) {
+                //     var previousPage = document.referrer;
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        // console.log(response.message);
+                        window.location.href = "{{route('admin.content.category.index')}}";
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+                // }
+            });
+        });
+    </script>
+
+    @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])
+
 @endsection
