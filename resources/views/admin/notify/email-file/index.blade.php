@@ -88,7 +88,7 @@
                         }
                         else{
                             element.prop('checked',false);
-                            successToast('فایل ایمیل با موفقیت غیر فعال شد');
+                            successToast('ایمیل با موفقیت غیر فعال شد');
                         }
                     }
                     else{
