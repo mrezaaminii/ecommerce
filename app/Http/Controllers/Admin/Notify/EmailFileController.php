@@ -87,10 +87,10 @@ class EmailFileController extends Controller
             if($result === false){
                 return redirect()->route('admin.notify.email-file.index',$file->email->id)->with('swal-error', 'آپلود فایل با خطا مواجه شد');
             }
+            $inputs['file_path'] = $result;
+            $inputs['file_size'] = $fileSize;
+            $inputs['file_type'] = $fileFormat;
         }
-        $inputs['file_path'] = $result;
-        $inputs['file_size'] = $fileSize;
-        $inputs['file_type'] = $fileFormat;
         $emailFile = $file->update($inputs);
         return redirect()->route('admin.notify.email-file.index',$file->email->id)->with('swal-success', 'فایل جدید با موفقیت ویرایش شد');
     }

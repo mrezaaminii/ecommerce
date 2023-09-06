@@ -24,8 +24,11 @@ class FileService extends FileToolsService {
     {
 
         if($storage){
-            unlink(storage_path($filePath));
-            return true;
+            if(file_exists($filePath))
+            {
+                unlink(storage_path($filePath));
+                return true;
+            }
         }
 
         if(file_exists($filePath))
