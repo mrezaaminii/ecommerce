@@ -40,12 +40,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($admins as $key => $admin)
                             <tr>
-                                <th>1</th>
-                                <td>kamran@yahoo.com</td>
-                                <td>09125456476</td>
-                                <td>کامران</td>
-                                <td>محمدی</td>
+                                <th>{{$key += 1}}</th>
+                                <td>{{$admin->email}}</td>
+                                <td>{{$admin->mobile}}</td>
+                                <td>{{$admin->first_name}}</td>
+                                <td>{{$admin->last_name}}</td>
                                 <td>سوپر ادمین</td>
                                 <td class="text-left width-22-rem">
                                     <a href="" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> نقش</a>
@@ -53,32 +54,7 @@
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>kamran@yahoo.com</td>
-                                <td>09125456476</td>
-                                <td>کامران</td>
-                                <td>محمدی</td>
-                                <td>سوپر ادمین</td>
-                                <td class="text-left width-22-rem">
-                                    <a href="" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> نقش</a>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>kamran@yahoo.com</td>
-                                <td>09125456476</td>
-                                <td>کامران</td>
-                                <td>محمدی</td>
-                                <td>سوپر ادمین</td>
-                                <td class="text-left width-22-rem">
-                                    <a href="" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> نقش</a>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>

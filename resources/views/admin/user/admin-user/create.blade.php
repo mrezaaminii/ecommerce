@@ -25,58 +25,115 @@
                     <a href="{{route('admin.user.admin-user.index')}}" class="btn btn-info">بازگشت</a>
                 </section>
                 <section>
-                    <form action="#" method="">
+                    <form action="{{route('admin.user.admin-user.store')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">نام</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="text" class="form-control form-control-sm" name="first_name">
                                 </div>
+                                @error('first_name')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">نام خانوادگی</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="text" class="form-control form-control-sm" name="last_name">
                                 </div>
+                                @error('last_name')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">ایمیل</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="text" class="form-control form-control-sm" name="email">
                                 </div>
+                                @error('email')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">شماره موبایل</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="text" class="form-control form-control-sm" name="mobile">
                                 </div>
+                                @error('mobile')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">کلمه عبور</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="password" class="form-control form-control-sm" name="password">
                                 </div>
+                                @error('password')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">تکرار کلمه عبور</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="password" class="form-control form-control-sm" name="password_confirmation">
                                 </div>
+                                @error('password_confirmation')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">تصویر</label>
-                                    <input type="file" class="form-control form-control-sm">
+                                    <input type="file" class="form-control form-control-sm" name="profile_photo_path">
                                 </div>
+                                @error('profile_photo_path')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="">وضعیت کاربر</label>
-                                    <select name="" id="" class="form-control form-control-sm">
-                                        <option value="" selected>غیرفعال</option>
-                                        <option value="">فعال</option>
+                                    <label for="activation">وضعیت فعالسازی</label>
+                                    <select name="activation" id="activation" class="form-control form-control-sm">
+                                        <option value="0" @if(old('activation') == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if(old('activation') == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
+                                @error('activation')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12">
                                 <button class="btn btn-primary btn-sm">ثبت</button>
