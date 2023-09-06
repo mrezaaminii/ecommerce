@@ -66,8 +66,12 @@
                                 <td>سوپر ادمین</td>
                                 <td class="text-left width-22-rem">
                                     <a href="" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> نقش</a>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
+                                    <a href="{{route('admin.user.admin-user.edit',$admin->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <form class="d-inline" action="{{route('admin.user.admin-user.destroy',$admin->id)}}" method="POST" id="deleteForm">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i> حذف</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

@@ -59,25 +59,39 @@ class AdminUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $admin)
     {
-        //
+        return view('admin.user.admin-user.edit',compact('admin'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AdminUserRequest $request,User $admin,ImageService $imageService)
     {
-        //
+        $inputs = $request->all();
+        if ($request->hasFile('image')){
+            if (!empty($admin->profile_photo_path)){
+                $imageService->deleteImage($admin->profile_photo_path);
+            }
+            $imageService->setExclusiveDirectory('images'.DIRECTORY_SEPARATOR.'users');
+            $result = $imageService->save($request->file('profile_photo_path'));
+            if ($result === false){
+                return redirect()->route('admin.user.admin-user.index')->with('swal-error', 'آپلود عکس با خطا مواجه شد');
+            }
+            $inputs['profile_photo_path'] = $result;
+        }
+        $admin->update($inputs);
+        return redirect()->route('admin.user.admin-user.index')->with('swal-success','ادمین سایت با موفقیت ویرایش شد');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $admin)
     {
-        //
+        $result = $admin->forceDelete();
+        return redirect()->route('admin.user.admin-user.index')->with('swal-success','ادمین سایت با موفقیت حذف شد');
     }
 
     public function status(User $user){
