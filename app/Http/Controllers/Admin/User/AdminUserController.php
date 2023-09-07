@@ -70,7 +70,7 @@ class AdminUserController extends Controller
     public function update(AdminUserRequest $request,User $admin,ImageService $imageService)
     {
         $inputs = $request->all();
-        if ($request->hasFile('image')){
+        if ($request->hasFile('profile_photo_path')){
             if (!empty($admin->profile_photo_path)){
                 $imageService->deleteImage($admin->profile_photo_path);
             }
