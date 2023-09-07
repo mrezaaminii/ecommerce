@@ -31,12 +31,9 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>نویسنده تیکت</th>
-                            <th>عنوان تیکت</th>
-                            <th>دسته تیکت</th>
-                            <th>اولویت تیکت</th>
-                            <th>ارجاع شده از</th>
-                            <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                            <th>نام اولویت</th>
+                            <th>وضعیت</th>
+                            <th class="width-11-rem text-right"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,8 +44,13 @@
                             <td>دسته فروش</td>
                             <td>فوری</td>
                             <td>-</td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{route('admin.ticket.show')}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> مشاهده</a>
+                            <td class="text-left width-11-rem">
+                                <a href="{{route('admin.ticket.category.edit',$ticketCategory->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form class="d-inline" action="{{route('admin.ticket.priority.destroy',$ticketCategory->id)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i> حذف</button>
+                                </form>
                             </td>
                         </tr>
                         </tbody>
