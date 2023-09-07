@@ -31,28 +31,33 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>نام اولویت</th>
-                            <th>وضعیت</th>
-                            <th class="width-11-rem text-right"><i class="fa fa-cogs"></i> تنظیمات</th>
+                            <th>نویسنده تیکت</th>
+                            <th>عنوان تیکت</th>
+                            <th>دسته تیکت</th>
+                            <th>اولویت تیکت</th>
+                            <th>ارجاع شده از</th>
+                            <th>مرجع تیکت</th>
+                            <th class="width-14-rem text-right"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($tickets as $ticket)
                         <tr>
-                            <th>1</th>
-                            <td>سهیل کاشانی</td>
-                            <td>پرداخت انجام نمیشه!</td>
-                            <td>دسته فروش</td>
-                            <td>فوری</td>
-                            <td>-</td>
-                            <td class="text-left width-11-rem">
-                                <a href="{{route('admin.ticket.category.edit',$ticketCategory->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <form class="d-inline" action="{{route('admin.ticket.priority.destroy',$ticketCategory->id)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i> حذف</button>
-                                </form>
+                            <th>{{$loop->iteration}}</th>
+                            <td>{{$ticket->user->fullName}}</td>
+                            <td>{{$ticket->subject}}</td>
+                            <td>{{$ticket->category->name}}</td>
+                            <td>{{$ticket->priority->name}}</td>
+                            <td>{{$ticket->admin->user->fullName}}</td>
+                            <td>{{$ticket->parent->subject ?? '-'}}</td>
+                            <td class="text-left width-14-rem">
+                                <a href="{{route('admin.ticket.show',$ticket->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> مشاهده</a>
+                                <a href="{{route('admin.ticket.change',$ticket->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-check"></i>
+                                   {{$ticket->status == 1 ? 'باز کردن' : 'بستن'}}
+                                </a>
                             </td>
                         </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>

@@ -26,21 +26,31 @@
                 </section>
                 <section class="card mb-3">
                     <section class="card-header text-white bg-primary">
-                        سهیل کاشانی - 845362736
+                        {{$ticket->user->fullName}} - {{$ticket->id}}
                     </section>
                     <section class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text"></p>
+                        <h5 class="card-title">موضوع : {{$ticket->subject}}</h5>
+                        <p class="card-text">{{$ticket->description}}</p>
                     </section>
                 </section>
                 <section>
-                    <form action="#" method="" enctype="multipart/form-data">
+                    <form action="{{route('admin.ticket.answer',$ticket->id)}}" method="POST">
+                        @csrf
                         <section class="row">
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">پاسخ تیکت</label>
-                                    <textarea name="" id="" rows="4" class="form-control form-control-sm"></textarea>
+                                    <textarea name="description" id="" rows="4" class="form-control form-control-sm">
+                                        {{old('description')}}
+                                    </textarea>
                                 </div>
+                                @error('description')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                             </section>
                             <section class="col-12">
                                 <button class="btn btn-primary btn-sm">ثبت</button>
