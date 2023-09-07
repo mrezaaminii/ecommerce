@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Admin\Ticket\TicketAdmin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,5 +68,9 @@ class User extends Authenticatable
 
     public function getFullNameAttribute(){
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function ticketAdmin(){
+        return $this->hasOne(TicketAdmin::class);
     }
 }
