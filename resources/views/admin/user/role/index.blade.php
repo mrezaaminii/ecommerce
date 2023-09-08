@@ -37,13 +37,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($roles as $key => $role)
                             <tr>
-                                <th>1</th>
-                                <td>پشتیبان فروش</td>
+                                <th>{{$key += 1}}</th>
+                                <td>{{$role->name}}</td>
                                 <td>
-                                    <p>1-مشاهده سفارشات</p>
-                                    <p>2-مشاهده پرداخت ها</p>
-                                    <p>3-مشاهده تخفیف ها</p>
+                                    @if(empty($role->permissions->toArray()))
+                                        <span class="text-danger">برای این نقش هیچ دسترسی تعریف نشده است</span>
+                                    @else
+                                        @foreach($role->permissions as $key => $permission)
+                                            {{$key += 1}} - {{$permission->name}}<br>
+                                        @endforeach
+                                    @endif
                                 </td>
                                 <td class="text-left width-22-rem">
                                     <a href="" class="btn btn-success btn-sm"><i class="fa fa-user-graduate"></i> دسترسی ها</a>
@@ -51,35 +56,7 @@
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>مدیر محتوی</td>
-                                <td>
-                                    <p>1-مشاهده پست ها</p>
-                                    <p>2-مشاهده پیج ها</p>
-                                    <p>3-مشاهده نظرات</p>
-                                </td>
-                                <td class="text-left width-22-rem">
-                                    <a href="" class="btn btn-success btn-sm"><i class="fa fa-user-graduate"></i> دسترسی ها</a>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>اپراتور تیکت ها</td>
-                                <td>
-                                    <p>1-مشاهده تیکت ها</p>
-                                    <p>2-بستن تیکت ها</p>
-                                    <p>3-پاسخ تیکت ها</p>
-                                    <p>4-ارجاع به ادمین</p>
-                                </td>
-                                <td class="text-left width-22-rem">
-                                    <a href="" class="btn btn-success btn-sm"><i class="fa fa-user-graduate"></i> دسترسی ها</a>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </section>
