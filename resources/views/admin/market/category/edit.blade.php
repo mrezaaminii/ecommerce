@@ -11,7 +11,7 @@
             <li class="breadcrumb-item font-size-12"><a href="#">خانه </a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> بخش فروش</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> دسته بندی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ایجاد دسته بندی</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> ویرایش دسته بندی</li>
         </ol>
     </nav>
 
@@ -19,28 +19,29 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h4>ایجاد دسته بندی</h4>
+                    <h4>ویرایش دسته بندی</h4>
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                     <a href="{{route('admin.market.category.index')}}" class="btn btn-info">بازگشت</a>
                 </section>
                 <section>
-                    <form action="{{route('admin.market.category.store')}}" method="POST" enctype="multipart/form-data" id="form">
+                    <form action="{{route('admin.market.category.update',$productCategory->id)}}" method="POST" enctype="multipart/form-data" id="form">
                         @csrf
+                        @method('put')
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">نام دسته</label>
-                                    <input type="text" class="form-control form-control-sm" name="name" value="{{old('name')}}">
+                                    <input type="text" class="form-control form-control-sm" name="name" value="{{old('name',$productCategory->name)}}">
                                 </div>
                                 <div class="mt-2 mb-2">
-                                @error('name')
-                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                    @error('name')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
                                         <strong>
                                             {{$message}}
                                         </strong>
                                     </span>
-                                @enderror
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12 col-md-6">
@@ -48,8 +49,8 @@
                                     <label for="">دسته والد</label>
                                     <select name="parent_id" id="" class="form-control form-control-sm">
                                         <option disabled selected>دسته را انتخاب کنید</option>
-                                        @foreach($productCategories as $productCategory)
-                                        <option value="{{$productCategory->id}}" @if(old('parent_id' == $productCategory->id)) selected @endif>{{$productCategory->name}}</option>
+                                        @foreach($parent_categories as $parent_category)
+                                            <option value="{{$parent_category->id}}" @if(old('parent_id',$productCategory->parent_id == $parent_category->id)) selected @endif>{{$parent_category->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -69,84 +70,102 @@
                                     <input type="file" class="form-control form-control-sm" name="image" id="image">
                                 </div>
                                 <div class="mt-2 mb-2">
-                                @error('image')
-                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                    @error('image')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
                                         <strong>
                                             {{$message}}
                                         </strong>
                                     </span>
-                                @enderror
+                                    @enderror
                                 </div>
+                                <section class="row">
+                                    @php
+                                        $number = 1;
+                                    @endphp
+                                    @foreach ($productCategory->image['indexArray'] as $key => $value)
+                                        <section class="col-md-{{6 / $number}}">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" name="currentImage" value="{{$key}}" id="{{$number}}" @if($productCategory->image['currentImage'] == $key) checked @endif>
+                                                <label for="{{$number}}" class="form-check-label mx-2">
+                                                    <img src="{{asset($value)}}" class="w-100" alt="">
+                                                </label>
+                                            </div>
+                                        </section>
+                                        @php
+                                            $number++;
+                                        @endphp
+                                    @endforeach
+                                </section>
                             </section>
                             <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
-                                        <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                                        <option value="0" @if(old('status',$productCategory->status) == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if(old('status',$productCategory->status) == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
                                 <div class="mt-2 mb-2">
-                                @error('status')
-                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                    @error('status')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
                                         <strong>
                                             {{$message}}
                                         </strong>
                                     </span>
-                                @enderror
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="status">نمایش در منو</label>
                                     <select name="show_in_menu" id="show_in_menu" class="form-control form-control-sm">
-                                        <option value="0" @if(old('show_in_menu') == 0) selected @endif>غیرفعال</option>
-                                        <option value="1" @if(old('show_in_menu') == 1) selected @endif>فعال</option>
+                                        <option value="0" @if(old('show_in_menu',$productCategory->show_in_menu) == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if(old('show_in_menu',$productCategory->show_in_menu) == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
                                 <div class="mt-2 mb-2">
-                                @error('show_in_menu')
-                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                    @error('show_in_menu')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
                                         <strong>
                                             {{$message}}
                                         </strong>
                                     </span>
-                                @enderror
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="tags">تگ ها</label>
-                                    <input type="hidden" class="form-control form-control-sm" name="tags" id="tags" value="{{old('tags')}}">
+                                    <input type="hidden" class="form-control form-control-sm" name="tags" id="tags" value="{{old('tags',$productCategory->tags)}}">
                                     <select name="select_tags" id="select_tags" class="select2 form-control form-control-sm" multiple>
 
                                     </select>
                                 </div>
                                 <div class="mt-2 mb-2">
-                                @error('tags')
-                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                    @error('tags')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
                                         <strong>
                                             {{$message}}
                                         </strong>
                                     </span>
-                                @enderror
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12 my-2">
                                 <div class="form-group">
                                     <label for="description">توضیحات</label>
                                     <textarea name="description" id="description" rows="10" class="form-control form-control-sm">
-                                        {{old('description')}}
+                                        {{old('description',$productCategory->description)}}
                                     </textarea>
                                 </div>
                                 <div class="mt-2 mb-2">
-                                @error('description')
-                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                    @error('description')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
                                         <strong>
                                             {{$message}}
                                         </strong>
                                     </span>
-                                @enderror
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12">
