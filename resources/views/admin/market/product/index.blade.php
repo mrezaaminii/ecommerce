@@ -34,21 +34,18 @@
                                 <th>نام کالا</th>
                                 <th>تصویر کالا</th>
                                 <th>قیمت</th>
-                                <th>وزن</th>
                                 <th>دسته</th>
-                                <th>فرم</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($products as $product)
                             <tr>
-                                <th>1</th>
-                                <td>گلکسی S20</td>
-                                <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" class="max-height-2-rem" alt=""></td>
-                                <td>30,000 تومان</td>
-                                <td>1 کیلو</td>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$product->name}}</td>
+                                <td><img src="{{asset($product->image)}}" class="max-height-2-rem" alt=""></td>
+                                <td>{{$product->price}} تومان</td>
                                 <td>کالا الکترونیکی</td>
-                                <td>اندازه نمایشگر</td>
                                 <td class="text-left width-8-rem">
                                     <div class="dropdown">
                                         <a href="" class="btn btn-success btn-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools"></i> عملیات</a>
@@ -63,28 +60,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>گلکسی S20</td>
-                                <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" class="max-height-2-rem" alt=""></td>
-                                <td>30,000 تومان</td>
-                                <td>1 کیلو</td>
-                                <td>کالا الکترونیکی</td>
-                                <td>اندازه نمایشگر</td>
-                                <td class="text-left width-8-rem">
-                                    <div class="dropdown">
-                                        <a href="" class="btn btn-success btn-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools"></i> عملیات</a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i> گالری</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> فرم کالا</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i> ویرایش</a>
-                                            <form action="" method="POST">
-                                                <button type="submit" class="dropdown-item text-right"><i class="fa fa-window-close"></i> حذف</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>

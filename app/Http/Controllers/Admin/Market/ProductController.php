@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Market\Brand;
+use App\Models\Admin\Market\Product;
+use App\Models\Admin\Market\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.market.product.index');
+        $products = Product::orderBy('created_at','desc')->simplePaginate(15);
+        return view('admin.market.product.index',compact('products'));
     }
 
     /**
@@ -20,7 +24,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.market.product.create');
+        $productCategories = ProductCategory::all();
+        $brands = Brand::all();
+        return view('admin.market.product.create',compact('productCategories','brands'));
     }
 
     /**

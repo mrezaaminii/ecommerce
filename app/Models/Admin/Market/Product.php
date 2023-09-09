@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductCategory extends Model
+class Product extends Model
 {
     use HasFactory,SoftDeletes,Sluggable;
+
     public function sluggable(): array
     {
         return [
@@ -19,17 +20,14 @@ class ProductCategory extends Model
         ];
     }
     protected $casts = ['image' => 'array'];
-    protected $fillable = ['name','description','slug','image','status','tags','show_in_menu','parent_id'];
+    protected $fillable = ['name','introduction','slug','image','status','tags','weight','length','width','height','price','marketable','sold_number','frozen_number','marketable_number','brand_id','category_id','published_at'];
 
-    public function parent(){
-        return $this->belongsTo($this,'parent_id')->with('parent');
+    public function brand(){
+        return $this->belongsTo(Brand::class,'brand_id');
     }
 
-    public function children(){
-        return $this->hasMany($this,'parent_id')->with('children');
+    public function category(){
+        return $this->belongsTo(ProductCategory::class,'category_id');
     }
 
-    public function products(){
-        return $this->hasMany(Product::class);
-    }
 }
