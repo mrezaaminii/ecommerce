@@ -30,4 +30,8 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class,'category_id');
     }
 
+    public function metas(){
+        return $this->hasMany(ProductMeta::class);
+    }
+
 }

@@ -128,9 +128,9 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::get('/create',[ProductController::class,'create'])->name('admin.market.product.create');
             Route::get('/show',[ProductController::class,'show'])->name('admin.market.product.show');
             Route::post('/store',[ProductController::class,'store'])->name('admin.market.product.store');
-            Route::get('/edit/{id}',[ProductController::class,'edit'])->name('admin.market.product.edit');
-            Route::put('/update/{id}',[ProductController::class,'update'])->name('admin.market.product.update');
-            Route::delete('/destroy/{id}',[ProductController::class,'destroy'])->name('admin.market.product.destroy');
+            Route::get('/edit/{product}',[ProductController::class,'edit'])->name('admin.market.product.edit');
+            Route::put('/update/{product}',[ProductController::class,'update'])->name('admin.market.product.update');
+            Route::delete('/destroy/{product}',[ProductController::class,'destroy'])->name('admin.market.product.destroy');
             Route::get('/gallery',[GalleryController::class,'index'])->name('admin.market.gallery.index');
             Route::post('/gallery/store',[GalleryController::class,'store'])->name('admin.market.gallery.store');
             Route::delete('/gallery/destroy/{id}',[GalleryController::class,'destroy'])->name('admin.market.gallery.destroy');

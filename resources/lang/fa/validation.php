@@ -197,5 +197,12 @@ return [
         "keywords" => "کلمات کلیدی",
         "logo" => "لوگو",
         "icon" => "آیکون",
+        "brand_id" => "نام برند",
+        "weight" => "وزن",
+        "length" => "طول",
+        "width" => "عرض",
+        "height" => "ارتفاع",
+        "price" => "قیمت",
+        "introduction" => "توضیحات",
     ],
 ];
