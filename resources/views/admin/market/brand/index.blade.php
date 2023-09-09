@@ -31,43 +31,37 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام برند</th>
+                                <th>نام فارسی برند</th>
+                                <th>نام اصلی برند</th>
                                 <th>لوگو</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th class="width-11-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($brands as $key => $brand)
                             <tr>
-                                <th>1</th>
-                                <td>نمایشگر</td>
-                                <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="" class="max-height-2-rem"></td>
-                                <td class="text-left width-16-rem">
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$brand->persian_name}}</td>
+                                <td>{{$brand->original_name}}</td>
+                                <td><img src="{{asset($brand->logo['indexArray'][$brand->logo['currentImage']])}}" width="100" height="80" alt="" class="max-height-2-rem"></td>
+                                <td class="text-left width-11-rem">
+                                    <a href="{{route('admin.market.brand.edit',$brand->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <form class="d-inline" action="{{route('admin.market.brand.destroy',$brand->id)}}" method="POST" id="deleteForm">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i> حذف</button>
+                                    </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>نمایشگر</td>
-                                <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="" class="max-height-2-rem"></td>
-                                <td class="text-left width-16-rem">
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>ویرایش </a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i> حذف</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>نمایشگر</td>
-                                <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="" class="max-height-2-rem"></td>
-                                <td class="text-left width-16-rem">
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i> حذف</button>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
             </section>
         </section>
     </section>
+@endsection
+@section('script')
+    @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])
+
 @endsection

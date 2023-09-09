@@ -24,13 +24,14 @@
                     <a href="{{route('admin.market.brand.index')}}" class="btn btn-info">بازگشت</a>
                 </section>
                 <section>
-                    <form action="{{route('admin.market.brand.store')}}" method="POST" enctype="multipart/form-data" id="form">
+                    <form action="{{route('admin.market.brand.update',$brand->id)}}" method="POST" enctype="multipart/form-data" id="form">
                         @csrf
+                        @method('put')
                         <section class="row">
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">نام اصلی برند</label>
-                                    <input type="text" class="form-control form-control-sm" name="original_name" value="{{old('original_name')}}">
+                                    <input type="text" class="form-control form-control-sm" name="original_name" value="{{old('original_name',$brand->original_name)}}">
                                 </div>
                                 <div class="mt-2 mb-2">
                                     @error('original_name')
@@ -45,7 +46,7 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">نام فارسی برند</label>
-                                    <input type="text" class="form-control form-control-sm" name="persian_name" value="{{old('persian_name')}}">
+                                    <input type="text" class="form-control form-control-sm" name="persian_name" value="{{old('persian_name',$brand->persian_name)}}">
                                 </div>
                                 <div class="mt-2 mb-2">
                                     @error('persian_name')
@@ -60,7 +61,7 @@
                             <section class="col-12 col-md-6 my-2">
                                 <div class="form-group">
                                     <label for="tags">تگ ها</label>
-                                    <input type="hidden" class="form-control form-control-sm" name="tags" id="tags" value="{{old('tags')}}">
+                                    <input type="hidden" class="form-control form-control-sm" name="tags" id="tags" value="{{old('tags',$brand->tags)}}">
                                     <select name="select_tags" id="select_tags" class="select2 form-control form-control-sm" multiple>
 
                                     </select>
@@ -79,18 +80,18 @@
                                 <div class="form-group">
                                     <label for="status">وضعیت</label>
                                     <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
-                                        <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                                        <option value="0" @if(old('status',$brand->status) == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if(old('status',$brand->status) == 1) selected @endif>فعال</option>
                                     </select>
                                 </div>
                                 <div class="mt-2 mb-2">
-                                @error('status')
-                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                    @error('status')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
                                         <strong>
                                             {{$message}}
                                         </strong>
                                     </span>
-                                @enderror
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12">
@@ -99,16 +100,34 @@
                                     <input type="file" class="form-control form-control-sm" name="logo" id="logo">
                                 </div>
                                 <div class="mt-2 mb-2">
-                                @error('logo')
-                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                    @error('logo')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
                                         <strong>
                                             {{$message}}
                                         </strong>
                                     </span>
-                                @enderror
+                                    @enderror
                                 </div>
+                                <section class="row">
+                                    @php
+                                        $number = 1;
+                                    @endphp
+                                    @foreach($brand->logo['indexArray'] as $key => $value)
+                                        <section class="col-md-{{6 / $number}}">
+                                            <div class="form-check">
+                                                <input type="radio" name="currentImage" id="{{$number}}" value="{{$key}}" class="form-check-input" @if($brand->logo['currentImage'] == $key) checked @endif>
+                                                <label for="{{$number}}" class="form-check-label mx-2">
+                                                    <img src="{{asset($value)}}" class="w-100" alt="">
+                                                </label>
+                                            </div>
+                                        </section>
+                                        @php
+                                            $number++;
+                                        @endphp
+                                    @endforeach
+                                </section>
                             </section>
-                            <section class="col-12">
+                            <section class="col-12 mt-3">
                                 <button class="btn btn-primary btn-sm">ثبت</button>
                             </section>
                         </section>
@@ -147,3 +166,4 @@
         })
     </script>
 @endsection
+
