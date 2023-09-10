@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\Notify\EmailFileController;
 use App\Http\Controllers\Admin\Ticket\TicketCategoryController;
 use App\Http\Controllers\Admin\Ticket\TicketPriorityController;
 use App\Http\Controllers\Admin\Ticket\TicketAdminController;
+use App\Http\Controllers\Admin\Market\ProductColorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,7 +135,12 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::get('/gallery',[GalleryController::class,'index'])->name('admin.market.gallery.index');
             Route::post('/gallery/store',[GalleryController::class,'store'])->name('admin.market.gallery.store');
             Route::delete('/gallery/destroy/{id}',[GalleryController::class,'destroy'])->name('admin.market.gallery.destroy');
+            Route::get('/color/{product}',[ProductColorController::class,'index'])->name('admin.market.color.index');
+            Route::get('/color/{product}/create',[ProductColorController::class,'create'])->name('admin.market.color.create');
+            Route::post('/color/{product}/store',[ProductColorController::class,'store'])->name('admin.market.color.store');
+            Route::delete('/color/destroy/{product}/{productColor}',[ProductColorController::class,'destroy'])->name('admin.market.color.destroy');
         });
+
         Route::prefix('property')->group(function (){
             Route::get('/',[PropertyController::class,'index'])->name('admin.market.property.index');
             Route::get('/create',[PropertyController::class,'create'])->name('admin.market.property.create');

@@ -268,11 +268,29 @@
                                 <div class="form-group">
                                     <input type="text" name="meta_key[]" class="form-control form-control-sm" placeholder="ویژگی...">
                                 </div>
+                                <div class="mt-2 mb-2">
+                                    @error('meta_key.*')
+                                    <span class="alert-danger text-white rounded p-1">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </section>
                                 <section class="col-6 col-md-3">
                                 <div class="form-group">
                                     <input type="text" name="meta_value[]" class="form-control form-control-sm" placeholder="مقدار...">
                                 </div>
+                                    <div class="mt-2 mb-2">
+                                        @error('meta_value.*')
+                                        <span class="alert-danger text-white rounded p-1">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                        @enderror
+                                    </div>
                                 </section>
                             </div>
                                 <section>
