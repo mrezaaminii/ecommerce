@@ -3,63 +3,55 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Market\CategoryAttributeRequest;
+use App\Models\Admin\Market\CategoryAttribute;
+use App\Models\Admin\Market\ProductCategory;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        return view('admin.market.property.index');
+        $category_attributes = CategoryAttribute::all();
+        return view('admin.market.property.index', compact('category_attributes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('admin.market.property.create');
+        $productCategories = ProductCategory::all();
+        return view('admin.market.property.create', compact('productCategories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(CategoryAttributeRequest $request)
+    {
+        $inputs = $request->all();
+        $attribute = CategoryAttribute::create($inputs);
+        return redirect()->route('admin.market.property.index')->with('swal-success', 'فرم جدید شما با موفقیت ثبت شد');
+    }
+
+    public function show($id)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(CategoryAttribute $categoryAttribute)
     {
-        //
+        $productCategories = ProductCategory::all();
+        return view('admin.market.property.edit', compact('categoryAttribute', 'productCategories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+
+    public function update(CategoryAttributeRequest $request, CategoryAttribute $categoryAttribute)
     {
-        //
+        $inputs = $request->all();
+        $categoryAttribute->update($inputs);
+        return redirect()->route('admin.market.property.index')->with('swal-success', 'فرم شما با موفقیت ویرایش شد');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(CategoryAttribute $categoryAttribute)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $result = $categoryAttribute->delete();
+        return redirect()->route('admin.market.property.index')->with('swal-success', 'فرم شما با موفقیت حذف شد');
     }
 }
