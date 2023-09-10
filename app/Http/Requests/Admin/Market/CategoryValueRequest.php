@@ -22,7 +22,10 @@ class CategoryValueRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'value' => 'required|max:120|min:1|regex:/^[ا-یa-zA-Z0-9\ِِِِِِِِِِِِِِِء-ي., ]+$/u',
+            'price_increase' => 'required|numeric',
+            'type' => 'required|numeric|in:0,1',
+            'product_id' => 'required|min:1|regex:/^[0-9ِِِِِِِِِِِِِِِ]+$/u|exists:products,id'
         ];
     }
 }
