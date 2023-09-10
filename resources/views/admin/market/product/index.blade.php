@@ -45,12 +45,12 @@
                                 <td>{{$product->name}}</td>
                                 <td><img src="{{asset($product->image['indexArray'][$product->image['currentImage']])}}" width="100" height="80" alt="" class="max-height-2-rem"></td>
                                 <td>{{$product->price}} تومان</td>
-                                <td>کالا الکترونیکی</td>
+                                <td>{{$product->category->name}}</td>
                                 <td class="text-left width-8-rem">
                                     <div class="dropdown">
                                         <a href="" class="btn btn-success btn-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools"></i> عملیات</a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i> گالری</a>
+                                            <a href="{{route('admin.market.gallery.index',$product->id)}}" class="dropdown-item text-right"><i class="fa fa-images"></i> گالری</a>
                                             <a href="{{route('admin.market.color.index',$product->id)}}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> رنگ کالا</a>
                                             <a href="{{route('admin.market.product.edit',$product->id)}}" class="dropdown-item text-right"><i class="fa fa-edit"></i> ویرایش</a>
                                             <form class="d-inline" action="{{route('admin.market.product.destroy',$product->id)}}" method="POST" id="deleteForm">

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\Image\ImageService;
+use App\Models\Admin\Market\Gallery;
+use App\Models\Admin\Market\Product;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
@@ -10,25 +13,40 @@ class GalleryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Product $product)
     {
-        //
+        return view('admin.market.product.gallery.index',compact('product'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Product $product)
     {
-        //
+        return view('admin.market.product.gallery.create',compact('product'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,Product $product,ImageService $imageService)
     {
-        //
+        $validated = $request->validate([
+           'image' => 'required|image|mimes:jpg,jpeg,png,webp,gif'
+        ]);
+
+        $inputs = $request->all();
+        if ($request->hasFile('image')){
+            $imageService->setExclusiveDirectory('images'.DIRECTORY_SEPARATOR.'gallery');
+            $result = $imageService->createIndexAndSave($request->file('image'));
+            if ($result === false){
+                return redirect()->route('admin.market.gallery.index',$product->id)->with('swal-error', 'آپلود عکس با خطا مواجه شد');
+            }
+            $inputs['image'] = $result;
+        }
+        $inputs['product_id'] = $product->id;
+        $gallery = Gallery::create($inputs);
+        return redirect()->route('admin.market.gallery.index',$product->id)->with('swal-success', 'گالری جدید شما با موفقیت ثبت شد');
     }
 
     /**
@@ -58,8 +76,9 @@ class GalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product,Gallery $gallery)
     {
-        //
+        $result = $gallery->delete();
+        return redirect()->route('admin.market.gallery.index',$product->id)->with('swal-success','گالری با موفقیت حذف شد');
     }
 }
