@@ -13,15 +13,36 @@ class PaymentController extends Controller
         return view('admin.market.payment.index',compact('payments'));
     }
     public function offline(){
-        return view('admin.market.payment.index');
+        $payments = Payment::where('paymentable_type','App\Models\Admin\Market\OfflinePayment')->get();
+        return view('admin.market.payment.index',compact('payments'));
     }
     public function online(){
-        return view('admin.market.payment.index');
+        $payments = Payment::where('paymentable_type','App\Models\Admin\Market\OnlinePayment')->get();
+        return view('admin.market.payment.index',compact('payments'));
     }
-    public function attendance(){
-        return view('admin.market.payment.index');
+    public function cash(){
+        $payments = Payment::where('paymentable_type','App\Models\Admin\Market\CashPayment')->get();
+        return view('admin.market.payment.index',compact('payments'));
     }
-    public function confirm(){
-        return view('admin.market.payment.index');
+    public function canceled(Payment $payment){
+        $payment->status = 2;
+        $result = $payment->save();
+        if ($result == false){
+            return redirect()->back()->with('swal-error','خطا');
+        }
+        return redirect()->back()->with('swal-success','پرداخت کنسل شد');
+    }
+
+    public function returned(Payment $payment){
+        $payment->status = 3;
+        $result = $payment->save();
+        if ($result == false){
+            return redirect()->back()->with('swal-error','خطا');
+        }
+        return redirect()->back()->with('swal-success','پرداخت بازگردانده شد');
+    }
+
+    public function show(Payment $payment){
+        return view('admin.market.payment.show',compact('payment'));
     }
 }
