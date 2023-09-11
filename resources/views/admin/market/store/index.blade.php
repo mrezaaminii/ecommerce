@@ -33,49 +33,27 @@
                                 <th>#</th>
                                 <th>نام کالا</th>
                                 <th>تصویر کالا</th>
-                                <th>موجودی</th>
-                                <th>ورودی انبار</th>
-                                <th>خروجی انبار</th>
+                                <th>تعداد قابل فروش</th>
+                                <th>تعداد رزرو شده</th>
+                                <th>تعداد فروخته شده</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($products as $product)
                             <tr>
-                                <th>1</th>
-                                <td>LED سامسونگ</td>
-                                <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="" class="max-height-2-rem"></td>
-                                <td>16</td>
-                                <td>38</td>
-                                <td>22</td>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$product->name}}</td>
+                                <td><img src="{{asset($product->image['indexArray'][$product->image['currentImage']])}}" alt="" class="max-height-2-rem" width="100" height="70"></td>
+                                <td>{{$product->marketable_number}}</td>
+                                <td>{{$product->frozen_number}}</td>
+                                <td>{{$product->sold_number}}</td>
                                 <td class="text-left width-22-rem">
-                                    <a href="{{route('admin.market.store.add-to-store')}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> افزایش موجودی</a>
+                                    <a href="{{route('admin.market.store.add-to-store',$product->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> افزایش موجودی</a>
                                     <button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-trash-alt"></i> اصلاح موجودی </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>LED سامسونگ</td>
-                                <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="" class="max-height-2-rem"></td>
-                                <td>16</td>
-                                <td>38</td>
-                                <td>22</td>
-                                <td class="text-left width-22-rem">
-                                    <a href="{{route('admin.market.store.add-to-store')}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> افزایش موجودی</a>
-                                    <button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-trash-alt"></i> اصلاح موجودی </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>3</th>
-                                <td>LED سامسونگ</td>
-                                <td><img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="" class="max-height-2-rem"></td>
-                                <td>16</td>
-                                <td>38</td>
-                                <td>22</td>
-                                <td class="text-left width-22-rem">
-                                    <a href="{{route('admin.market.store.add-to-store')}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> افزایش موجودی</a>
-                                    <button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-trash-alt"></i> اصلاح موجودی </button>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>

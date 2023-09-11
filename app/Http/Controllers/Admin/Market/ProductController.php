@@ -112,6 +112,7 @@ class ProductController extends Controller
         }
 
         $product->update($inputs);
+        if ($request->meta_key !== null){
         $meta_keys = $request->meta_key;
         $meta_values = $request->meta_value;
         $meta_ids = array_keys($request->meta_key);
@@ -125,6 +126,7 @@ class ProductController extends Controller
                 'meta_key' => $meta['meta_key'],'meta_value' => $meta['meta_value']
             ]);
     }
+        }
         return redirect()->route('admin.market.product.index')->with('swal-success','محصول شما با موفقیت ویرایش شد');
     }
 
