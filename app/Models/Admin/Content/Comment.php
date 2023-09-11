@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\Content;
 
+use App\Models\Admin\Market\Product;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,4 +29,5 @@ class Comment extends Model
     public function answers(){
         return $this->hasMany($this,'parent_id');
     }
+
 }

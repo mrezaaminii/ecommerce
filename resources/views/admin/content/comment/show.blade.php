@@ -33,7 +33,7 @@
                         <p class="card-text">{{$comment->body}}</p>
                     </section>
                 </section>
-{{--                @if($comment->parent_id == null)--}}
+                @if($comment->parent_id == null)
                 <section>
                     <form action="{{route('admin.content.comment.answer',$comment->id)}}" method="POST">
                         @csrf
@@ -57,7 +57,7 @@
                         </section>
                     </form>
                 </section>
-{{--                @endif--}}
+                @endif
             </section>
         </section>
     </section>

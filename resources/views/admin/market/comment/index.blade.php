@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 
+@php
+use Illuminate\Support\Str;
+@endphp
 @section('head-tag')
     <title>نظرات</title>
 @endsection
@@ -21,7 +24,7 @@
                     <h4>نظرات</h4>
                 </section>
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                    <a href="#" class="btn btn-info disabled"info>ایجاد نظر جدید</a>
+                    <a href="#" class="btn btn-info disabled">ایجاد نظر جدید</a>
                     <div class="max-width-16-rem">
                         <input type="text" placeholder="جستجو" class="form-text form-control form-control-sm">
                     </div>
@@ -31,51 +34,43 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>نویسنده نظر</th>
+                            <th>نظر</th>
+                            <th>پاسخ به</th>
                             <th>کد کاربر</th>
-                            <th>کد کالا</th>
-                            <th>کالا</th>
-                            <th>وضعیت</th>
-                            <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                            <th>نویسنده نظر</th>
+                            <th>کد محصول</th>
+                            <th>پست</th>
+                            <th>وضعیت تایید</th>
+                            <th>وضعیت کامنت</th>
+                            <th class="width-14-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($comments as $comment)
                         <tr>
-                            <th>1</th>
-                            <td>4763874</td>
-                            <td>سهیل کاشانی</td>
-                            <td>3878646</td>
-                            <td>شارژر type C</td>
-                            <td>در انتظار تایید</td>
+                            <th>{{$loop->iteration}}</th>
+                            <td>{{Str::limit($comment->body,10)}}</td>
+                            <td>{{$comment->parent_id ? Str::limit($comment->parent->body,10) : '-'}}</td>
+                            <td>{{$comment->author_id}}</td>
+                            <td>{{$comment->user->fullName}}</td>
+                            <td>{{$comment->commentable_id}}</td>
+                            <td>{{$comment->commentable->name}}</td>
+                            <td>{{$comment->approved ? 'تایید شده' : 'در انتظار تایید'}}</td>
+                            <td>
+                                <label>
+                                    <input type="checkbox" onchange="changeStatus({{$comment->id}})" data-url="{{route('admin.market.comment.status',$comment->id)}}" id="{{$comment->id}}" @if($comment->status == 1) checked @endif>
+                                </label>
+                            </td>
                             <td class="text-left width-16-rem">
-                                <a href="{{route('admin.market.comment.show')}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> نمایش</a>
-                                <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-check"></i> تایید</button>
+                                <a href="{{route('admin.market.comment.show',$comment->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> نمایش</a>
+                                @if($comment->approved == 0)
+                                <a href="{{route('admin.market.comment.approved',$comment->id)}}" class="btn btn-success btn-sm"><i class="fa fa-check"></i> تایید</a>
+                                @else
+                                <a href="{{route('admin.market.comment.approved',$comment->id)}}" class="btn btn-warning btn-sm"><i class="fa fa-clock"></i> عدم تایید</a>
+                                @endif
                             </td>
                         </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>4763874</td>
-                            <td>سهیل کاشانی</td>
-                            <td>3878646</td>
-                            <td>شارژر type C</td>
-                            <td>تایید شده</td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{route('admin.market.comment.show')}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> نمایش</a>
-                                <button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-clock"></i> عدم تایید</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>3</th>
-                            <td>4763874</td>
-                            <td>سهیل کاشانی</td>
-                            <td>3878646</td>
-                            <td>شارژر type C</td>
-                            <td>در انتظار تایید</td>
-                            <td class="text-left width-16-rem">
-                                <a href="{{route('admin.market.comment.show')}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> نمایش</a>
-                                <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-check"></i> تایید</button>
-                            </td>
-                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
@@ -84,3 +79,61 @@
     </section>
 @endsection
 
+@section('script')
+    <script type="text/javascript">
+        function changeStatus(id){
+            var element = $('#' + id);
+            var url = element.attr('data-url');
+            var elementValue = !element.prop('checked');
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (response) {
+                    if (response.status){
+                        if (response.checked){
+                            element.prop('checked',true);
+                            successToast('نظر با موفقیت فعال شد');
+                        }
+                        else{
+                            element.prop('checked',false);
+                            successToast('نظر با موفقیت غیر فعال شد');
+                        }
+                    }
+                    else{
+                        element.prop('checked',elementValue);
+                        errorToast('هنگام ویرایش مشکلی پیش آمده است');
+                    }
+                },
+                error: function () {
+                    element.prop('checked',elementValue);
+                    errorToast('ارتباط برقرار نشد');
+                }
+            });
+            function successToast(message){
+                var successToastTag = '<div class="toast" data-delay="5000">\n' +
+                    '<div class="toast-body py-3 d-flex bg-success text-white">\n' +
+                    '<strong class="ml-auto">\n' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</div>\n' + '</div>';
+
+                $('.toast-wrapper').append(successToastTag);
+                $('.toast').toast('show').delay(5500).queue(function () {
+                    $(this).remove();
+                })
+            }
+            function errorToast(message){
+                var errorToastTag = '<div class="toast" data-delay="5000">\n' +
+                    '<div class="toast-body py-3 d-flex bg-danger text-white">\n' +
+                    '<strong class="ml-auto">\n' + message + '</strong>\n' +
+                    '<button type="button" class="mr-2 close" data-dismiss="toast" aria-label="Close">\n' +
+                    '<span aria-hidden="true">&times;</span>\n' + '</button>\n' + '</div>\n' + '</div>';
+
+                $('.toast-wrapper').append(errorToastTag);
+                $('.toast').toast('show').delay(5500).queue(function () {
+                    $(this).remove();
+                })
+            }
+        }
+    </script>
+
+@endsection

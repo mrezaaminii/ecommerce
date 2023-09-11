@@ -44,29 +44,29 @@
                         </thead>
                         <tbody>
                         @foreach($comments as $key => $comment)
-                        <tr>
-                            <th>{{$key += 1}}</th>
-                            <th>{{Str::limit($comment->body,10)}}</th>
-                            <th>{{$comment->parent_id ? Str::limit($comment->parent->body,10) : ''}}</th>
-                            <td>{{$comment->author_id}}</td>
-                            <td>{{$comment->user->fullName}}</td>
-                            <td>{{$comment->commentable_id}}</td>
-                            <td>{{$comment->commentable->title}}</td>
-                            <td>{{$comment->approved == 0 ? 'تایید نشده' : 'تایید شده'}}</td>
-                            <td>
-                                <label for="">
-                                    <input type="checkbox" id="{{$comment->id}}" data-url="{{route('admin.content.comment.status',$comment->id)}}" onchange="changeStatus({{$comment->id}})" @if($comment->status == 1) checked @endif>
-                                </label>
-                            </td>
-                            <td class="text-left width-14-rem">
-                                <a href="{{route('admin.content.comment.show',$comment->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> نمایش</a>
-                                @if($comment->approved == 1)
-                                <a href="{{route('admin.content.comment.approved',$comment->id)}}" type="submit" class="btn btn-success btn-sm"><i class="fa fa-check"></i> تایید</a>
-                                @else
-                                <a href="{{route('admin.content.comment.approved',$comment->id)}}" type="submit" class="btn btn-warning btn-sm"><i class="fa fa-clock"></i> عدم تایید</a>
-                                @endif
-                            </td>
-                        </tr>
+                            <tr>
+                                <th>{{$key += 1}}</th>
+                                <th>{{Str::limit($comment->body,10)}}</th>
+                                <th>{{$comment->parent_id ? Str::limit($comment->parent->body,10) : ''}}</th>
+                                <td>{{$comment->author_id}}</td>
+                                <td>{{$comment->user->fullName}}</td>
+                                <td>{{$comment->commentable_id}}</td>
+                                <td>{{$comment->commentable->title}}</td>
+                                <td>{{$comment->approved == 0 ? 'تایید نشده' : 'تایید شده'}}</td>
+                                <td>
+                                    <label for="">
+                                        <input type="checkbox" id="{{$comment->id}}" data-url="{{route('admin.content.comment.status',$comment->id)}}" onchange="changeStatus({{$comment->id}})" @if($comment->status == 1) checked @endif>
+                                    </label>
+                                </td>
+                                <td class="text-left width-14-rem">
+                                    <a href="{{route('admin.content.comment.show',$comment->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i> نمایش</a>
+                                    @if($comment->approved == 1)
+                                        <a href="{{route('admin.content.comment.approved',$comment->id)}}" type="submit" class="btn btn-success btn-sm"><i class="fa fa-check"></i> تایید</a>
+                                    @else
+                                        <a href="{{route('admin.content.comment.approved',$comment->id)}}" type="submit" class="btn btn-warning btn-sm"><i class="fa fa-clock"></i> عدم تایید</a>
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>

@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\Market;
 
+use App\Models\Admin\Content\Comment;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -44,5 +45,10 @@ class Product extends Model
 
     public function values(){
         return $this->hasMany(CategoryValue::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

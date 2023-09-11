@@ -26,20 +26,33 @@
                 </section>
                 <section class="card mb-3">
                     <section class="card-header text-white bg-custom-yellow">
-                        کامران محمدی - 845362736
+                        {{$comment->user->fullName}} - {{$comment->author_id}}
                     </section>
                     <section class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text"></p>
+                        <h5 class="card-title">مشخصات کالا : {{$comment->commentable->name}} کد کالا : {{$comment->commentable->id}}</h5>
+                        <p class="card-text">{{$comment->body}}</p>
                     </section>
                 </section>
+                @if($comment->parent_id == null)
                 <section>
-                    <form action="#" method="" enctype="multipart/form-data">
+                    <form action="{{route('admin.market.comment.answer',$comment->id)}}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <section class="row">
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">پاسخ ادمین</label>
-                                    <textarea name="" id="" rows="4" class="form-control form-control-sm"></textarea>
+                                    <textarea name="body" id="body" rows="4" class="form-control form-control-sm">
+                                        {{old('body')}}
+                                    </textarea>
+                                </div>
+                                <div class="mt-2 mb-2">
+                                @error('body')
+                                <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                @enderror
                                 </div>
                             </section>
                             <section class="col-12">
@@ -48,6 +61,7 @@
                         </section>
                     </form>
                 </section>
+                @endif
             </section>
         </section>
     </section>
