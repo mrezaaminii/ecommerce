@@ -3,8 +3,6 @@
 @section('head-tag')
     <title>پرداخت ها</title>
 @endsection
-
-
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -40,32 +38,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($payments as $payment)
                             <tr>
-                                <th>1</th>
+                                <th>{{$loop->iteration}}</th>
                                 <td>32457568</td>
                                 <td>ملت</td>
-                                <td>محمد رضا امینی</td>
-                                <td>تایید شده</td>
-                                <td>آنلاین</td>
+                                <td>{{$payment->user->fullName}}</td>
+                                <td>{{$payment->status}}</td>
+                                <td>@if($payment->type == 0) آنلاین @elseif($payment->type == 1) آفلاین @else در محل @endif</td>
                                 <td class="text-left width-22-rem">
                                     <a href="" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> مشاهده</a>
                                     <a href="" class="btn btn-warning btn-sm"><i class="fa fa-close"></i> باطل کردن</a>
                                     <a href="" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> برگرداندن</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>85745850</td>
-                                <td>ملت</td>
-                                <td>سروش ولی زاده</td>
-                                <td>تایید شده</td>
-                                <td>آفلاین</td>
-                                <td class="text-left width-22-rem">
-                                    <a href="" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> مشاهده</a>
-                                    <a href="" class="btn btn-warning btn-sm"><i class="fa fa-close"></i> باطل کردن</a>
-                                    <a href="" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> برگرداندن</a>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
