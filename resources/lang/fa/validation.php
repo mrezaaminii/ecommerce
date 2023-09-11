@@ -206,6 +206,11 @@ return [
         "introduction" => "توضیحات",
         "deliverer" => 'تحویل دهنده',
         "receiver" => 'تحویل گیرنده',
-        "marketable_number" => 'تعداد قابل فروش'
+        "marketable_number" => 'تعداد قابل فروش',
+        "percentage" => "درصد تخفیف",
+        "discount_ceiling" => "سقف تخفیف",
+        "minimal_order_amount" => "حداقل مبلغ خرید",
+        "start_date" => "تاریخ شروع تخفیف",
+        "end_date" => "تاریخ پایان تخفیف",
     ],
 ];

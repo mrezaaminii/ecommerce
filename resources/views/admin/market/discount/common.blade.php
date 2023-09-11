@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 
+@php
+use App\Helpers\helper;
+@endphp
 @section('head-tag')
     <title> تخفیف عمومی</title>
 @endsection
@@ -40,46 +43,20 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($commonDiscounts as $commonDiscount)
                         <tr>
-                            <th>1</th>
-
-                            <td>15%</td>
-                            <td>25,000 تومان</td>
-                            <td>دهه مبارک فجر</td>
-                            <td>24 اردیبهشت 99</td>
-                            <td>31 اردیبهشت 99</td>
+                            <th>{{$loop->iteration}}</th>
+                            <td>{{$commonDiscount->percentage}}%</td>
+                            <td>{{$commonDiscount->discount_ceiling}} تومان</td>
+                            <td>{{$commonDiscount->title}}</td>
+                            <td>{{helper::jalaliDate($commonDiscount->start_date,'H:i:s Y-m-d')}}</td>
+                            <td>{{helper::jalaliDate($commonDiscount->end_date,'H:i:s Y-m-d')}}</td>
                             <td class="text-left width-16-rem">
                                 <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
                             </td>
                         </tr>
-                        <tr>
-                            <th>1</th>
-
-                            <td>15%</td>
-                            <td>25,000 تومان</td>
-                            <td>دهه مبارک فجر</td>
-                            <td>24 اردیبهشت 99</td>
-                            <td>31 اردیبهشت 99</td>
-                            <td class="text-left width-16-rem">
-                                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>1</th>
-
-                            <td>15%</td>
-                            <td>25,000 تومان</td>
-                            <td>دهه مبارک فجر</td>
-                            <td>24 اردیبهشت 99</td>
-                            <td>31 اردیبهشت 99</td>
-                            <td class="text-left width-16-rem">
-                                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
-                            </td>
-                        </tr>
-
+                        @endforeach
                         </tbody>
                     </table>
                 </section>
