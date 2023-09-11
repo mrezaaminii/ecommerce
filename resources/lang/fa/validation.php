@@ -204,5 +204,8 @@ return [
         "height" => "ارتفاع",
         "price" => "قیمت",
         "introduction" => "توضیحات",
+        "deliverer" => 'تحویل دهنده',
+        "receiver" => 'تحویل گیرنده',
+        "marketable_number" => 'تعداد قابل فروش'
     ],
 ];
