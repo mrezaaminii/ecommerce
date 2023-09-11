@@ -36,6 +36,25 @@ class DiscountController extends Controller
         return redirect()->route('admin.market.discount.commonDiscount')->with('swal-success', 'تخفیف عمومی با موفقیت ثبت شد');
     }
 
+    public function commonDiscountEdit(CommonDiscount $commonDiscount){
+        return view('admin.market.discount.common-edit',compact('commonDiscount'));
+    }
+
+    public function commonDiscountUpdate(CommonDiscount $commonDiscount,CommonDicountRequest $request){
+        $inputs = $request->all();
+        $realTimestampStart = substr($request->start_date,0,10);
+        $inputs['start_date'] = date("Y-m-d H:i:s",(int)$realTimestampStart);
+        $realTimestampEnd = substr($request->end_date,0,10);
+        $inputs['end_date'] = date("Y-m-d H:i:s",(int)$realTimestampEnd);
+        $commonDiscount->update($inputs);
+        return redirect()->route('admin.market.discount.commonDiscount')->with('swal-success', 'تخفیف عمومی با موفقیت ویرایش شد');
+    }
+
+    public function commonDiscountDestroy(CommonDiscount $commonDiscount){
+        $result = $commonDiscount->delete();
+        return redirect()->route('admin.market.discount.commonDiscount')->with('swal-success', 'تخفیف عمومی با موفقیت حذف شد');
+    }
+
     public function amazingSale(){
         return view('admin.market.discount.amazing');
     }
