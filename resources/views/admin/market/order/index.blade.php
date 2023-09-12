@@ -50,16 +50,16 @@
                             <tr>
                                 <th>{{$loop->iteration}}</th>
                                 <td>{{$order->id}}</td>
-                                <td>{{$order->order_final_amount}}تومان</td>
-                                <td>{{$order->order_discount_amount}}تومان</td>
-                                <td>{{$order->order_total_products_discount_amount}}تومان</td>
-                                <td>{{$order->order_final_amount -= $order->order_discount_amount}}تومان</td>
+                                <td>{{$order->order_final_amount}} تومان</td>
+                                <td>{{$order->order_discount_amount}} تومان</td>
+                                <td>{{$order->order_total_products_discount_amount}} تومان</td>
+                                <td>{{$order->order_final_amount -= $order->order_discount_amount}} تومان</td>
                                 <td>@if($order->payment_status == 0) پرداخت نشده @elseif($order->payment_status == 1) پرداخت شده @elseif($order->payment_status == 3) باطل شده @else بازگردانده شده@endif</td>
                                 <td>@if($order->payment_type == 0) آنلاین @elseif($order->payment_type == 1) آفلاین @else پرداخت در محل @endif</td>
                                 <td>{{$order->payment->paymentable->gateway ?? '-'}}</td>
-                                <td>{{$order->delivery_status}}</td>
+                                <td>@if($order->delivery_status == 0) ارسال نشده @elseif($order->delivery_status == 1) در حال ارسال @elseif($order->delivery_status == 2) ارسال شده @else تحویل شده@endif</td>
                                 <td>{{$order->delivery->name}}</td>
-                                <td>@if($order->order_status == 0) در انتطار تایید @elseif($order->order_status == 1) تایید نشده @else تایید شده @endif</td>
+                                <td>@if($order->order_status == 1) در انتطار تایید @elseif($order->order_status == 2) تایید نشده@elseif($order->order_status == 3)  تایید شده@elseif($order->order_status == 4) باطل شده@elseif($order->order_status == 5) مرجوعی @else بررسی نشده @endif</td>
                                 <td class="text-left width-8-rem">
                                     <div class="dropdown">
                                         <a href="" class="btn btn-success btn-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools"></i> عملیات</a>
