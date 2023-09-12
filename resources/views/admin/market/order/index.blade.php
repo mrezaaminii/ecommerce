@@ -32,8 +32,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>کد سفارش</th>
-                                <th>مبلغ سفارش</th>
-                                <th>مبلغ تخفیف</th>
+                                <th>مجموع مبلغ سفارش (بدون تخفیف)</th>
+                                <th>مجموع تمامی مبلغ تخفیفات</th>
+                                <th>مبلغ تخفیف همه محصولات</th>
                                 <th>مبلغ نهایی</th>
                                 <th>وضعیت پرداخت</th>
                                 <th>شیوه پرداخت</th>
@@ -45,19 +46,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach($orders as $order)
                             <tr>
-                                <th>1</th>
-                                <td>2425364558</td>
-                                <td>290,000 تومان</td>
-                                <td>30,000 تومان</td>
-                                <td>260,000 تومان</td>
-                                <td>پرداخت شده</td>
-                                <td>آنلاین</td>
-                                <td>سامان</td>
-                                <td>در حال ارسال</td>
-                                <td>پیک موتوری</td>
-                                <td>در حال ارسال</td>
-
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$order->id}}</td>
+                                <td>{{$order->order_final_amount}}تومان</td>
+                                <td>{{$order->order_discount_amount}}تومان</td>
+                                <td>{{$order->order_total_products_discount_amount}}تومان</td>
+                                <td>{{$order->order_final_amount -= $order->order_discount_amount}}تومان</td>
+                                <td>@if($order->payment_status == 0) پرداخت نشده @elseif($order->payment_status == 1) پرداخت شده @elseif($order->payment_status == 3) باطل شده @else بازگردانده شده@endif</td>
+                                <td>@if($order->payment_type == 0) آنلاین @elseif($order->payment_type == 1) آفلاین @else پرداخت در محل @endif</td>
+                                <td>{{$order->payment->paymentable->gateway ?? '-'}}</td>
+                                <td>{{$order->delivery_status}}</td>
+                                <td>{{$order->delivery->name}}</td>
+                                <td>@if($order->order_status == 0) در انتطار تایید @elseif($order->order_status == 1) تایید نشده @else تایید شده @endif</td>
                                 <td class="text-left width-8-rem">
                                     <div class="dropdown">
                                         <a href="" class="btn btn-success btn-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools"></i> عملیات</a>
@@ -70,56 +72,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>2425364558</td>
-                                <td>290,000 تومان</td>
-                                <td>30,000 تومان</td>
-                                <td>260,000 تومان</td>
-                                <td>پرداخت شده</td>
-                                <td>آنلاین</td>
-                                <td>سامان</td>
-                                <td>در حال ارسال</td>
-                                <td>پیک موتوری</td>
-                                <td>در حال ارسال</td>
-
-                                <td class="text-left width-8-rem">
-                                    <div class="dropdown">
-                                        <a href="" class="btn btn-success btn-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools"></i> عملیات</a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i> مشاهده فاکتور</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> تغییر وضعیت ارسال</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i> تغییر وضعیت سفارش</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-window-close"></i> باطل کردن سفارش</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>1</th>
-                                <td>2425364558</td>
-                                <td>290,000 تومان</td>
-                                <td>30,000 تومان</td>
-                                <td>260,000 تومان</td>
-                                <td>پرداخت شده</td>
-                                <td>آنلاین</td>
-                                <td>سامان</td>
-                                <td>در حال ارسال</td>
-                                <td>پیک موتوری</td>
-                                <td>در حال ارسال</td>
-
-                                <td class="text-left width-8-rem">
-                                    <div class="dropdown">
-                                        <a href="" class="btn btn-success btn-sm dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tools"></i> عملیات</a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-images"></i> مشاهده فاکتور</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-list-ul"></i> تغییر وضعیت ارسال</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-edit"></i> تغییر وضعیت سفارش</a>
-                                            <a href="" class="dropdown-item text-right"><i class="fa fa-window-close"></i> باطل کردن سفارش</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </section>

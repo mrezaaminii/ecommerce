@@ -65,7 +65,7 @@
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">کاربران</label>
-                                    <select name="user_id" id="users" class="form-control form-control-sm" disabled>
+                                    <select name="user_id" id="users" class="form-control form-control-sm {{$copan->type == 0 ? 'disabled' : ''}}">
                                         @foreach($users as $user)
                                             <option value="{{$user->id}}" @if(old('user_id',$copan->user_id) == $user->id) selected @endif>{{$user->fullName}}</option>
                                         @endforeach
