@@ -2,6 +2,7 @@
 
 @section('head-tag')
     <title>افزودن به فروش شگفت انگیز</title>
+    <link rel="stylesheet" href="{{asset('admin-assets/jalalidatepicker/persian-datepicker.min.css')}}">
 @endsection
 
 
@@ -25,31 +26,92 @@
                     <a href="{{route('admin.market.discount.amazingSale')}}" class="btn btn-info">بازگشت</a>
                 </section>
                 <section>
-                    <form action="#" method="" enctype="multipart/form-data">
+                    <form action="{{route('admin.market.discount.amazingSale.store')}}" method="POST">
+                        @csrf
                         <section class="row">
-
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="">نام کالا</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <label for="">کالا را انتخاب کنید</label>
+                                    <select name="product_id" id="product_id" class="form-control form-control-sm">
+                                        <option value="" disabled selected>انتخاب کنید</option>
+                                        @foreach($products as $product)
+                                        <option value="{{$product->id}}" @if(old('product_id') == $product->id) selected @endif>{{$product->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mt-2 mb-2">
+                                    @error('product_id')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">درصد تخفیف</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="text" class="form-control form-control-sm" name="percentage" value="{{old('percentage')}}">
+                                </div>
+                                <div class="mt-2 mb-2">
+                                    @error('percentage')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">تاریخ شروع</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="text" class="form-control form-control-sm d-none" name="start_date" id="start_date">
+                                    <input type="text" class="form-control form-control-sm" id="start_date_view">
+                                </div>
+                                <div class="mt-2 mb-2">
+                                    @error('start_date')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">تاریخ پایان</label>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <input type="text" class="form-control form-control-sm d-none" name="end_date" id="end_date">
+                                    <input type="text" class="form-control form-control-sm" id="end_date_view">
+                                </div>
+                                <div class="mt-2 mb-2">
+                                    @error('end_date')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </section>
+                            <section class="col-12">
+                                <div class="form-group">
+                                    <label for="status">وضعیت</label>
+                                    <select name="status" id="status" class="form-control form-control-sm">
+                                        <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
+                                        <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                                    </select>
+                                </div>
+                                <div class="mt-2 mb-2">
+                                    @error('status')
+                                    <span class="alert-danger text-white rounded p-1" role="alert">
+                                        <strong>
+                                            {{$message}}
+                                        </strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </section>
                             <section class="col-12">
@@ -63,6 +125,36 @@
     </section>
 @endsection
 
+@section('script')
+    <script src="{{asset('admin-assets/jalalidatepicker/persian-date.min.js')}}"></script>
+    <script src="{{asset('admin-assets/jalalidatepicker/persian-datepicker.min.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#start_date_view').persianDatepicker({
+                format: 'YYYY/MM/DD',
+                altField: '#start_date',
+                timePicker: {
+                    enabled: true,
+                    meridiem: {
+                        enabled: true
+                    }
+                }
+            })
+            $('#end_date_view').persianDatepicker({
+                format: 'YYYY/MM/DD',
+                altField: '#end_date',
+                timePicker: {
+                    enabled: true,
+                    meridiem: {
+                        enabled: true
+                    }
+                }
+            })
+
+
+        });
+    </script>
+@endsection
 
 
 

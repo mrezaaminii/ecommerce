@@ -110,6 +110,10 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::delete('/common-discount/destroy/{commonDiscount}',[DiscountController::class,'commonDiscountDestroy'])->name('admin.market.discount.commonDiscount.destroy');
             Route::get('/amazing-sale',[DiscountController::class,'amazingSale'])->name('admin.market.discount.amazingSale');
             Route::get('/amazing-sale/create',[DiscountController::class,'amazingSaleCreate'])->name('admin.market.discount.amazingSale.create');
+            Route::post('/amazing-sale/store',[DiscountController::class,'amazingSaleStore'])->name('admin.market.discount.amazingSale.store');
+            Route::get('/amazing-sale/edit/{amazingSale}',[DiscountController::class,'amazingSaleEdit'])->name('admin.market.discount.amazingSale.edit');
+            Route::put('/amazing-sale/update/{amazingSale}',[DiscountController::class,'amazingSaleUpdate'])->name('admin.market.discount.amazingSale.update');
+            Route::delete('/amazing-sale/destroy/{amazingSale}',[DiscountController::class,'amazingSaleDestroy'])->name('admin.market.discount.amazingSale.destroy');
         });
 
         Route::prefix('order')->group(function (){

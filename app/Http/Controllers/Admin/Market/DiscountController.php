@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin\Market;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Market\AmazingSaleRequest;
 use App\Http\Requests\Admin\Market\CommonDicountRequest;
+use App\Models\Admin\Market\AmazingSale;
 use App\Models\Admin\Market\CommonDiscount;
+use App\Models\Admin\Market\Product;
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
@@ -56,10 +59,22 @@ class DiscountController extends Controller
     }
 
     public function amazingSale(){
-        return view('admin.market.discount.amazing');
+        $amazingSales = AmazingSale::all();
+        return view('admin.market.discount.amazing',compact('amazingSales'));
     }
 
     public function amazingSaleCreate(){
-        return view('admin.market.discount.amazing-create');
+        $products = Product::all();
+        return view('admin.market.discount.amazing-create',compact('products'));
+    }
+
+    public function amazingSaleStore(AmazingSaleRequest $request){
+        $inputs = $request->all();
+        $realTimestampStart = substr($request->start_date,0,10);
+        $inputs['start_date'] = date("Y-m-d H:i:s",(int)$realTimestampStart);
+        $realTimestampEnd = substr($request->end_date,0,10);
+        $inputs['end_date'] = date("Y-m-d H:i:s",(int)$realTimestampEnd);
+        $result = AmazingSale::create($inputs);
+        return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش شگفت انگیز با موفقیت ثبت شد');
     }
 }

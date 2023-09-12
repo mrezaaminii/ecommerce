@@ -212,5 +212,6 @@ return [
         "minimal_order_amount" => "حداقل مبلغ خرید",
         "start_date" => "تاریخ شروع تخفیف",
         "end_date" => "تاریخ پایان تخفیف",
+        "product_id" => "نام کالا",
     ],
 ];
