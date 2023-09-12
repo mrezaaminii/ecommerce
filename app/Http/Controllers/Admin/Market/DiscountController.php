@@ -77,4 +77,24 @@ class DiscountController extends Controller
         $result = AmazingSale::create($inputs);
         return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش شگفت انگیز با موفقیت ثبت شد');
     }
+
+    public function amazingSaleEdit(AmazingSale $amazingSale){
+        $products = Product::all();
+        return view('admin.market.discount.amazing-edit',compact('amazingSale','products'));
+    }
+
+    public function amazingSaleUpdate(AmazingSaleRequest $request,AmazingSale $amazingSale){
+        $inputs = $request->all();
+        $realTimestampStart = substr($request->start_date,0,10);
+        $inputs['start_date'] = date("Y-m-d H:i:s",(int)$realTimestampStart);
+        $realTimestampEnd = substr($request->end_date,0,10);
+        $inputs['end_date'] = date("Y-m-d H:i:s",(int)$realTimestampEnd);
+        $amazingSale->update($inputs);
+        return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش شگفت انگیز با موفقیت ویرایش شد');
+    }
+
+    public function amazingSaleDestroy(AmazingSale $amazingSale){
+        $result = $amazingSale->delete();
+        return redirect()->route('admin.market.discount.amazingSale')->with('swal-success', 'فروش شگفت انگیز با موفقیت حذف شد');
+    }
 }

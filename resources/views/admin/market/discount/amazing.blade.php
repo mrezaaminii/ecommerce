@@ -50,8 +50,12 @@ use App\Helpers\helper;
                             <td>{{helper::jalaliDate($amazingSale->start_date,'H:i:s Y-m-d')}}</td>
                             <td>{{helper::jalaliDate($amazingSale->end_date,'H:i:s Y-m-d')}}</td>
                             <td class="text-left width-16-rem">
-                                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i>حذف </button>
+                                <a href="{{route('admin.market.discount.amazingSale.edit',$amazingSale->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form class="d-inline" action="{{route('admin.market.discount.amazingSale.destroy',$amazingSale->id)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i> حذف</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -63,5 +67,7 @@ use App\Helpers\helper;
     </section>
 @endsection
 
-
+@section('script')
+    @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])
+@endsection
 
