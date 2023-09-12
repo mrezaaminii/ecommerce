@@ -41,13 +41,47 @@ class OrderController extends Controller
     public function show(){
         return view('admin.market.order.index');
     }
-    public function changeSendStatus(){
-        return view('admin.market.order.index');
+    public function changeSendStatus(Order $order){
+        switch ($order->delivery_status){
+            case 0:
+                $order->delivery_status = 1;
+                break;
+            case 1:
+                $order->delivery_status = 2;
+                break;
+                case 2:
+                $order->delivery_status = 3;
+                break;
+            default:$order->delivery_status = 0;
+        }
+        $order->save();
+        return back();
     }
-    public function changeOrderStatus(){
-        return view('admin.market.order.index');
+    public function changeOrderStatus(Order $order){
+        switch ($order->order_status){
+            case 1:
+                $order->order_status = 2;
+                break;
+            case 2:
+                $order->order_status = 3;
+                break;
+            case 3:
+                $order->order_status = 4;
+                break;
+                case 4:
+                $order->order_status = 5;
+                break;
+                case 5:
+                $order->order_status = 0;
+                break;
+            default: $order->order_status = 1;
+        }
+        $order->save();
+        return back();
     }
-    public function cancelOrder(){
-        return view('admin.market.order.index');
+    public function cancelOrder(Order $order){
+        $order->order_status = 4;
+        $order->save();
+        return back();
     }
 }
