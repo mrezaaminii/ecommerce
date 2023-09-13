@@ -5,3 +5,17 @@
 <script src="{{asset('admin-assets/js/grid.js')}}"></script>
 <script src="{{asset('admin-assets/select2/js/select2.min.js')}}"></script>
 <script src="{{asset('admin-assets/sweetalert/sweetalert2.min.js')}}"></script>
+
+<script>
+    let notificationDropDown = $('#header-notification-toggle');
+    notificationDropDown.on('click',function () {
+        console.log('yes')
+        $.ajax({
+            type:"POST",
+            url: '/admin/notification/read-all/',
+            data:{_token:"{{csrf_token()}}",},
+            success:function () {
+            }
+        })
+    })
+</script>
