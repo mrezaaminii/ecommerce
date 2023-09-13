@@ -38,9 +38,11 @@ class OrderController extends Controller
         $orders = Order::where('order_status',5)->get();
         return view('admin.market.order.index',compact('orders'));
     }
-    public function show(){
-        return view('admin.market.order.index');
+
+    public function show(Order $order){
+        return view('admin.market.order.show',compact('order'));
     }
+
     public function changeSendStatus(Order $order){
         switch ($order->delivery_status){
             case 0:
