@@ -4,7 +4,7 @@
 use App\Helpers\helper;
 @endphp
 @section('head-tag')
-    <title>فاکتور سفارش</title>
+    <title>فاکتور</title>
 @endsection
 
 
@@ -14,7 +14,7 @@ use App\Helpers\helper;
             <li class="breadcrumb-item font-size-12"><a href="#">خانه </a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> بخش فروش</a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> سفارشات</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> فاکتور</li>
+            <li class="breadcrumb-item font-size-12" aria-current="page"> فاکتور</li>
         </ol>
     </nav>
 
@@ -38,7 +38,7 @@ use App\Helpers\helper;
                         <th>{{$order->id}}</th>
                         <td class="text-left width-11-rem">
                             <a href="" id="print" class="btn btn-sm btn-dark text-white"><i class="fa fa-print"></i> چاپ</a>
-                            <a href="" class="btn btn-sm btn-warning"><i class="fa fa-book"></i> جزئیات</a>
+                            <a href="{{route('admin.market.order.show.detail',$order->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-book"></i> جزئیات</a>
                         </td>
                         </tr>
                         <tr class="border-bottom">
