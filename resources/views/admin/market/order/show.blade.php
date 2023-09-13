@@ -79,11 +79,11 @@ use App\Helpers\helper;
                         </tr>
                         <tr class="border-bottom">
                             <th>نوع پرداخت</th>
-                            <td class="text-left font-weight-bolder">@if($order->payment_type == 0) آنلاین @elseif($order->payment_type == 1) آفلاین @else پرداخت در محل @endif</td>
+                            <td class="text-left font-weight-bolder">{{$order->paymentTypeValue}}</td>
                         </tr>
                         <tr class="border-bottom">
                             <th>وضعیت پرداخت</th>
-                            <td class="text-left font-weight-bolder">@if($order->payment_status == 0) پرداخت نشده @elseif($order->payment_status == 1) پرداخت شده @elseif($order->payment_status == 3) باطل شده @else بازگردانده شده@endif</td>
+                            <td class="text-left font-weight-bolder">{{$order->paymentStatusValue}}</td>
                         </tr>
                         <tr class="border-bottom">
                             <th>مبلغ ارسال</th>
@@ -91,7 +91,7 @@ use App\Helpers\helper;
                         </tr>
                         <tr class="border-bottom">
                             <th>وضعیت ارسال</th>
-                            <td class="text-left font-weight-bolder">@if($order->delivery_status == 0) ارسال نشده @elseif($order->delivery_status == 1) در حال ارسال @elseif($order->delivery_status == 2) ارسال شده @else تحویل شده@endif</td>
+                            <td class="text-left font-weight-bolder">{{$order->deliveryStatusValue}}</td>
                         </tr>
                         <tr class="border-bottom">
                             <th>وضعیت ارسال</th>
@@ -135,7 +135,7 @@ use App\Helpers\helper;
                         </tr>
                         <tr class="border-bottom">
                             <th>وضعیت سفارش</th>
-                            <td class="text-left font-weight-bolder">@if($order->order_status == 1) در انتطار تایید @elseif($order->order_status == 2) تایید نشده@elseif($order->order_status == 3)  تایید شده@elseif($order->order_status == 4) باطل شده@elseif($order->order_status == 5) مرجوعی @else بررسی نشده @endif</td>
+                            <td class="text-left font-weight-bolder">{{$order->orderStatusValue}}</td>
                         </tr>
                         </tbody>
                     </table>

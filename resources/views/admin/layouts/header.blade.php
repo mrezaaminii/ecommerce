@@ -75,7 +75,12 @@
                 </span>
                 <span class="ml-2 ml-md-4 position-relative">
                     <span class="pointer" id="header-comment-toggle">
-                        <i class="far fa-comment-alt"></i><sup class="badge badge-danger">3</sup>
+                        <i class="far fa-comment-alt"></i>
+                        @if($unSeenComments->count() !== 0)
+                        <sup class="badge badge-danger">
+                            {{$unSeenComments->count()}}
+                        </sup>
+                        @endif
                     </span>
                     <section id="header-comment" class="header-comment px-4">
                         <section class="border-bottom">
@@ -83,150 +88,19 @@
                         </section>
                         <section class="header-comment-wrapper">
                             <ul class="list-group px-0">
+                                @foreach($unSeenComments as $unSeenComment)
                                 <li class="list-group-item list-group-item-action">
                                     <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
+                                        <img src="{{asset($unSeenComment->user->profile_photo_path)}}" alt="avatar" class="notification-img">
                                         <section class="media-body pr-1">
                                             <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
+                                                <h5 class="comment-user">{{$unSeenComment->user->fullName}}</h5>
                                                 <span><i class="fa fa-circle text-success comment-user-status"></i></span>
                                             </section>
                                         </section>
                                     </section>
                                 </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <section class="media">
-                                        <img src="{{asset('admin-assets/images/avatar-2.jpg')}}" alt="avatar" class="notification-img">
-                                        <section class="media-body pr-1">
-                                            <section class="d-flex justify-content-between">
-                                                <h5 class="comment-user">محمد هاشمی</h5>
-                                                <span><i class="fa fa-circle text-success comment-user-status"></i></span>
-                                            </section>
-                                        </section>
-                                    </section>
-                                </li>
-
+                                @endforeach
                             </ul>
                         </section>
                     </section>
