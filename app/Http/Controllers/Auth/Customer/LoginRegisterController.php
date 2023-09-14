@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LoginRegisterController extends Controller
 {
@@ -43,6 +45,17 @@ class LoginRegisterController extends Controller
             $user = User::create($newUser);
         }
 
+        $otpCode = rand(111111,999999);
+        $token = Str::random(60);
+        $otpInput = [
+            'token' => $token,
+            'user_id' => $user->id,
+            'otp_code' => $otpCode,
+            'login_id' => $inputs['id'],
+            'type' => $type,
+        ];
+
+        Otp::create($otpInput);
     }
 
 
