@@ -360,6 +360,10 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
     Route::post('/notification/read-all',[NotificationController::class,'readAll'])->name('admin.notification.read-all');
 });
 
+Route::get('/',function (){
+    return view('customer.home');
+})->name('customer.home');
+
 
 Route::middleware([
     'auth:sanctum',
@@ -369,8 +373,4 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-});
-
-Route::get('/',function (){
-    return phpinfo();
 });

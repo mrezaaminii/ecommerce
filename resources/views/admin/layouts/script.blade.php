@@ -9,11 +9,10 @@
 <script>
     let notificationDropDown = $('#header-notification-toggle');
     notificationDropDown.on('click',function () {
-        console.log('yes')
         $.ajax({
             type:"POST",
             url: '/admin/notification/read-all/',
-            data:{_token:"{{csrf_token()}}",},
+            data:{_token:"{{csrf_token()}}"},
             success:function () {
             }
         })
