@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Http\Services\Message\MessageService;
+use App\Http\Services\Message\SMS\SmsService;
 use App\Models\Otp;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Config;
 
 class LoginRegisterController extends Controller
 {
@@ -24,7 +27,7 @@ class LoginRegisterController extends Controller
                 $newUser['email'] = $inputs['id'];
             }
         }
-        elseif (preg_match('/^(\+98|98|0)9\d{9}$',$inputs['id'])){
+        elseif (preg_match('/^(\+98|98|0)9\d{9}$/',$inputs['id'])){
             $type = 0;
             $inputs['id'] = ltrim($inputs['id'],0);
             $inputs['id'] = substr($inputs['id'],0,2) === '98' ? substr($inputs['id'],2) : $inputs['id'];
@@ -56,6 +59,17 @@ class LoginRegisterController extends Controller
         ];
 
         Otp::create($otpInput);
+
+        if ($type == 1){
+            $smsService = new SmsService();
+            $smsService->setFrom(Config::get('sms.otp_from'));
+            $smsService->setTo(['0'.$user->mobile]);
+            $smsService->setText("مجموعه آمازون \n کد تایید : $otpCode");
+            $smsService->setIsFlash(true);
+
+            $messageService = new MessageService($smsService);
+        }
+        $messageService->send();
     }
 
 

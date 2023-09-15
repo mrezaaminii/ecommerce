@@ -380,3 +380,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/phpinfo',function (){
+    return phpinfo();
+});

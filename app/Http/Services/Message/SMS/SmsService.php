@@ -15,6 +15,7 @@ class SmsService implements MessageInterface
     public function fire()
     {
         $meliPayamak = new MeliPayamakService();
+        $meliPayamak->SendSmsSoapClient($this->from, $this->to, $this->text, $this->isFlash);
     }
 
     public function getFrom(){
@@ -39,5 +40,13 @@ class SmsService implements MessageInterface
 
     public function setTo($to){
         $this->to = $to;
+    }
+
+    public function getIsFlash(){
+        return $this->isFlash;
+    }
+
+    public function setIsFlash($flash){
+        $this->isFlash = $flash;
     }
 }
