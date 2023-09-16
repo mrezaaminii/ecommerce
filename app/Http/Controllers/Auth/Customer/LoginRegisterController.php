@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Customer\LoginRegisterRequest;
+use App\Http\Services\Message\Email\EmailService;
 use App\Http\Services\Message\MessageService;
 use App\Http\Services\Message\SMS\SmsService;
 use App\Models\Otp;
@@ -60,7 +61,7 @@ class LoginRegisterController extends Controller
 
         Otp::create($otpInput);
 
-        if ($type == 1){
+        if ($type === 0){
             $smsService = new SmsService();
             $smsService->setFrom(Config::get('sms.otp_from'));
             $smsService->setTo(['0'.$user->mobile]);
@@ -69,7 +70,23 @@ class LoginRegisterController extends Controller
 
             $messageService = new MessageService($smsService);
         }
-        $messageService->send();
+        elseif($type === 1){
+            $emailService = new EmailService();
+            $details = [
+                'title' => 'ایمیل فعال سازی',
+                'body' => "کد فعال سازی شما : $otpCode"
+            ];
+            $emailService->setDetails($details);
+            $emailService->setFrom('noreply@example.com', 'example');
+            $emailService->setSubject('کد احراز هویت');
+            $emailService->setTo($inputs['id']);
+
+            $messagesService = new MessageService($emailService);
+
+        }
+        $messagesService->send();
+
+        dd('ok');
     }
 
 
