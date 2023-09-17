@@ -26,9 +26,9 @@
                     </section>
                 @endif
                 <section class="login-input-text">
-                    <input type="text" name="id">
+                    <input type="text" name="otp" value="{{old('otp')}}">
                     <div class="mt-2 mb-2">
-                        @error('id')
+                        @error('otp')
                         <span class="alert-danger text-white rounded p-1">
                              <strong>
                                  {{$message}}

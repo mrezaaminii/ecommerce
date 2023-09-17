@@ -11,7 +11,7 @@
                 <section class="login-title">ورود / ثبت نام</section>
                 <section class="login-info">شماره موبایل یا پست الکترونیک خود را وارد کنید</section>
                 <section class="login-input-text">
-                    <input type="text" name="id">
+                    <input type="text" name="id" value="{{old('id')}}">
                     <div class="mt-2 mb-2">
                         @error('id')
                         <span class="alert-danger text-white rounded p-1">

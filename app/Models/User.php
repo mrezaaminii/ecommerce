@@ -36,7 +36,9 @@ class User extends Authenticatable
         'status',
         'user_type',
         'activation',
-        'profile_photo_path'
+        'profile_photo_path',
+        'email_verified_at',
+        'mobile_verified_at',
     ];
 
     /**
