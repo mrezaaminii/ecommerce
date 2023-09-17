@@ -1,8 +1,7 @@
-<!-- start header -->
 <header class="header mb-4">
 
 
-    <!-- start top-header logo, searchbox and cart -->
+
     <section class="top-header">
         <section class="container-xxl ">
             <section class="d-flex justify-content-between align-items-center py-3">
@@ -11,8 +10,5 @@
             </section>
         </section>
     </section>
-    <!-- end top-header logo, searchbox and cart -->
-
 
 </header>
-<!-- end header -->
