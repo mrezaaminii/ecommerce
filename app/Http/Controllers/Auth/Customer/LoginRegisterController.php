@@ -170,5 +170,10 @@ class LoginRegisterController extends Controller
 
         return redirect()->route('auth.customer.login-confirm-form',$newToken);
     }
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('customer.home');
+    }
+
 
 }
