@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-    <title>دسته بندی</title>
+    <title>بنرها</title>
 @endsection
 
 
@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item font-size-12"><a href="#">خانه </a></li>
             <li class="breadcrumb-item font-size-12"><a href="#"> بخش محتوی</a></li>
-            <li class="breadcrumb-item font-size-12 active" aria-current="page"> دسته بندی</li>
+            <li class="breadcrumb-item font-size-12 active" aria-current="page"> بنرها</li>
         </ol>
     </nav>
 
@@ -18,12 +18,12 @@
         <section class="col-12">
             <section class="main-body-container">
                 <section class="main-body-container-header">
-                    <h4>دسته بندی</h4>
+                    <h4>بنرها</h4>
                 </section>
                 @include('admin.alerts.alert-section.success')
 
                 <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
-                    <a href="{{route('admin.content.category.create')}}" class="btn btn-info">ایجاد دسته بندی</a>
+                    <a href="{{route('admin.content.banner.create')}}" class="btn btn-info">ایجاد بنر</a>
                     <div class="max-width-16-rem">
                         <input type="text" placeholder="جستجو" class="form-text form-control form-control-sm">
                     </div>
@@ -33,39 +33,34 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام دسته بندی</th>
-                                <th>توضیحات</th>
-                                <th>اسلاگ</th>
-                                <th>عکس</th>
-                                <th>تگ ها</th>
+                                <th>عنوان بنر</th>
+                                <th>آدرس</th>
+                                <th>تصویر</th>
                                 <th>وضعیت</th>
+                                <th>مکان</th>
                                 <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($postCategories as $key => $postCategory)
+                        @foreach($banners as $key => $banner)
                             <tr>
-                                <th>{{$key+=1}}</th>
-                                <td>{{$postCategory->name}}</td>
-                                <td>{{$postCategory->description}}</td>
-                                <td>{{$postCategory->slug}}</td>
+                                <th>{{$loop->iteration}}</th>
+                                <td>{{$banner->title}}</td>
+                                <td>{{$banner->url}}</td>
                                 <td>
-{{--                                    @php--}}
-{{--                                        dd($postCategory->image['indexArray'][$postCategory->image['currentImage']]);--}}
-{{--                                    @endphp--}}
-                                    <img src="{{asset($postCategory->image['indexArray'][$postCategory->image['currentImage']])}}" alt="" width="40" height="40">
+                                    <img src="{{asset($banner->image['indexArray'][$banner->image['currentImage']])}}" alt="" width="40" height="40">
                                 </td>
-                                <td>{{$postCategory->tags}}</td>
                                 <td>
-                                    <label for="{{$postCategory->id}}">
-                                        <input id="{{$postCategory->id}}" onchange="changeStatus({{$postCategory->id}})" data-url="{{route('admin.content.category.status',$postCategory->id)}}" type="checkbox" @if($postCategory->status === 1) checked
+                                    <label for="{{$banner->id}}">
+                                        <input id="{{$banner->id}}" onchange="changeStatus({{$banner->id}})" data-url="{{route('admin.content.banner.status',$banner->id)}}" type="checkbox" @if($banner->status === 1) checked
 
                                         @endif>
                                     </label>
                                 </td>
+                                <td>{{$banner->position}}</td>
                                 <td class="text-left width-16-rem">
-                                    <a href="{{route('admin.content.category.edit',$postCategory->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <form class="d-inline" action="{{route('admin.content.category.destroy',$postCategory->id)}}" method="POST" id="deleteForm">
+                                    <a href="{{route('admin.content.category.edit',$banner->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <form class="d-inline" action="{{route('admin.content.category.destroy',$banner->id)}}" method="POST" id="deleteForm">
                                         @csrf
                                         {{method_field('delete')}}
                                     <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i> حذف</button>
@@ -94,11 +89,11 @@
                     if (response.status){
                         if (response.checked){
                             element.prop('checked',true);
-                            successToast('دسته بندی با موفقیت فعال شد');
+                            successToast('بنر با موفقیت فعال شد');
                         }
                         else{
                             element.prop('checked',false);
-                            successToast('دسته بندی با موفقیت غیر فعال شد');
+                            successToast('بنر با موفقیت غیر فعال شد');
                         }
                     }
                     else{

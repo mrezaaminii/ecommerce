@@ -3,7 +3,7 @@
 @section('content')
     <section class="container-xxl my-4">
         <section class="row">
-            <section class="col-md-8 pe-1">
+            <section class="col-md-8 pe-md-1 ">
                 <section id="slideshow" class="owl-carousel owl-theme">
                     <section class="item"><a class="w-100 d-block h-auto text-decoration-none" href="#"><img class="w-100 rounded-2 d-block h-auto" src="assets/images/slideshow/1.jpg" alt=""></a></section>
                     <section class="item"><a class="w-100 d-block h-auto text-decoration-none" href="#"><img class="w-100 rounded-2 d-block h-auto" src="assets/images/slideshow/2.jpg" alt=""></a></section>
@@ -13,19 +13,17 @@
                     <section class="item"><a class="w-100 d-block h-auto text-decoration-none" href="#"><img class="w-100 rounded-2 d-block h-auto" src="assets/images/slideshow/6.gif" alt=""></a></section>
                 </section>
             </section>
-            <section class="col-md-4 ps-1">
+            <section class="col-md-4 ps-md-1 mt-2 mt-md-0">
                 <section class="mb-2"><a href="#" class="d-block"><img class="w-100 rounded-2" src="assets/images/slideshow/12.gif" alt=""></a></section>
                 <section class="mb-2"><a href="#" class="d-block"><img class="w-100 rounded-2" src="assets/images/slideshow/11.jpg" alt=""></a></section>
             </section>
         </section>
     </section>
-
     <section class="mb-3">
         <section class="container-xxl" >
             <section class="row">
                 <section class="col">
                     <section class="content-wrapper bg-white p-3 rounded-2">
-                        <!-- start vontent header -->
                         <section class="content-header">
                             <section class="d-flex justify-content-between align-items-center">
                                 <h2 class="content-header-title">
@@ -36,10 +34,8 @@
                                 </section>
                             </section>
                         </section>
-
                         <section class="lazyload-wrapper" >
                             <section class="lazyload light-owl-nav owl-carousel owl-theme">
-
                                 <section class="item">
                                     <section class="lazyload-item-wrapper">
                                         <section class="product">
@@ -269,24 +265,20 @@
             </section>
         </section>
     </section>
-
     <section class="mb-3">
         <section class="container-xxl">
-            <!-- two column-->
             <section class="row py-4">
-                <section class="col"><img class="d-block rounded-2 w-100" src="assets/images/ads/two-col-1.jpg" alt=""></section>
-                <section class="col"><img class="d-block rounded-2 w-100" src="assets/images/ads/two-col-2.jpg" alt=""></section>
+                <section class="col-12 col-md-6 mt-2 mt-md-0"><img class="d-block rounded-2 w-100" src="assets/images/ads/two-col-1.jpg" alt=""></section>
+                <section class="col-12 col-md-6 mt-2 mt-md-0"><img class="d-block rounded-2 w-100" src="assets/images/ads/two-col-2.jpg" alt=""></section>
             </section>
 
         </section>
     </section>
-
     <section class="mb-3">
         <section class="container-xxl" >
             <section class="row">
                 <section class="col">
                     <section class="content-wrapper bg-white p-3 rounded-2">
-                        <!-- start vontent header -->
                         <section class="content-header">
                             <section class="d-flex justify-content-between align-items-center">
                                 <h2 class="content-header-title">
@@ -297,7 +289,6 @@
                                 </section>
                             </section>
                         </section>
-
                         <section class="lazyload-wrapper" >
                             <section class="lazyload light-owl-nav owl-carousel owl-theme">
 
@@ -570,10 +561,8 @@
             </section>
         </section>
     </section>
-
     <section class="mb-3">
         <section class="container-xxl">
-            <!-- one column -->
             <section class="row py-4">
                 <section class="col"><img class="d-block rounded-2 w-100" src="assets/images/ads/one-col-1.jpg" alt=""></section>
             </section>
@@ -584,7 +573,6 @@
         <section class="container-xxl">
             <section class="row">
                 <section class="col">
-                    <!-- start vontent header -->
                     <section class="content-header">
                         <section class="d-flex align-items-center">
                             <h2 class="content-header-title">
@@ -592,7 +580,6 @@
                             </h2>
                         </section>
                     </section>
-
                     <section class="brands-wrapper py-4" >
                         <section class="brands dark-owl-nav owl-carousel owl-theme">
                             <section class="item">

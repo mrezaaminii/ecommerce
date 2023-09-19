@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\Market\ProductColorController;
 use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
+use App\Http\Controllers\Admin\Content\BannerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -244,6 +245,15 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::delete('/destroy/{post}',[PostController::class,'destroy'])->name('admin.content.post.destroy');
             Route::get('/status/{post}',[PostController::class,'status'])->name('admin.content.post.status');
             Route::get('/commentable/{post}',[PostController::class,'commentable'])->name('admin.content.post.commentable');
+        });
+        Route::prefix('banner')->group(function (){
+            Route::get('/',[BannerController::class,'index'])->name('admin.content.banner.index');
+            Route::get('/create',[BannerController::class,'create'])->name('admin.content.banner.create');
+            Route::post('/store',[BannerController::class,'store'])->name('admin.content.banner.store');
+            Route::get('/edit/{post}',[BannerController::class,'edit'])->name('admin.content.banner.edit');
+            Route::put('/update/{post}',[BannerController::class,'update'])->name('admin.content.banner.update');
+            Route::delete('/destroy/{post}',[BannerController::class,'destroy'])->name('admin.content.banner.destroy');
+            Route::get('/status/{post}',[BannerController::class,'status'])->name('admin.content.banner.status');
         });
     });
 
