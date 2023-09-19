@@ -137,28 +137,6 @@
             }
         }
     </script>
-    <script>
-        $(document).ready(function () {
-            $('#deleteForm').submit(function (event) {
-                event.preventDefault();
-                // if (confirm('آیا مطمئن هستید که می‌خواهید این رکورد را حذف کنید؟')) {
-                //     var previousPage = document.referrer;
-                    $.ajax({
-                        url: $(this).attr('action'),
-                        type: "POST",
-                        data: $(this).serialize(),
-                        success: function (response) {
-                            // console.log(response.message);
-                            window.location.href = "{{route('admin.content.category.index')}}";
-                        },
-                        error: function (xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                // }
-            });
-        });
-    </script>
 
 @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])
 

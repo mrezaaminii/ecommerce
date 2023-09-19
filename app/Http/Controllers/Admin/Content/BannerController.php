@@ -56,24 +56,66 @@ class BannerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Banner $banner)
     {
-        //
+        return view('admin.content.banner.edit',compact('banner'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BannerRequest $request,Banner $banner,ImageService $imageService)
     {
-        //
+        $inputs = $request->all();
+        if ($request->hasFile('image')){
+            if (!empty($banner->image)){
+                $imageService->deleteDirectoryAndFiles($banner->image['directory']);
+            }
+            $imageService->setExclusiveDirectory('images'. DIRECTORY_SEPARATOR . 'banner');
+            $result = $imageService->createIndexAndSave($request->file('image'));
+            if ($result === false){
+                return redirect()->route('admin.content.banner.index')->with('swal-success','آپلود تصویر با خطا مواجه شد');
+            }
+            $inputs['image'] = $result;
+        }
+        if (isset($inputs['currentImage']) && !empty($banner->image)){
+            $image = $banner->image;
+            $image['currentImage'] = $inputs['currentImage'];
+            $inputs['image'] = $image;
+        }
+        $banner->update($inputs);
+        return redirect()->route('admin.content.banner.index')->with('swal-success','بنر با موفقیت ویرایش شد');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Banner $banner)
     {
-        //
+        $result = $banner->delete();
+        return redirect()->route('admin.content.banner.index')->with('swal-success','بنر با موفقیت حذف شد');
+    }
+
+    public function status(Banner $banner)
+    {
+        $banner->status = $banner->status == 0 ? 1 : 0;
+        $result = $banner->save();
+        if ($result){
+            if ($banner->status == 0){
+                return response()->json([
+                    'status' => true,
+                    'checked' => false
+                ]);
+            }else{
+                return response()->json([
+                    'status' => true,
+                    'checked' => true
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status' => false,
+            ]);
+        }
     }
 }

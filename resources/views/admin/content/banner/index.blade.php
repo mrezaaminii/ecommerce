@@ -38,7 +38,7 @@
                                 <th>تصویر</th>
                                 <th>وضعیت</th>
                                 <th>مکان</th>
-                                <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
+                                <th class="width-11-rem text-right"><i class="fa fa-cogs"></i> تنظیمات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,11 +58,11 @@
                                     </label>
                                 </td>
                                 <td>{{$banner->position}}</td>
-                                <td class="text-left width-16-rem">
-                                    <a href="{{route('admin.content.category.edit',$banner->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                    <form class="d-inline" action="{{route('admin.content.category.destroy',$banner->id)}}" method="POST" id="deleteForm">
+                                <td class="text-left width-11-rem">
+                                    <a href="{{route('admin.content.banner.edit',$banner->id)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                    <form class="d-inline" action="{{route('admin.content.banner.destroy',$banner->id)}}" method="POST">
                                         @csrf
-                                        {{method_field('delete')}}
+                                       @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm delete"><i class="fa fa-trash-alt"></i> حذف</button>
                                     </form>
                                 </td>
@@ -132,29 +132,6 @@
             }
         }
     </script>
-    <script>
-        $(document).ready(function () {
-            $('#deleteForm').submit(function (event) {
-                event.preventDefault();
-                // if (confirm('آیا مطمئن هستید که می‌خواهید این رکورد را حذف کنید؟')) {
-                //     var previousPage = document.referrer;
-                    $.ajax({
-                        url: $(this).attr('action'),
-                        type: "POST",
-                        data: $(this).serialize(),
-                        success: function (response) {
-                            // console.log(response.message);
-                            window.location.href = "{{route('admin.content.category.index')}}";
-                        },
-                        error: function (xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                // }
-            });
-        });
-    </script>
-
 @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])
 
 @endsection
