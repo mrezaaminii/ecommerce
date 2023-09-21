@@ -36,6 +36,7 @@ use App\Http\Controllers\Admin\Market\PropertyValueController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
 use App\Http\Controllers\Admin\Content\BannerController;
+use App\Http\Controllers\Customer\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -380,9 +381,7 @@ Route::namespace('Auth')->group(function (){
     Route::get('/logout',[LoginRegisterController::class,'logout'])->name('auth.customer.logout');
 });
 
-Route::get('/',function (){
-    return view('customer.home');
-})->name('customer.home');
+Route::get('/',[HomeController::class,'home'])->name('customer.home');
 
 
 Route::middleware([

@@ -94,7 +94,11 @@
                             <section class="col-12">
                                 <div class="form-group">
                                     <label for="">موقعیت</label>
-                                    <input type="text" class="form-control form-control-sm" name="position" value="{{old('position')}}">
+                                   <select name="position" class="form-control form-control-sm">
+                                       @foreach($positions as $key => $position)
+                                       <option value="{{$key}}" @if(old('position') == $key) selected @endif>{{$position}}</option>
+                                       @endforeach
+                                   </select>
                                 </div>
                                 <div class="mt-2 mb-2">
                                     @error('position')
