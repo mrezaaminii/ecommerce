@@ -7,7 +7,7 @@ class helper{
         return Jalalian::forge($date)->format($format);
     }
 
-    public function convertPersianToEnglish($number){
+    public static function convertPersianToEnglish($number){
         $number = str_replace('۰','0',$number);
         $number = str_replace('۱','1',$number);
         $number = str_replace('۲','2',$number);
@@ -21,7 +21,7 @@ class helper{
         return $number;
     }
 
-    public function convertEnglishToPersian($number){
+    public static function convertEnglishToPersian($number){
         $number = str_replace('0','۰',$number);
         $number = str_replace('1','۱',$number);
         $number = str_replace('2','۲',$number);
@@ -35,9 +35,9 @@ class helper{
         return $number;
     }
 
-    public function priceFormat($price){
+    public static function priceFormat($price){
         $price = number_format($price,0,'/','،');
-        $price = $this->convertEnglishToPersian($price);
+        $price = helper::convertEnglishToPersian($price);
         return $price;
     }
 

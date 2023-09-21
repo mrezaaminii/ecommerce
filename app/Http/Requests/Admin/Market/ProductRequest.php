@@ -23,12 +23,12 @@ class ProductRequest extends FormRequest
     {
         if ($this->isMethod('post')){
             return [
-                'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\ِِِِِِِِِِِِِِِء-ي., ]+$/u',
+                'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9۰-۹\ِِِِِِِِِِِِِِِء-ي., ]+$/u',
                 'introduction' => 'required|max:1000|min:5',
-                'weight' => 'required|numeric|min:1',
-                'length' => 'required|numeric|min:1',
-                'width' => 'required|numeric|min:1',
-                'height' => 'required|numeric|min:1',
+                'weight' => 'required|between:0,99.99',
+                'length' => 'required|between:0,99.99',
+                'width' => 'required|between:0,99.99',
+                'height' => 'required|between:0,99.99',
                 'price' => 'required|numeric',
                 'image' => 'required|image|mimes:png,jpg,jpeg,gif',
                 'status' => 'required|numeric|in:0,1',
@@ -43,7 +43,7 @@ class ProductRequest extends FormRequest
         }
         else{
             return [
-                'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9\ِِِِِِِِِِِِِِِء-ي., ]+$/u',
+                'name' => 'required|max:120|min:2|regex:/^[ا-یa-zA-Z0-9۰-۹\ِِِِِِِِِِِِِِِء-ي., ]+$/u',
                 'introduction' => 'required|max:1000|min:5',
                 'weight' => 'required|numeric|min:1',
                 'length' => 'required|numeric|min:1',
