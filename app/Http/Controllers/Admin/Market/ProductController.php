@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at','desc')->simplePaginate(15);
+        $products = Product::query()->orderBy('created_at','desc')->simplePaginate(15);
         return view('admin.market.product.index',compact('products'));
     }
 

@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Auth\Customer\LoginRegisterController;
 use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Admin\Market\GuaranteeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -165,6 +166,11 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
             Route::get('/color/{product}/create',[ProductColorController::class,'create'])->name('admin.market.color.create');
             Route::post('/color/{product}/store',[ProductColorController::class,'store'])->name('admin.market.color.store');
             Route::delete('/color/destroy/{product}/{productColor}',[ProductColorController::class,'destroy'])->name('admin.market.color.destroy');
+
+            Route::get('/guarantee/{product}',[GuaranteeController::class,'index'])->name('admin.market.guarantee.index');
+            Route::get('/guarantee/{product}/create',[GuaranteeController::class,'create'])->name('admin.market.guarantee.create');
+            Route::post('/guarantee/{product}/store',[GuaranteeController::class,'store'])->name('admin.market.guarantee.store');
+            Route::delete('/guarantee/destroy/{product}/{guarantee}',[GuaranteeController::class,'destroy'])->name('admin.market.guarantee.destroy');
         });
 
         Route::prefix('property')->group(function (){
