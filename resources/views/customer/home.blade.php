@@ -2,6 +2,9 @@
 @php
 use App\Helpers\helper;
 @endphp
+@section('head-tag')
+    <title>فروشگاه آمازون</title>
+@endsection
 @section('content')
     <section class="container-xxl my-4">
         <section class="row">
