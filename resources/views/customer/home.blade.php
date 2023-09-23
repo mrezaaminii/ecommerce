@@ -49,7 +49,7 @@ use App\Helpers\helper;
                                             <section class="product">
 {{--                                                <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>--}}
 {{--                                                <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>--}}
-                                                <a class="product-link" href="#">
+                                                <a class="product-link" href="{{route('customer.market.product',$mostVisitedProduct)}}">
                                                     <section class="product-image">
                                                         <img class="" src="{{asset($mostVisitedProduct->image['indexArray']['medium'])}}" alt="{{$mostVisitedProduct->title}}">
                                                     </section>
@@ -116,7 +116,7 @@ use App\Helpers\helper;
                                             <section class="product">
                                                 {{--                                                <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>--}}
                                                 {{--                                                <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>--}}
-                                                <a class="product-link" href="#">
+                                                <a class="product-link" href="{{route('customer.market.product',$offerProduct)}}">
                                                     <section class="product-image">
                                                         <img class="" src="{{asset($offerProduct->image['indexArray']['medium'])}}" alt="{{$offerProduct->name}}">
                                                     </section>

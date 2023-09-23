@@ -11,7 +11,6 @@ class ImageCacheService
 
     public function cache($imagePath, $size = '')
     {
-        //set image size
         $imageSizes = Config::get('image.cache-image-sizes');
         if(!isset($imageSizes[$size]))
         {
@@ -20,8 +19,6 @@ class ImageCacheService
         $width = $imageSizes[$size]['width'];
         $height = $imageSizes[$size]['height'];
 
-
-        //cache image
         if(file_exists($imagePath))
         {
             $img = Image::cache(function($image) use ($imagePath, $width, $height) {
@@ -40,10 +37,6 @@ class ImageCacheService
             });
             return $img->response();
         }
-
-
-
-
     }
 
 }

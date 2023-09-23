@@ -70,7 +70,7 @@ class LoginRegisterController extends Controller
             $smsService->setText("مجموعه آمازون \n کد تایید : $otpCode");
             $smsService->setIsFlash(true);
 
-            $messageService = new MessageService($smsService);
+            $messagesService = new MessageService($smsService);
         }
         elseif($type === 1){
             $emailService = new EmailService();
@@ -84,9 +84,10 @@ class LoginRegisterController extends Controller
             $emailService->setTo($inputs['id']);
 
             $messagesService = new MessageService($emailService);
-
         }
         $messagesService->send();
+
+
 
         return redirect()->route('auth.customer.login-confirm-form',$token);
     }
@@ -150,7 +151,7 @@ class LoginRegisterController extends Controller
             $smsService->setText("مجموعه آمازون \n کد تایید : $otpCode");
             $smsService->setIsFlash(true);
 
-            $messageService = new MessageService($smsService);
+            $messagesService = new MessageService($smsService);
         }
         elseif($otp->type === 1){
             $emailService = new EmailService();

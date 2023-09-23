@@ -127,7 +127,7 @@ class MeliPayamakService
     public function SendSmsSoapClient($from, array $to, $text, $isFlash = true){
         ini_set("soap.wsdl_cache_enabled", "0");
         try {
-            $client = new SoapClient('http://api.payamak-panel.com/post/send.asmx?wsdl', array('encoding'=>'UTF-8'));
+            $client = new \SoapClient('http://api.payamak-panel.com/post/send.asmx?wsdl', array('encoding'=>'UTF-8'));
             $parameters['username'] = $this->username;
             $parameters['password'] = $this->password;
             $parameters['from'] = $from;
@@ -138,7 +138,7 @@ class MeliPayamakService
             $parameters['recId'] = array(0);
             $parameters['status'] = 0x0;
             $GetCreditResult = $client->GetCredit(array("username"=>$this->username,"password"=>$this->password))->GetCreditResult;
-            $sendSmsResult = $client->sensSms($parameters)->SendSmsResult;
+            $sendSmsResult = $client->SendSms($parameters)->SendSmsResult;
             if ($GetCreditResult == 0 && $sendSmsResult == 1){
                 return true;
             }else{
