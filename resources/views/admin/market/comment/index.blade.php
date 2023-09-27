@@ -54,7 +54,7 @@ use Illuminate\Support\Str;
                             <td>{{$comment->author_id}}</td>
                             <td>{{$comment->user->fullName}}</td>
                             <td>{{$comment->commentable_id}}</td>
-                            <td>{{$comment->commentable->name}}</td>
+                            <td>{{$comment->commentable->name ?? '-'}}</td>
                             <td>{{$comment->approved ? 'تایید شده' : 'در انتظار تایید'}}</td>
                             <td>
                                 <label>

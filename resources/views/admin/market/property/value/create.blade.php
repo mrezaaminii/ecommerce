@@ -1,5 +1,8 @@
 @extends('admin.layouts.master')
 
+@php
+use App\Models\Admin\Market\Product;
+@endphp
 @section('head-tag')
     <title>مقدار فرم کالا</title>
 @endsection
@@ -33,9 +36,11 @@
                                     <label for="">انتخاب محصول</label>
                                     <select name="product_id" id="" class="form-control form-control-sm">
                                         <option value="">محصول را انتخاب کنید</option>
-                                        @foreach ($categoryAttribute->category->products as $product)
+{{--                                        @foreach ($categoryAttribute->category->products as $product)--}}
+                                        @foreach( $products = Product::all() as $product )
                                             <option value="{{ $product->id }}" @if(old('product_id') == $product->id) selected @endif>{{ $product->name }}</option>
                                         @endforeach
+{{--                                        @endforeach--}}
                                     </select>
                                 </div>
                                 @error('product_id')

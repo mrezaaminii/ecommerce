@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
@@ -45,7 +46,7 @@ class Product extends Model
     }
 
     public function values(){
-        return $this->hasMany(CategoryValue::class);
+        return $this->hasMany(CategoryValue::class,'product_id');
     }
 
     public function comments()
@@ -64,4 +65,9 @@ class Product extends Model
     public function activeAmazingSales(){
         return $this->amazingSales()->where('start_date','<',Carbon::now())->where('end_date','>',Carbon::now())->first();
     }
+
+    public function activeComments(){
+        return $this->comments()->where('approved',1)->whereNull('parent_id')->get();
+    }
+
 }

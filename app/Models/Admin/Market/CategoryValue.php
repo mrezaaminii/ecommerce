@@ -11,10 +11,10 @@ class CategoryValue extends Model
     use HasFactory,SoftDeletes;
     protected $fillable = ['product_id','type','value','category_attribute_id'];
     public function attribute(){
-        return $this->belongsTo(CategoryAttribute::class);
+        return $this->belongsTo(CategoryAttribute::class,'category_attribute_id');
     }
 
     public function product(){
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class,'product_id');
     }
 }
