@@ -442,8 +442,13 @@
             }
             var product_price = product_original_price + selected_color_price + selected_guarantee_price;
             var final_price = number * (product_price - product_discount_price);
-            $('#product_price').html(product_price);
-            $('#final-price').html(final_price);
+            $('#product_price').html(toFarsiNumber(product_price));
+            $('#final-price').html(toFarsiNumber(final_price));
+        }
+        function toFarsiNumber(number){
+            const farsiDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+            number = new Intl.NumberFormat().format(number);
+            return number.toString().replace(/\d/g,x => farsiDigits[x]);
         }
     </script>
 @endsection
