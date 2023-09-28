@@ -1,6 +1,6 @@
 @extends('customer.layouts.master-one-col')
 @php
-use App\Helpers\helper;
+    use App\Helpers\helper;
 @endphp
 @section('head-tag')
     <title>فروشگاه آمازون</title>
@@ -47,8 +47,10 @@ use App\Helpers\helper;
                                     <section class="item">
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
-{{--                                                <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>--}}
-{{--                                                <section class="product-add-to-favorite"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a></section>--}}
+                                                {{--                                                <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>--}}
+                                                <section class="product-add-to-favorite">
+                                                    <button class="btn btn-light btn-sm add_to_favorite" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart text-dark"></i></button>
+                                                </section>
                                                 <a class="product-link" href="{{route('customer.market.product',$mostVisitedProduct)}}">
                                                     <section class="product-image">
                                                         <img class="" src="{{asset($mostVisitedProduct->image['indexArray']['medium'])}}" alt="{{$mostVisitedProduct->title}}">
@@ -56,17 +58,17 @@ use App\Helpers\helper;
                                                     <section class="product-colors"></section>
                                                     <section class="product-name"><h3>{{Str::limit($mostVisitedProduct->name,20)}}</h3></section>
                                                     <section class="product-price-wrapper">
-{{--                                                        <section class="product-discount">--}}
-{{--                                                            <span class="product-old-price"></span>--}}
-{{--                                                            <span class="product-discount-amount">10%</span>--}}
-{{--                                                        </section>--}}
+                                                        {{--                                                        <section class="product-discount">--}}
+                                                        {{--                                                            <span class="product-old-price"></span>--}}
+                                                        {{--                                                            <span class="product-discount-amount">10%</span>--}}
+                                                        {{--                                                        </section>--}}
                                                         <section class="product-price">{{helper::priceFormat($mostVisitedProduct->price)}} تومان</section>
                                                     </section>
-{{--                                                    <section class="product-colors">--}}
-{{--                                                        <section class="product-colors-item" style="background-color: white;"></section>--}}
-{{--                                                        <section class="product-colors-item" style="background-color: blue;"></section>--}}
-{{--                                                        <section class="product-colors-item" style="background-color: red;"></section>--}}
-{{--                                                    </section>--}}
+                                                    <section class="product-colors">
+                                                        @foreach($mostVisitedProduct->colors as $color)
+                                                            <section class="product-colors-item" style="background-color: {{$color->color}};"></section>
+                                                        @endforeach
+                                                    </section>
                                                 </a>
                                             </section>
                                         </section>
@@ -83,11 +85,11 @@ use App\Helpers\helper;
         <section class="container-xxl">
             <section class="row py-4">
                 @foreach($middleBanners as $middleBanner)
-                <section class="col-12 col-md-6 mt-2 mt-md-0">
-                    <a href="{{urldecode($middleBanner->url)}}">
-                    <img class="d-block rounded-2 w-100" src="{{$middleBanner->image}}" alt="{{$middleBanner->title}}">
-                    </a>
-                </section>
+                    <section class="col-12 col-md-6 mt-2 mt-md-0">
+                        <a href="{{urldecode($middleBanner->url)}}">
+                            <img class="d-block rounded-2 w-100" src="{{$middleBanner->image}}" alt="{{$middleBanner->title}}">
+                        </a>
+                    </section>
                 @endforeach
             </section>
 
@@ -129,11 +131,11 @@ use App\Helpers\helper;
                                                         {{--                                                        </section>--}}
                                                         <section class="product-price">{{helper::priceFormat($offerProduct->price)}} تومان</section>
                                                     </section>
-                                                    {{--                                                    <section class="product-colors">--}}
-                                                    {{--                                                        <section class="product-colors-item" style="background-color: white;"></section>--}}
-                                                    {{--                                                        <section class="product-colors-item" style="background-color: blue;"></section>--}}
-                                                    {{--                                                        <section class="product-colors-item" style="background-color: red;"></section>--}}
-                                                    {{--                                                    </section>--}}
+                                                    <section class="product-colors">
+                                                        @foreach($offerProduct->colors as $color)
+                                                            <section class="product-colors-item" style="background-color: {{$color->color}};"></section>
+                                                        @endforeach
+                                                    </section>
                                                 </a>
                                             </section>
                                         </section>
@@ -150,11 +152,11 @@ use App\Helpers\helper;
         <section class="mb-3">
             <section class="container-xxl">
                 <section class="row py-4">
-                        <section class="col-12 mt-2 mt-md-0">
-                            <a href="{{urldecode($bottomBanner->url)}}">
-                                <img class="d-block rounded-2 w-100" src="{{$bottomBanner->image}}" alt="{{$bottomBanner->title}}">
-                            </a>
-                        </section>
+                    <section class="col-12 mt-2 mt-md-0">
+                        <a href="{{urldecode($bottomBanner->url)}}">
+                            <img class="d-block rounded-2 w-100" src="{{$bottomBanner->image}}" alt="{{$bottomBanner->title}}">
+                        </a>
+                    </section>
                 </section>
 
             </section>
@@ -182,11 +184,11 @@ use App\Helpers\helper;
                     <section class="brands-wrapper py-4" >
                         <section class="brands dark-owl-nav owl-carousel owl-theme">
                             @foreach($brands as $brand)
-                            <section class="item">
-                                <section class="brand-item">
-                                    <a href=""><img class="rounded-2" src="{{asset($brand->logo['indexArray']['medium'])}}" alt="{{$brand->original_name}}"></a>
+                                <section class="item">
+                                    <section class="brand-item">
+                                        <a href=""><img class="rounded-2" src="{{asset($brand->logo['indexArray']['medium'])}}" alt="{{$brand->original_name}}"></a>
+                                    </section>
                                 </section>
-                            </section>
                             @endforeach
                         </section>
                     </section>
@@ -194,4 +196,12 @@ use App\Helpers\helper;
             </section>
         </section>
     </section>
+@endsection
+
+@section('script')
+    <script>
+        $('.add_to_favorite').click(function () {
+            alert('hi')
+        })
+    </script>
 @endsection
