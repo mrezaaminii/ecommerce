@@ -4,6 +4,18 @@
 @endphp
 @section('head-tag')
     <title>فروشگاه آمازون</title>
+    <style>
+        .product-add-to-favorite button:active{
+            outline: none;
+            border: none;
+            box-shadow: none;
+        }
+        .product-add-to-favorite button:focus{
+            outline: none;
+            border: none;
+            box-shadow: none;
+        }
+    </style>
 @endsection
 @section('content')
     <section class="container-xxl my-4">
@@ -48,9 +60,26 @@
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
                                                 {{--                                                <section class="product-add-to-cart"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a></section>--}}
-                                                <section class="product-add-to-favorite">
-                                                    <button class="btn btn-light btn-sm add_to_favorite" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart text-dark"></i></button>
-                                                </section>
+                                                @guest
+                                                    <section class="product-add-to-favorite">
+                                                        <button class="btn btn-light btn-sm text-decoration-none" data-url="{{ route('customer.market.add-to-favorite', $mostVisitedProduct) }}" data-bs-toggle="tooltip" data-bs-placement="left" title="اضافه از علاقه مندی">
+                                                            <i class="fa fa-heart"></i>
+                                                        </button>
+                                                    </section>
+                                                @endguest
+                                                @auth
+                                                    @if($mostVisitedProduct->user->contains(auth()->user()->id))
+                                                        <section class="product-add-to-favorite">
+                                                            <button class="btn btn-light btn-sm" data-url="{{route('customer.market.add-to-favorite',$mostVisitedProduct)}}" data-bs-toggle="tooltip" data-bs-placement="left" title="حذف از علاقه مندی"><i class="fa fa-heart text-danger"></i>
+                                                            </button>
+                                                        </section>
+                                                    @else
+                                                        <section class="product-add-to-favorite">
+                                                            <button class="btn btn-light btn-sm border-none" data-url="{{route('customer.market.add-to-favorite',$mostVisitedProduct)}}" data-bs-toggle="tooltip" data-bs-placement="left" title="افزودن به علاقه مندی"><i class="fa fa-heart"></i>
+                                                            </button>
+                                                        </section>
+                                                    @endif
+                                                @endauth
                                                 <a class="product-link" href="{{route('customer.market.product',$mostVisitedProduct)}}">
                                                     <section class="product-image">
                                                         <img class="" src="{{asset($mostVisitedProduct->image['indexArray']['medium'])}}" alt="{{$mostVisitedProduct->title}}">
@@ -196,12 +225,49 @@
             </section>
         </section>
     </section>
+
+    <section class="position-fixed flex-row-reverse p-4" style="left: 0;top: 3rem; z-index: 900000000; width: 26rem;max-width: 80%">
+        <section class="toast" data-delay="5000">
+            <section class="toast-body bg-info d-flex text-dark py-3">
+                <strong class="ml-auto">
+                    برای افزودن به لیست علاقه مندی ها باید ابتدا وارد حساب کاربری خود شوید
+                    <br>
+                    <a href="{{route('auth.customer.login-register-form')}}" class="text-dark">
+                        ورود / ثبت نام
+                    </a>
+                </strong>
+                <button type="button" class="ml-2 mb-1 close btn btn-danger" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </section>
+        </section>
+    </section>
 @endsection
 
 @section('script')
     <script>
-        $('.add_to_favorite').click(function () {
-            alert('hi')
+        $('.product-add-to-favorite button').click(function () {
+            var url = $(this).attr('data-url');
+            var element = $(this);
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (result) {
+                    if (result.status == 1){
+                        element.children().first().addClass('text-danger');
+                        element.attr('data-original-title','حذف از علاقه مندی');
+                        element.attr('data-bs-original-title','حذف از علاقه مندی');
+                    }
+                    else if(result.status == 2){
+                        element.children().first().removeClass('text-danger');
+                        element.attr('data-original-title','افزودن به علاقه مندی');
+                        element.attr('data-bs-original-title','افزودن به علاقه مندی');
+                    }
+                    else if(result.status == 3){
+                        $('.toast').toast('show');
+                    }
+                }
+            })
         })
     </script>
 @endsection
