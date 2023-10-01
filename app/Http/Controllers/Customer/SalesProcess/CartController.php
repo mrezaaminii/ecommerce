@@ -12,7 +12,14 @@ use Illuminate\Support\Facades\Validator;
 class CartController extends Controller
 {
     public function cart(){
-
+        if (Auth::check()){
+            $cartItems = CartItem::query()->where('user_id',auth()->id())->get();
+            $relatedProducts = Product::all();
+            return view('customer.sales-process.cart',compact('cartItems','relatedProducts'));
+        }
+        else{
+            return redirect()->route('auth.customer.login-register-form');
+        }
     }
 
     public function updateCart(){
