@@ -390,6 +390,13 @@ Route::namespace('Auth')->group(function (){
 
 Route::get('/',[HomeController::class,'home'])->name('customer.home');
 
+Route::namespace('SalesProcess')->group(function (){
+    Route::get('/cart',[CartController::class,'cart'])->name('customer.sales-process.cart');
+    Route::post('/cart',[CartController::class,'updateCart'])->name('customer.sales-process.update-cart');
+    Route::post('/add-to-cart/{product:slug}',[CartController::class,'addToCart'])->name('customer.sales-process.add-to-cart');
+    Route::post('/remove-from-cart/{cartItem}',[CartController::class,'removeFromCart'])->name('customer.sales-process.remove-from-cart');
+});
+
 Route::namespace('Market')->group(function (){
     Route::get('/product/{product:slug}',[MarketProductController::class,'product'])->name('customer.market.product');
     Route::post('/product/add-comment/{product:slug}',[MarketProductController::class,'addComment'])->name('customer.market.add-comment');
