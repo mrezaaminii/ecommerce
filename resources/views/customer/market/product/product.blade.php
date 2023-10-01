@@ -79,6 +79,8 @@
                                     </section>
                                 </section>
                                 <section class="product-info">
+                                    <form id="add_to_cart" action="{{route('customer.sales-process.add-to-cart',$product)}}" method="post">
+                                        @csrf
                                     @php
                                         $colors = $product->colors;
                                     @endphp
@@ -122,17 +124,17 @@
                                     </p>
                                     @guest
                                         <section class="product-add-to-favorite position-static" style="top: 0">
-                                            <button class="btn btn-light btn-sm text-decoration-none" data-url="{{route('customer.market.add-to-favorite',$product)}}"><i class="fa fa-heart"></i> افزودن به علاقه مندی</button>
+                                            <button type="button" class="btn btn-light btn-sm text-decoration-none" data-url="{{route('customer.market.add-to-favorite',$product)}}"><i class="fa fa-heart"></i> افزودن به علاقه مندی</button>
                                         </section>
                                     @endguest
                                     @auth
                                         @if($product->user->contains(auth()->user()->id))
                                             <section class="product-add-to-favorite position-static" style="top: 0;margin-top: 0">
-                                                <button class="btn btn-light btn-sm text-decoration-none" data-url="{{route('customer.market.add-to-favorite',$product)}}"><i class="fa fa-heart text-danger"></i> حذف از علاقه مندی</button>
+                                                <button type="button" class="btn btn-light btn-sm text-decoration-none" data-url="{{route('customer.market.add-to-favorite',$product)}}"><i class="fa fa-heart text-danger"></i> حذف از علاقه مندی</button>
                                             </section>
                                         @else
                                         <section class="product-add-to-favorite position-static" style="top: 0">
-                                            <button class="btn btn-light btn-sm text-decoration-none" data-url="{{route('customer.market.add-to-favorite',$product)}}"><i class="fa fa-heart"></i> افزودن به علاقه مندی</button>
+                                            <button type="button" class="btn btn-light btn-sm text-decoration-none" data-url="{{route('customer.market.add-to-favorite',$product)}}"><i class="fa fa-heart"></i> افزودن به علاقه مندی</button>
                                         </section>
                                         @endif
                                     @endauth
@@ -176,15 +178,16 @@
 
                                 @if($product->marketable_number > 0)
                                     <section class="">
-                                        <a id="next-level" href="#" class="btn btn-danger d-block">افزودن به سبد خرید</a>
+                                        <button type="submit" id="next-level" class="btn btn-danger d-block w-100" onclick="document.getElementById('add_to_cart').submit();">افزودن به سبد خرید</button>
                                     </section>
                                 @endif
                                 @empty($product->marketable_number > 0)
                                     <section class="">
-                                        <a id="next-level" href="#" class="btn btn-danger d-block disabled">محصول ناموجود است</a>
+                                        <button id="next-level" class="btn btn-danger d-block w-100 disabled">محصول ناموجود است</button>
                                     </section>
                                 @endempty
                             </section>
+                            </form>
                         </section>
                     </section>
                 </section>
@@ -537,5 +540,20 @@
                 }
             })
         })
+    </script>
+    <script>
+        $(document).ready(function() {
+            var s = $("#introduction-features-comments");
+            var pos = s.position();
+            $(window).scroll(function() {
+                var windowpos = $(window).scrollTop();
+
+                if (windowpos >= pos.top) {
+                    s.addClass("stick");
+                } else {
+                    s.removeClass("stick");
+                }
+            });
+        });
     </script>
 @endsection

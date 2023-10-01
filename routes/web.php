@@ -39,6 +39,7 @@ use App\Http\Controllers\Admin\Content\BannerController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Admin\Market\GuaranteeController;
 use App\Http\Controllers\Customer\Market\ProductController as MarketProductController;
+use App\Http\Controllers\Customer\SalesProcess\CartController;
 
 /*
 |--------------------------------------------------------------------------

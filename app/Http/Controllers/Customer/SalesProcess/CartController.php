@@ -24,7 +24,7 @@ class CartController extends Controller
             Validator::make((array)$request,[
                 'color' => 'nullable|exists:product_colors,id',
                 'guarantee' => 'nullable|exists:guarantees,id',
-                'number' => 'numeric|required|min:1|max:5'
+                'number' => 'numeric|min:1|max:5'
             ]);
             $cartItems = CartItem::query()->where('product_id',$product->id)->where('user_id',auth()->id())->get();
             if (!isset($request->color)){
@@ -38,7 +38,7 @@ class CartController extends Controller
                 if ($cartItem->color_id == $request->color && $cartItem->guarantee_id == $request->guarantee){
                     if ($cartItem->number != $request->number){
                         $cartItem->update([
-                            $request->number
+                            'number' => $request->number
                         ]);
                     }
                     return back();
@@ -53,7 +53,7 @@ class CartController extends Controller
             $inputs['number'] = $request->number;
 
             CartItem::query()->create($inputs);
-            return back();
+            return back()->with('swal-success','محصول با موفقیت به سبد خرید اضافه شد');
         }
         else{
             return redirect()->route('auth.customer.login-register-form');
