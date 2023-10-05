@@ -44,7 +44,7 @@
                                             <p class="fw-bold">{{ $cartItem->product->name }}</p>
                                             @if (!empty($cartItem->color))
                                                 <p><span style="background-color: {{ $cartItem->color->color }};"
-                                                        class="cart-product-selected-color me-1"></span> <span>
+                                                         class="cart-product-selected-color me-1"></span> <span>
                                                         {{ $cartItem->color->name }}</span></p>
                                             @endif
                                             @if (!empty($cartItem->guarantee))
@@ -57,11 +57,11 @@
                                                 <section class="cart-product-number d-inline-block ">
                                                     <button class="cart-number cart-number-down" type="button">-</button>
                                                     <input class="number" data-product-price="{{ $cartItem->cartItemProductPrice() }}" data-product-discount="{{ $cartItem->cartItemProductDiscount() }}" type="number" min="1" max="5"
-                                                        step="1" value="{{ $cartItem->number }}" readonly="readonly">
+                                                           step="1" value="{{ $cartItem->number }}" readonly="readonly">
                                                     <button class="cart-number cart-number-up" type="button">+</button>
                                                 </section>
-                                                <a class="text-decoration-none ms-4 cart-delete" href="#"><i
-                                                        class="fa fa-trash-alt"></i> حذف از سبد</a>
+                                                <a class="text-decoration-none ms-4 cart-delete" href="{{route('customer.sales-process.remove-from-cart',$cartItem)}}"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
+
                                             </section>
                                         </section>
                                         <section class="align-self-end flex-shrink-1">
@@ -143,18 +143,18 @@
                                         <section class="lazyload-item-wrapper">
                                             <section class="product">
                                                 <section class="product-add-to-cart"><a href="#"
-                                                        data-bs-toggle="tooltip" data-bs-placement="left"
-                                                        title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a>
+                                                                                        data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                                        title="افزودن به سبد خرید"><i class="fa fa-cart-plus"></i></a>
                                                 </section>
                                                 <section class="product-add-to-favorite"><a href="#"
-                                                        data-bs-toggle="tooltip" data-bs-placement="left"
-                                                        title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a>
+                                                                                            data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                                            title="افزودن به علاقه مندی"><i class="fa fa-heart"></i></a>
                                                 </section>
                                                 <a class="product-link" href="{{ route('customer.market.product',$relatedProduct) }}">
                                                     <section class="product-image">
                                                         <img class=""
-                                                            src="{{ asset($relatedProduct->image['indexArray']['medium']) }}"
-                                                            alt="">
+                                                             src="{{ asset($relatedProduct->image['indexArray']['medium']) }}"
+                                                             alt="">
                                                     </section>
                                                     <section class="product-name">
                                                         <h3>پکیج آموزش خطاطی و خوشنویسی با کد 624</h3>
@@ -164,9 +164,9 @@
                                                     </section>
                                                     <section class="product-colors">
                                                         @foreach ($relatedProduct->colors as $color)
-                                                        <section class="product-colors-item"
-                                                            style="background-color: {{ $color->color }};">
-                                                        </section>
+                                                            <section class="product-colors-item"
+                                                                     style="background-color: {{ $color->color }};">
+                                                            </section>
                                                         @endforeach
                                                     </section>
                                                 </a>
@@ -184,6 +184,7 @@
 @endsection
 
 @section('script')
+{{--    @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])--}}
     <script>
         $(document).ready(function() {
             bill();
@@ -197,18 +198,18 @@
             var total_discount = 0;
             var total_price= 0;
 
-          $('.number').each(function () {
+            $('.number').each(function () {
                 var productPrice = parseFloat($(this).data('product-price'))
                 var productDiscount = parseFloat($(this).data('product-discount'))
                 var number = parseFloat($(this).val())
 
                 total_product_price += productPrice * number;
                 total_discount += productDiscount * number;
-           })
-           total_price = total_product_price - total_discount;
-           $('#total_product_price').html(toFarsiNumber(total_product_price))
-           $('#total_discount').html(toFarsiNumber(total_discount))
-           $('#total_price').html(toFarsiNumber(total_price))
+            })
+            total_price = total_product_price - total_discount;
+            $('#total_product_price').html(toFarsiNumber(total_product_price))
+            $('#total_discount').html(toFarsiNumber(total_discount))
+            $('#total_price').html(toFarsiNumber(total_price))
         }
         function toFarsiNumber(number){
             const farsiDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
@@ -216,4 +217,5 @@
             return number.toString().replace(/\d/g,x => farsiDigits[x]);
         }
     </script>
+
 @endsection
