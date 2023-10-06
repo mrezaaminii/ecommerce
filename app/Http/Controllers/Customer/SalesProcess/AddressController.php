@@ -11,9 +11,6 @@ class AddressController extends Controller
 {
     public function addressAndDelivery(){
         $user = Auth::user();
-        if (empty($user->full_name) || empty($user->mobile) || empty($user->national_code)){
-            return redirect()->route('customer.sales-process.profile-completion');
-        }
         if (empty(CartItem::query()->where('user_id',$user->id)->count())){
             return redirect()->route('customer.sales-process.cart');
         }
