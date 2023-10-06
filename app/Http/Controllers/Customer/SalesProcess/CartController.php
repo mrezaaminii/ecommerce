@@ -70,8 +70,10 @@ class CartController extends Controller
     public function removeFromCart(CartItem $cartItem){
         if ($cartItem->user_id === Auth::id()){
             $cartItem->delete();
+            return response()->json([
+                'status' => 1
+            ]);
         }
-        return back();
     }
 
 }

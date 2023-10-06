@@ -5,6 +5,13 @@
 @endphp
 @section('head-tag')
     <title>سبد خرید</title>
+    <style>
+        .delete:focus,.delete:active{
+            outline: none;
+            border: none;
+            box-shadow: none;
+        }
+    </style>
 @endsection
 @section('content')
     <section class="mb-4">
@@ -30,13 +37,14 @@
                                 @php
                                     $totalPrice = 0;
                                     $totalDiscount = 0;
+                                    $number = 0;
                                 @endphp
                                 @foreach ($cartItems as $cartItem)
                                     @php
                                         $totalPrice += $cartItem->cartItemProductPrice();
                                         $totalDiscount += $cartItem->cartItemProductDiscount();
                                     @endphp
-                                    <section class="cart-item d-md-flex py-3">
+                                    <section class="cart-item d-md-flex py-3" id="{{$number}}" data-id="{{$number}}">
                                         <section class="cart-img align-self-start flex-shrink-1"><img
                                                 src="{{ asset($cartItem->product->image['indexArray']['medium']) }}"
                                                 alt=""></section>
@@ -56,11 +64,11 @@
                                             <section>
                                                 <section class="cart-product-number d-inline-block ">
                                                     <button class="cart-number cart-number-down" type="button">-</button>
-                                                    <input class="number" data-product-price="{{ $cartItem->cartItemProductPrice() }}" data-product-discount="{{ $cartItem->cartItemProductDiscount() }}" type="number" min="1" max="5"
+                                                    <input class="number" name="number" data-product-price="{{ $cartItem->cartItemProductPrice() }}" data-product-discount="{{ $cartItem->cartItemProductDiscount() }}" type="number" min="1" max="5"
                                                            step="1" value="{{ $cartItem->number }}" readonly="readonly">
                                                     <button class="cart-number cart-number-up" type="button">+</button>
                                                 </section>
-                                                <a class="text-decoration-none ms-4 cart-delete" href="{{route('customer.sales-process.remove-from-cart',$cartItem)}}"><i class="fa fa-trash-alt"></i> حذف از سبد</a>
+                                                <button type="button" class="btn btn-sm ms-4 cart-delete delete" data-url="{{route('customer.sales-process.remove-from-cart',$cartItem)}}"><i class="fa fa-trash-alt"></i> حذف از سبد</button>
 
                                             </section>
                                         </section>
@@ -74,6 +82,9 @@
                                                 {{ helper::priceFormat($cartItem->cartItemProductPrice()) }} تومان</section>
                                         </section>
                                     </section>
+                                    @php
+                                        $number++;
+                                    @endphp
                                 @endforeach
                             </form>
                         </section>
@@ -184,7 +195,7 @@
 @endsection
 
 @section('script')
-{{--    @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])--}}
+    {{--    @include('admin.alerts.sweetalert.delete-confirm',['className' => 'delete'])--}}
     <script>
         $(document).ready(function() {
             bill();
@@ -217,5 +228,20 @@
             return number.toString().replace(/\d/g,x => farsiDigits[x]);
         }
     </script>
-
+    <script>
+        $('.delete').click(function () {
+            var element = $(this);
+            var url = $(this).data('url')
+            var id = $('.cart-item').data('id')
+            $.ajax({
+                url:url,
+                type: "GET",
+                success:function (response) {
+                   if (response.status == 1){
+                        $('#' + id).remove()
+                   }
+                }
+            })
+        })
+    </script>
 @endsection
