@@ -40,6 +40,8 @@ use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Admin\Market\GuaranteeController;
 use App\Http\Controllers\Customer\Market\ProductController as MarketProductController;
 use App\Http\Controllers\Customer\SalesProcess\CartController;
+use App\Http\Controllers\Customer\SalesProcess\AddressController;
+use App\Http\Controllers\Customer\SalesProcess\ProfileCompletionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -396,6 +398,10 @@ Route::namespace('SalesProcess')->group(function (){
     Route::post('/cart',[CartController::class,'updateCart'])->name('customer.sales-process.update-cart');
     Route::post('/add-to-cart/{product:slug}',[CartController::class,'addToCart'])->name('customer.sales-process.add-to-cart');
     Route::get('/remove-from-cart/{cartItem}',[CartController::class,'removeFromCart'])->name('customer.sales-process.remove-from-cart');
+    Route::get('/address-and-delivery',[AddressController::class,'addressAndDelivery'])->name('customer.sales-process.address-and-delivery');
+    Route::post('/add-address',[AddressController::class,'addAddress'])->name('customer.sales-process.add-address');
+    Route::get('/profile-completion',[ProfileCompletionController::class,'profileCompletion'])->name('customer.sales-process.profile-completion');
+    Route::post('/profile-completion',[ProfileCompletionController::class,'update'])->name('customer.sales-process.profile-completion-update');
 });
 
 Route::namespace('Market')->group(function (){

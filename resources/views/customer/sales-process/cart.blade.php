@@ -32,7 +32,7 @@
 
                     <section class="row mt-4">
                         <section class="col-md-9 mb-3">
-                            <form action="" id="cart_items" class="content-wrapper bg-white p-3 rounded-2">
+                            <form action="" id="cart_items" class="content-wrapper bg-white p-3 rounded-2" method="post">
                                 @csrf
                                 @php
                                     $totalPrice = 0;
@@ -64,7 +64,7 @@
                                             <section>
                                                 <section class="cart-product-number d-inline-block ">
                                                     <button class="cart-number cart-number-down" type="button">-</button>
-                                                    <input class="number" name="number" data-product-price="{{ $cartItem->cartItemProductPrice() }}" data-product-discount="{{ $cartItem->cartItemProductDiscount() }}" type="number" min="1" max="5"
+                                                    <input class="number" name="number[{{$cartItem->id}}]" data-product-price="{{ $cartItem->cartItemProductPrice() }}" data-product-discount="{{ $cartItem->cartItemProductDiscount() }}" type="number" min="1" max="5"
                                                            step="1" value="{{ $cartItem->number }}" readonly="readonly">
                                                     <button class="cart-number cart-number-up" type="button">+</button>
                                                 </section>
@@ -117,7 +117,7 @@
 
 
                                 <section class="">
-                                    <a href="address.html" class="btn btn-danger d-block">تکمیل فرآیند خرید</a>
+                                    <button href="address.html" onclick="document.getElementById('cart_items').submit();" class="btn btn-danger w-100 d-block">تکمیل فرآیند خرید</button>
                                 </section>
 
                             </section>
