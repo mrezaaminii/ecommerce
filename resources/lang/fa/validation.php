@@ -221,5 +221,6 @@ return [
         "otp" => "رمز یکبار مصرف",
         "price_increase" => "افزایش قیمت",
         "color" => "رنگ",
+        "national_code" => "کد ملی",
     ],
 ];

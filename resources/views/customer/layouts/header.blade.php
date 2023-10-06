@@ -52,9 +52,13 @@
                     @auth
                         <section class="header-cart d-inline ps-3 border-start position-relative">
                             <a class="btn btn-link position-relative text-dark header-cart-link" href="{{route('customer.sales-process.cart')}}">
-                                <i class="fa fa-shopping-cart"></i> <span style="top: 80%;" class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">2</span>
+                                <i class="fa fa-shopping-cart"></i>
+                                @if(!empty($cartItems->count()))
+                                <span style="top: 80%;" class="position-absolute start-0 translate-middle badge rounded-pill bg-danger">{{$cartItems->count()}}</span>
+                                @endif
                             </a>
                             <section class="header-cart-dropdown">
+                                @if(!empty($cartItems->count()))
                                 <section class="border-bottom d-flex justify-content-between p-2">
                                     <span class="text-muted">{{$cartItems->count()}} کالا</span>
                                     <a class="text-decoration-none text-info" href="{{route('customer.sales-process.cart')}}">مشاهده سبد خرید </a>
@@ -81,7 +85,11 @@
                                     <section class=""><section>مبلغ قابل پرداخت</section><section> {{\App\Helpers\helper::priceFormat($totalPrice - $totalDiscount)}} تومان</section></section>
                                     <section class=""><a class="btn btn-danger btn-sm d-block" href="cart.html">ثبت سفارش</a></section>
                                 </section>
+                                @else
+                                    <p>سبد خرید خالی است</p>
+                                @endif
                             </section>
+
                         </section>
                     @endauth
                 </section>
