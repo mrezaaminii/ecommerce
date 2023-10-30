@@ -37,14 +37,14 @@ class helper{
 
     public static function priceFormat($price){
         $price = number_format($price,0,'/','،');
-        $price = helper::convertEnglishToPersian($price);
+        $price = self::convertEnglishToPersian($price);
         return $price;
     }
 
     public static function validateNationalCode($nationalCode)
     {
         $nationalCode = trim($nationalCode,' .');
-        $nationalCode = helper::convertPersianToEnglish($nationalCode);
+        $nationalCode = self::convertPersianToEnglish($nationalCode);
         $bannedArray = ['0000000000', '1111111111', '2222222222', '3333333333', '4444444444', '5555555555', '6666666666', '7777777777', '8888888888', '9999999999'];
         if (empty($nationalCode)){
             return false;
@@ -81,5 +81,13 @@ class helper{
                 return false;
             }
         }
+    }
+
+    public static function validatePostalCode($postalCode)
+    {
+        $postalCode = self::convertPersianToEnglish($postalCode);
+        $pattern = "/\b(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}\b/";
+        return preg_match($pattern,$postalCode);
+
     }
 }

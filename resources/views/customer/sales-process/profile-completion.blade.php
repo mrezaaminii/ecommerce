@@ -29,7 +29,6 @@ use App\Helpers\helper;
                         <section class="col-md-9">
                             <form id="profile_completion" action="{{route('customer.sales-process.profile-completion-update')}}" method="post" class="content-wrapper bg-white p-3 rounded-2 mb-4">
                                 @csrf
-
                                 <section class="payment-alert alert alert-primary d-flex align-items-center p-2" role="alert">
                                     <i class="fa fa-info-circle flex-shrink-0 me-2"></i>
                                     <section>

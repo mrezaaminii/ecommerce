@@ -222,5 +222,6 @@ return [
         "price_increase" => "افزایش قیمت",
         "color" => "رنگ",
         "national_code" => "کد ملی",
+        "postal_code" => "کد پستی",
     ],
 ];
