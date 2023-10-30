@@ -18,7 +18,7 @@ class HomeController extends Controller
         $brands = Brand::all();
         $mostVisitedProducts = Product::query()->latest()->take(10)->get();
         $offerProducts = Product::query()->latest()->take(10)->get();
-        auth()->loginUsingId(9);
+        auth()->loginUsingId(10);
         return view('customer.home',compact('slideShowImages','topBanners','middleBanners','bottomBanner','brands','mostVisitedProducts','offerProducts'));
     }
 }

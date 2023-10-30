@@ -15,6 +15,8 @@ class NationalCode implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail):void
     {
-        helper::validateNationalCode($value);
+        if(!helper::validateNationalCode($value)){
+            $fail(":attribute معتبر نمیباشد");
+        };
     }
 }

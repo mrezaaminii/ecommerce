@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Customer\SalesProcess;
 
+use App\Rules\NationalCode;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProfileCompletionRequest extends FormRequest
@@ -24,9 +25,9 @@ class ProfileCompletionRequest extends FormRequest
         return [
             'first_name' => 'sometimes|required',
             'last_name' => 'sometimes|required',
-            'mobile' => 'sometimes|required|unique:users,mobile|min:10|max:13',
-            'email' => 'email|unique:users,email',
-            'national_code' => 'sometimes|required',
+            'mobile' => 'sometimes|nullable|unique:users,mobile|min:10|max:13',
+            'email' => 'sometimes|nullable|email|unique:users,email',
+            'national_code' => ['sometimes','required','unique:users,national_code',new NationalCode()],
         ];
     }
 }
