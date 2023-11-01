@@ -400,6 +400,7 @@ Route::namespace('SalesProcess')->group(function (){
     Route::get('/remove-from-cart/{cartItem}',[CartController::class,'removeFromCart'])->name('customer.sales-process.remove-from-cart');
     Route::middleware('profile.completion')->group(function (){
         Route::get('/address-and-delivery',[AddressController::class,'addressAndDelivery'])->name('customer.sales-process.address-and-delivery');
+        Route::get('/get-cities/{province}',[AddressController::class,'getCities'])->name('customer.sales-process.get-cities');
         Route::post('/add-address',[AddressController::class,'addAddress'])->name('customer.sales-process.add-address');
     });
     Route::get('/profile-completion',[ProfileCompletionController::class,'profileCompletion'])->name('customer.sales-process.profile-completion');
