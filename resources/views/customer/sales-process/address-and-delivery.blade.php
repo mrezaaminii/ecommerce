@@ -22,6 +22,13 @@
                             </section>
                         </section>
                     </section>
+                    @if($errors->any())
+                        <ul>
+                        @foreach($errors->all() as $error)
+                            <li style="color: red">{{$error}}</li>
+                        @endforeach
+                        </ul>
+                    @endif
 
                     <section class="row mt-4">
                         <section class="col-md-9">
@@ -82,11 +89,12 @@
                                                                 aria-label="Close"></button>
                                                     </section>
                                                     <section class="modal-body">
-                                                        <form class="row" action="#">
+                                                        <form class="row" method="post" action="{{route('customer.sales-process.add-address')}}">
+                                                            @csrf
                                                             <section class="col-6 mb-2">
                                                                 <label for="province"
                                                                        class="form-label mb-1">استان</label>
-                                                                <select class="form-select form-select-sm"
+                                                                <select name="province_id" class="form-select form-select-sm"
                                                                         id="province">
                                                                     <option selected>استان را انتخاب کنید</option>
                                                                     @foreach($provinces as $province)
@@ -96,33 +104,33 @@
                                                             </section>
                                                             <section class="col-6 mb-2">
                                                                 <label for="city" class="form-label mb-1">شهر</label>
-                                                                <select class="form-select form-select-sm" id="city">
+                                                                <select name="city_id" class="form-select form-select-sm" id="city">
                                                                     <option selected>شهر را انتخاب کنید</option>
                                                                 </select>
                                                             </section>
                                                             <section class="col-12 mb-2">
                                                                 <label for="address"
                                                                        class="form-label mb-1">نشانی</label>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                       id="address" placeholder="نشانی">
+                                                                <textarea name="address" class="form-control form-control-sm"
+                                                                          id="address" placeholder="نشانی"></textarea>
                                                             </section>
 
                                                             <section class="col-6 mb-2">
                                                                 <label for="postal_code" class="form-label mb-1">کد
                                                                     پستی</label>
-                                                                <input type="text" class="form-control form-control-sm"
+                                                                <input name="postal_code" type="text" class="form-control form-control-sm"
                                                                        id="postal_code" placeholder="کد پستی">
                                                             </section>
 
                                                             <section class="col-3 mb-2">
                                                                 <label for="no" class="form-label mb-1">پلاک</label>
-                                                                <input type="text" class="form-control form-control-sm"
+                                                                <input name="no" type="text" class="form-control form-control-sm"
                                                                        id="no" placeholder="پلاک">
                                                             </section>
 
                                                             <section class="col-3 mb-2">
                                                                 <label for="unit" class="form-label mb-1">واحد</label>
-                                                                <input type="text" class="form-control form-control-sm"
+                                                                <input name="unit" type="text" class="form-control form-control-sm"
                                                                        id="unit" placeholder="واحد">
                                                             </section>
 
@@ -130,10 +138,10 @@
 
                                                             <section class="col-12 mb-2">
                                                                 <section class="form-check">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                           value="" id="receiver">
+                                                                    <input name="receiver" class="form-check-input" type="checkbox"
+                                                                           id="receiver">
                                                                     <label class="form-check-label" for="receiver">
-                                                                        گیرنده سفارش خودم هستم
+                                                                        گیرنده سفارش خودم نیستم (اطلاعات زیر تکمیل شود)
                                                                     </label>
                                                                 </section>
                                                             </section>
@@ -141,34 +149,32 @@
                                                             <section class="col-6 mb-2">
                                                                 <label for="first_name" class="form-label mb-1">نام
                                                                     گیرنده</label>
-                                                                <input type="text" class="form-control form-control-sm"
+                                                                <input name="recipient_first_name" type="text" class="form-control form-control-sm"
                                                                        id="first_name" placeholder="نام گیرنده">
                                                             </section>
 
                                                             <section class="col-6 mb-2">
                                                                 <label for="last_name" class="form-label mb-1">نام
                                                                     خانوادگی گیرنده</label>
-                                                                <input type="text" class="form-control form-control-sm"
+                                                                <input name="recipient_last_name" type="text" class="form-control form-control-sm"
                                                                        id="last_name" placeholder="نام خانوادگی گیرنده">
                                                             </section>
 
                                                             <section class="col-6 mb-2">
                                                                 <label for="mobile" class="form-label mb-1">شماره
                                                                     موبایل</label>
-                                                                <input type="text" class="form-control form-control-sm"
+                                                                <input name="mobile" type="text" class="form-control form-control-sm"
                                                                        id="mobile" placeholder="شماره موبایل">
                                                             </section>
-
-
-                                                        </form>
                                                     </section>
                                                     <section class="modal-footer py-1">
-                                                        <button type="button" class="btn btn-sm btn-primary">ثبت آدرس
+                                                        <button type="submit" class="btn btn-sm btn-primary">ثبت آدرس
                                                         </button>
                                                         <button type="button" class="btn btn-sm btn-danger"
                                                                 data-bs-dismiss="modal">بستن
                                                         </button>
                                                     </section>
+                                                    </form>
                                                 </section>
                                             </section>
                                         </section>

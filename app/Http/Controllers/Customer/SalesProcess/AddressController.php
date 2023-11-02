@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Customer\SalesProcess;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customer\SalesProcess\StoreAddressRequest;
+use App\Models\Admin\Market\Address;
 use App\Models\City;
 use App\Models\Market\CartItem;
 use App\Models\Province;
@@ -21,8 +23,11 @@ class AddressController extends Controller
         return view('customer.sales-process.address-and-delivery',compact('cartItems','user','provinces'));
     }
 
-    public function addAddress(){
-
+    public function addAddress(StoreAddressRequest $request){
+        $inputs = $request->all();
+        $inputs['user_id'] = Auth::id();
+        Address::query()->create($inputs);
+        return back();
     }
 
     public function getCities(Province $province)

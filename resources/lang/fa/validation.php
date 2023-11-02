@@ -223,5 +223,11 @@ return [
         "color" => "رنگ",
         "national_code" => "کد ملی",
         "postal_code" => "کد پستی",
+        "province_id" => "استان",
+        "city_id" => "شهر",
+        "no" => "پلاک",
+        "unit" => "واحد",
+        "recipient_first_name" => "نام گیرنده",
+        "recipient_last_name" => "نام خانوادگی گیرنده",
     ],
 ];
