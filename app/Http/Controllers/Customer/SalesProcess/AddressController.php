@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer\SalesProcess;
 
+use App\Helpers\helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\SalesProcess\StoreAddressRequest;
 use App\Models\Admin\Market\Address;
@@ -26,6 +27,7 @@ class AddressController extends Controller
     public function addAddress(StoreAddressRequest $request){
         $inputs = $request->all();
         $inputs['user_id'] = Auth::id();
+        $inputs['postal_code'] = helper::convertPersianToEnglish($request->postal_code);
         Address::query()->create($inputs);
         return back();
     }
@@ -39,5 +41,10 @@ class AddressController extends Controller
         else{
             return response()->json(['status' => false,'cities' => null]);
         }
+    }
+
+    public function updateAddress(Province $province)
+    {
+
     }
 }
