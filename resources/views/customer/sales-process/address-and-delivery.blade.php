@@ -343,7 +343,7 @@
                                     </section>
 
                                     @foreach($deliveryMethods as $deliveryMethod)
-                                    <input form="myForm" type="radio" name="delivery_id" value="1" id="d{{$deliveryMethod->id}}"/>
+                                    <input form="myForm" type="radio" name="delivery_id" value="{{$deliveryMethod->id}}" id="d{{$deliveryMethod->id}}"/>
                                     <label for="d{{$deliveryMethod->id}}" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
                                         <section class="mb-2">
                                             <i class="fa fa-shipping-fast mx-1"></i>
@@ -357,7 +357,6 @@
                                     @endforeach
 
                                 </section>
-                                <form action="{{route('customer.sales-process.payment')}}" id="myForm"></form>
                             </section>
 
                         </section>
@@ -404,9 +403,10 @@
                                     کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد. و در نهایت
                                     پرداخت این سفارش صورت میگیرد.
                                 </p>
+                                <form method="post" action="{{route('customer.sales-process.choose-address-and-delivery')}}" id="myForm">@csrf</form>
                                 <section class="">
-                                    <button type="button"
-                                            onclick="document.getElementById('profile_completion').submit();"
+                                    <button type="submit"
+                                            onclick="document.getElementById('myForm').submit();"
                                             class="btn btn-danger d-block w-100">تکمیل فرآیند خرید
                                     </button>
                                 </section>
