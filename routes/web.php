@@ -402,7 +402,7 @@ Route::namespace('SalesProcess')->group(function (){
         Route::get('/address-and-delivery',[AddressController::class,'addressAndDelivery'])->name('customer.sales-process.address-and-delivery');
         Route::get('/get-cities/{province}',[AddressController::class,'getCities'])->name('customer.sales-process.get-cities');
         Route::post('/add-address',[AddressController::class,'addAddress'])->name('customer.sales-process.add-address');
-        Route::put('/update-address',[AddressController::class,'updateAddress'])->name('customer.sales-process.update-address');
+        Route::put('/update-address/{address}',[AddressController::class,'updateAddress'])->name('customer.sales-process.update-address');
     });
     Route::get('/profile-completion',[ProfileCompletionController::class,'profileCompletion'])->name('customer.sales-process.profile-completion');
     Route::post('/profile-completion',[ProfileCompletionController::class,'update'])->name('customer.sales-process.profile-completion-update');

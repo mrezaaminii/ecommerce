@@ -90,17 +90,18 @@
                                                     </section>
                                                     <section class="modal-body">
                                                         <form class="row" method="post"
-                                                              action="{{route('customer.sales-process.add-address')}}">
+                                                              action="{{route('customer.sales-process.update-address',$address)}}">
                                                             @csrf
                                                             <section class="col-6 mb-2">
                                                                 <label for="province"
                                                                        class="form-label mb-1">استان</label>
                                                                 <select name="province_id"
                                                                         class="form-select form-select-sm"
-                                                                        id="province">
+                                                                        id="province-{{$address->id}}">
                                                                     <option selected>استان را انتخاب کنید</option>
                                                                     @foreach($provinces as $province)
                                                                         <option
+                                                                            @if($province->id == $address->province_id) selected @endif
                                                                             data-url="{{route('customer.sales-process.get-cities',$province)}}"
                                                                             value="{{$province->id}}">{{$province->name}}</option>
                                                                     @endforeach
@@ -109,7 +110,7 @@
                                                             <section class="col-6 mb-2">
                                                                 <label for="city" class="form-label mb-1">شهر</label>
                                                                 <select name="city_id"
-                                                                        class="form-select form-select-sm" id="city">
+                                                                        class="form-select form-select-sm" id="city-{{$address->id}}">
                                                                     <option selected>شهر را انتخاب کنید</option>
                                                                 </select>
                                                             </section>
@@ -450,6 +451,35 @@
                     }
                 })
             })
+
+            var addresses = {!! auth()->user()->addresses !!}
+                addresses.map(function (address) {
+                var address = address.id;
+                var target = `#province-${address}`;
+                var selected = `${target} option:selected`
+                $(target).change(function () {
+                    var element = $(selected);
+                    var url = element.attr('data-url')
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        success: function (response) {
+                            if (response.status){
+                                let cities = response.cities
+                                $(`#city-${address}`).empty();
+                                cities.map((city) => {
+                                    $(`#city-${address}`).append($('<option/>').val(city.id).text(city.name))
+                                })
+                            }else {
+                                alert('خطا')
+                            }
+                        },
+                        error: function () {
+                            alert('خطا')
+                        }
+                    })
+                })
+            });
         })
     </script>
 @endsection
