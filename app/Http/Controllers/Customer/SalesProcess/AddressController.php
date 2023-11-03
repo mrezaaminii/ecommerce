@@ -64,6 +64,19 @@ class AddressController extends Controller
     {
         $user = Auth::user();
         $inputs = $request->all();
+        $cartItems = CartItem::where('user_id',$user->id)->get();
+        $totalProductPrice = 0;
+        $totalDiscount = 0;
+        $totalFinalPrice = 0;
+        $totalFinalDiscountWithNumbers = 0;
+        foreach ($cartItems as $cartItem){
+            $totalProductPrice += $cartItem->cartItemProductPrice();
+            $totalDiscount += $cartItem->cartItemProductDiscount();
+            $totalFinalPrice += $cartItem->cartItemFinalPrice();
+            $totalFinalDiscountWithNumbers += $cartItem->cartItemFinalDiscount();
+        }
+        $inputs['order_final_amount'] = $totalFinalPrice;
+        $inputs['order_discount_amount'] = $totalFinalDiscountWithNumbers;
         $inputs['user_id'] = $user->id;
         $order = Order::query()->updateOrCreate(['user_id' => $user->id,'order_status' => 0],$inputs);
         return redirect()->route('customer.sales-process.payment');
