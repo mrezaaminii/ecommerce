@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\SalesProcess;
 use App\Helpers\helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\SalesProcess\StoreAddressRequest;
+use App\Http\Requests\Customer\SalesProcess\UpdateAddressRequest;
 use App\Models\Admin\Market\Address;
 use App\Models\City;
 use App\Models\Market\CartItem;
@@ -43,8 +44,11 @@ class AddressController extends Controller
         }
     }
 
-    public function updateAddress(Province $province)
+    public function updateAddress(Address $address,UpdateAddressRequest $request)
     {
-
+        $inputs = $request->all();
+        $inputs['user_id'] = Auth::id();
+        $address->update($inputs);
+        return redirect()->back();
     }
 }

@@ -55,8 +55,8 @@
                                 </section>
                                 <section class="address-select">
                                     @foreach($user->addresses as $address)
-                                        <input type="radio" name="address" value="1" id="a1-{{$loop->iteration}}"/> <!--checked="checked"-->
-                                        <label for="a1-{{$loop->iteration}}" class="address-wrapper mb-2 p-2">
+                                        <input type="radio" name="address_id" value="{{$address->id}}" id="a-{{$address->id}}"/> <!--checked="checked"-->
+                                        <label for="a-{{$address->id}}" class="address-wrapper mb-2 p-2">
                                             <section class="mb-2">
                                                 <i class="fa fa-map-marker-alt mx-1"></i>
                                                 آدرس : استان {{$address->city->province->name ?? '-'}}
@@ -92,6 +92,7 @@
                                                         <form class="row" method="post"
                                                               action="{{route('customer.sales-process.update-address',$address)}}">
                                                             @csrf
+                                                            @method('PUT')
                                                             <section class="col-6 mb-2">
                                                                 <label for="province"
                                                                        class="form-label mb-1">استان</label>
