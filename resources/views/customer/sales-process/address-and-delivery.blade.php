@@ -55,7 +55,7 @@
                                 </section>
                                 <section class="address-select">
                                     @foreach($user->addresses as $address)
-                                        <input type="radio" name="address_id" value="{{$address->id}}" id="a-{{$address->id}}"/> <!--checked="checked"-->
+                                        <input form="myForm" type="radio" name="address_id" value="{{$address->id}}" id="a-{{$address->id}}"/> <!--checked="checked"-->
                                         <label for="a-{{$address->id}}" class="address-wrapper mb-2 p-2">
                                             <section class="mb-2">
                                                 <i class="fa fa-map-marker-alt mx-1"></i>
@@ -342,33 +342,24 @@
                                         </secrion>
                                     </section>
 
-                                    <input type="radio" name="delivery_type" value="1" id="d1"/>
-                                    <label for="d1" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
+                                    @foreach($deliveryMethods as $deliveryMethod)
+                                    <input form="myForm" type="radio" name="delivery_id" value="1" id="d{{$deliveryMethod->id}}"/>
+                                    <label for="d{{$deliveryMethod->id}}" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
                                         <section class="mb-2">
                                             <i class="fa fa-shipping-fast mx-1"></i>
-                                            پست پیشتاز
+                                            {{$deliveryMethod->name}}
                                         </section>
                                         <section class="mb-2">
                                             <i class="fa fa-calendar-alt mx-1"></i>
-                                            تامین کالا از 4 روز کاری آینده
+                                            تامین کالا از {{$deliveryMethod->delivery_time}} {{$deliveryMethod->delivery_time_unit}} کاری آینده
                                         </section>
                                     </label>
-
-                                    <input type="radio" name="delivery_type" value="2" id="d2"/>
-                                    <label for="d2" class="col-12 col-md-4 delivery-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-shipping-fast mx-1"></i>
-                                            تیپاکس
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            تامین کالا از 2 روز کاری آینده
-                                        </section>
-                                    </label>
-
+                                    @endforeach
 
                                 </section>
+                                <form action="{{route('customer.sales-process.payment')}}" id="myForm"></form>
                             </section>
+
                         </section>
                         <section class="col-md-3">
                             <section class="content-wrapper bg-white p-3 rounded-2 cart-total-price">

@@ -403,6 +403,7 @@ Route::namespace('SalesProcess')->group(function (){
         Route::get('/get-cities/{province}',[AddressController::class,'getCities'])->name('customer.sales-process.get-cities');
         Route::post('/add-address',[AddressController::class,'addAddress'])->name('customer.sales-process.add-address');
         Route::put('/update-address/{address}',[AddressController::class,'updateAddress'])->name('customer.sales-process.update-address');
+        Route::get('/payment',[PaymentController::class,'payment'])->name('customer.sales-process.payment');
     });
     Route::get('/profile-completion',[ProfileCompletionController::class,'profileCompletion'])->name('customer.sales-process.profile-completion');
     Route::post('/profile-completion',[ProfileCompletionController::class,'update'])->name('customer.sales-process.profile-completion-update');
