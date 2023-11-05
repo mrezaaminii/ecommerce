@@ -25,34 +25,36 @@ class PaymentController extends Controller
         $user = Auth::id();
 
         $copan = Copan::query()->where([['code', $request->copan], ['status', 1], ['start_date', '<', now()], ['end_date', '>', now()]])->first();
-        if ($copan->user_id != null) {
-            $copan = Copan::query()->where([['code', $request->copan], ['status', 1], ['start_date', '<', now()], ['end_date', '>', now()],['user_id',$user]])->first();
-            if ($copan == null){
-                return back();
-            }
-        }
-        $order = Order::query()->where([['user_id',$user],['order_status',0],['copan_id',null]])->first();
-        if($order)
-        {
-            if($copan->amount_type == 0)
-            {
-                $copanDiscountAmount = $order->order_final_amount * ($copan->amount / 100);
-                if($copanDiscountAmount > $copan->discount_ceiling)
-                {
-                    $copanDiscountAmount = $copan->discount_ceiling;
+        if ($copan != null) {
+            if ($copan->user_id != null) {
+                $copan = Copan::query()->where([['code', $request->copan], ['status', 1], ['start_date', '<', now()], ['end_date', '>', now()], ['user_id', $user]])->first();
+                if ($copan == null) {
+                    return back();
                 }
             }
-            else{
-                $copanDiscountAmount = $copan->amount;
+            $order = Order::query()->where([['user_id', $user], ['order_status', 0], ['copan_id', null]])->first();
+            if ($order) {
+                if ($copan->amount_type == 0) {
+                    $copanDiscountAmount = $order->order_final_amount * ($copan->amount / 100);
+                    if ($copanDiscountAmount > $copan->discount_ceiling) {
+                        $copanDiscountAmount = $copan->discount_ceiling;
+                    }
+                } else {
+                    $copanDiscountAmount = $copan->amount;
+                }
+
+                $order->order_final_amount = $order->order_final_amount - $copanDiscountAmount;
+
+                $finalDiscount = $order->order_total_products_discount_amount + $copanDiscountAmount;
+
+                $order->update(
+                    ['copan_id' => $copan->id, 'order_copan_discount_amount' => $copanDiscountAmount, 'order_total_products_discount_amount' => $finalDiscount]
+                );
+                return redirect()->back();
             }
-
-            $order->order_final_amount = $order->order_final_amount - $copanDiscountAmount;
-
-            $finalDiscount = $order->order_total_products_discount_amount + $copanDiscountAmount;
-
-            $order->update(
-                ['copan_id' => $copan->id, 'order_copan_discount_amount' => $copanDiscountAmount, 'order_total_products_discount_amount' => $finalDiscount]
-            );
+        }
+        else {
+            return redirect()->back();
         }
     }
 }
