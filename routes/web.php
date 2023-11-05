@@ -405,6 +405,7 @@ Route::namespace('SalesProcess')->group(function (){
         Route::post('/add-address',[AddressController::class,'addAddress'])->name('customer.sales-process.add-address');
         Route::put('/update-address/{address}',[AddressController::class,'updateAddress'])->name('customer.sales-process.update-address');
         Route::get('/payment',[CustomerPaymentController::class,'payment'])->name('customer.sales-process.payment');
+        Route::post('/copan-discount',[CustomerPaymentController::class,'copanDiscount'])->name('customer.sales-process.copan-discount');
         Route::post('/choose-address-and-delivery',[AddressController::class,'chooseAddressAndDelivery'])->name('customer.sales-process.choose-address-and-delivery');
     });
     Route::get('/profile-completion',[ProfileCompletionController::class,'profileCompletion'])->name('customer.sales-process.profile-completion');
