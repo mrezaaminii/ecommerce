@@ -158,15 +158,30 @@
                                         تومان</p>
                                 </section>
 
+                                <section class="border-bottom mb-3"></section>
+
                                 @if($order->commonDiscount != null)
                                     <section class="d-flex justify-content-between align-items-center">
                                         <p class="text-muted">میزان تخفیف عمومی</p>
                                         <p class="text-danger fw-bolder"><span
                                                 id="total_discount">{{ helper::priceFormat($order->commonDiscount->percentage) }}</span>
+                                            درصد</p>
+                                    </section>
+
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">میزان حداکثر تخفیف عمومی</p>
+                                        <p class="text-danger fw-bolder"><span
+                                                id="total_discount">{{ helper::priceFormat($order->commonDiscount->discount_ceiling) }}</span>
                                             تومان</p>
                                     </section>
-                                @else
-                                    <div>hi</div>
+
+                                    <section class="d-flex justify-content-between align-items-center">
+                                        <p class="text-muted">حداقل موجودی سبد خرید</p>
+                                        <p class="text-danger fw-bolder"><span
+                                                id="total_discount">{{ helper::priceFormat($order->commonDiscount->minimal_order_amount) }}</span>
+                                            تومان</p>
+                                    </section>
+
                                 @endif
                                 @if($totalDiscount != 0)
                                     <section class="d-flex justify-content-between align-items-center">
@@ -180,7 +195,7 @@
                                 <section class="d-flex justify-content-between align-items-center">
                                     <p class="text-muted">جمع سبد خرید</p>
                                     <p class="fw-bolder"><span
-                                            id="total_price">{{ helper::priceFormat($totalProductPrice - $totalDiscount) }}</span>
+                                            id="total_price">{{ helper::priceFormat($order->order_final_amount) }}</span>
                                         تومان</p>
                                 </section>
 
@@ -190,7 +205,9 @@
                                     کنید. نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه شده خواهد شد. و در نهایت
                                     پرداخت این سفارش صورت میگیرد.
                                 </p>
-                                <form method="post" action="{{route('customer.sales-process.choose-address-and-delivery')}}" id="myForm">@csrf</form>
+                                <form method="post"
+                                      action="{{route('customer.sales-process.choose-address-and-delivery')}}"
+                                      id="myForm">@csrf</form>
                                 <section class="">
                                     <button type="submit"
                                             onclick="document.getElementById('myForm').submit();"
