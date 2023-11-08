@@ -31,7 +31,7 @@ class Order extends Model
     }
 
     public function commonDiscount(){
-        return $this->belongsTo(CommonDiscount::class);
+        return $this->belongsTo(CommonDiscount::class,'common_discount_id');
     }
 
     public function orderItems(){

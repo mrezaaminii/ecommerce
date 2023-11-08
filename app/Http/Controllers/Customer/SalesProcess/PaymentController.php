@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer\SalesProcess;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Market\Copan;
 use App\Models\Admin\Market\Order;
+use App\Models\Market\CartItem;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,11 @@ class PaymentController extends Controller
 {
     public function payment(): View|Application
     {
-        return view('customer.sales-process.payment');
+        $user = Auth::user();
+        $cartItems = CartItem::where('user_id', $user->id)->get();
+        $order = Order::where([['user_id', $user->id],['order_status', 0]])->first();
+
+        return view('customer.sales-process.payment',compact('cartItems','user','order'));
     }
 
     public function copanDiscount(Request $request)
