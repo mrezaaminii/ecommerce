@@ -34,7 +34,7 @@ class PaymentController extends Controller
             if ($copan->user_id != null) {
                 $copan = Copan::query()->where([['code', $request->copan], ['status', 1], ['start_date', '<', now()], ['end_date', '>', now()], ['user_id', $user]])->first();
                 if ($copan == null) {
-                    return back();
+                    return back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است‌']]);
                 }
             }
             $order = Order::query()->where([['user_id', $user], ['order_status', 0], ['copan_id', null]])->first();
@@ -55,11 +55,37 @@ class PaymentController extends Controller
                 $order->update(
                     ['copan_id' => $copan->id, 'order_copan_discount_amount' => $copanDiscountAmount, 'order_total_products_discount_amount' => $finalDiscount]
                 );
-                return redirect()->back();
+                return redirect()->back()->with(['copan' => 'کد تخفیف با موفقیت اعمال شد']);
             }
+            else{
+                return back()->withErrors(['copan' => ['کد تخفیف قبلا وارد شده است‌']]);
+            }
+
         }
         else {
-            return redirect()->back();
+            return back()->withErrors(['copan' => ['کد تخفیف اشتباه وارد شده است‌']]);
+        }
+    }
+
+    public function paymentSubmit(Request $request)
+    {
+        $request->validate([
+            'payment_type' => 'required',
+        ]);
+        $order = Order::query()->where('user_id',auth()->id())->where('order_status',0)->first();
+        $cartItems = CartItem::query()->where('user_id',auth()->id())->get();
+        switch ($request->payment_type){
+            case '1':
+                dd('online');
+                break;
+                case '2':
+                dd('offline');
+                break;
+                case '3':
+                dd('cash');
+                break;
+            default:
+                return redirect()->back();
         }
     }
 }
