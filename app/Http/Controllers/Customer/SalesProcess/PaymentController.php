@@ -115,7 +115,7 @@ class PaymentController extends Controller
             'order_status' => 3
         ]);
 
-        $cartItems->each(function ($cartItem){
+        $cartItems->each(function ($cartItem) {
             $cartItem->delete();
         });
         return redirect()->route('customer.home')->with('success', 'سفارش شما با موفقیت ثبت شد');
