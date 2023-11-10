@@ -20,6 +20,11 @@
 @section('content')
     <section class="container-xxl my-4">
         <section class="row">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{session('success')}}
+                </div>
+            @endif
             <section class="col-md-8 pe-md-1 ">
                 <section id="slideshow" class="owl-carousel owl-theme">
                     @foreach($slideShowImages as $slideShowImage)
