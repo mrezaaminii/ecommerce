@@ -90,6 +90,7 @@ class PaymentController extends Controller
                 'targetModel' => CashPayment::class,
                 'type' => 2
             ],
+            default => fn() => redirect()->back()->withErrors(['error' => 'خطا'])
         };
 
         $paymented = $matchResult['targetModel']::create([
