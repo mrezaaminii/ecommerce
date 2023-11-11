@@ -100,47 +100,48 @@
                                         </secrion>
                                     </section>
 
-                                    <form action="{{route('customer.sales-process.payment-submit')}}" method="POST" id="payment_submit">
+                                    <form action="{{route('customer.sales-process.payment-submit')}}" method="POST"
+                                          id="payment_submit">
                                         @csrf
-                                    <input type="radio" name="payment_type" value="1" id="d1"/>
-                                    <label for="d1" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-credit-card mx-1"></i>
-                                            پرداخت آنلاین
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            درگاه پرداخت زرین پال
-                                        </section>
-                                    </label>
+                                        <input type="radio" name="payment_type" value="1" id="d1"/>
+                                        <label for="d1" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
+                                            <section class="mb-2">
+                                                <i class="fa fa-credit-card mx-1"></i>
+                                                پرداخت آنلاین
+                                            </section>
+                                            <section class="mb-2">
+                                                <i class="fa fa-calendar-alt mx-1"></i>
+                                                درگاه پرداخت زرین پال
+                                            </section>
+                                        </label>
 
-                                    <section class="mb-2"></section>
+                                        <section class="mb-2"></section>
 
-                                    <input type="radio" name="payment_type" value="2" id="d2"/>
-                                    <label for="d2" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-id-card-alt mx-1"></i>
-                                            پرداخت آفلاین
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            حداکثر در 2 روز کاری بررسی می شود
-                                        </section>
-                                    </label>
+                                        <input type="radio" name="payment_type" value="2" id="d2"/>
+                                        <label for="d2" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
+                                            <section class="mb-2">
+                                                <i class="fa fa-id-card-alt mx-1"></i>
+                                                پرداخت آفلاین
+                                            </section>
+                                            <section class="mb-2">
+                                                <i class="fa fa-calendar-alt mx-1"></i>
+                                                حداکثر در 2 روز کاری بررسی می شود
+                                            </section>
+                                        </label>
 
-                                    <section class="mb-2"></section>
+                                        <section class="mb-2"></section>
 
-                                    <input type="radio" name="payment_type" value="3" id="d3"/>
-                                    <label for="d3" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
-                                        <section class="mb-2">
-                                            <i class="fa fa-money-check mx-1"></i>
-                                            پرداخت در محل
-                                        </section>
-                                        <section class="mb-2">
-                                            <i class="fa fa-calendar-alt mx-1"></i>
-                                            پرداخت به پیک هنگام دریافت کالا
-                                        </section>
-                                    </label>
+                                        <input type="radio" name="payment_type" value="3" id="cash_payment"/>
+                                        <label for="cash_payment" class="col-12 col-md-4 payment-wrapper mb-2 pt-2">
+                                            <section class="mb-2">
+                                                <i class="fa fa-money-check mx-1"></i>
+                                                پرداخت در محل
+                                            </section>
+                                            <section class="mb-2">
+                                                <i class="fa fa-calendar-alt mx-1"></i>
+                                                پرداخت به پیک هنگام دریافت کالا
+                                            </section>
+                                        </label>
                                     </form>
                                 </section>
                             </section>
@@ -232,7 +233,17 @@
 
 @section('script')
     <script>
-
+        $(document).ready(function () {
+            $("#cash_payment").click(function () {
+            var newDiv = document.createElement('div');
+            newDiv.innerHTML = `
+                <section class="input-group input-group-sm">
+                    <input type="text" class="form-control" form="payment_submit" name="cash_receiver" placeholder="نام و نام خانوادگی دریافت کننده">
+                </section>
+            `;
+            document.getElementsByClassName('content-wrapper')[1].append(newDiv)
+            })
+        })
     </script>
 @endsection
 

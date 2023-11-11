@@ -88,7 +88,8 @@ class PaymentController extends Controller
             ],
             '3' => [
                 'targetModel' => CashPayment::class,
-                'type' => 2
+                'type' => 2,
+                'cash_receiver' => $request->cash_receiver,
             ],
             default => fn() => redirect()->back()->withErrors(['error' => 'خطا'])
         };
@@ -96,6 +97,7 @@ class PaymentController extends Controller
         $paymented = $matchResult['targetModel']::create([
             'amount' => $order->order_final_amount,
             'user_id' => auth()->id(),
+            'cash_receiver' => $matchResult['cash_receiver'],
             'pay_date' => now(),
             'status' => 1,
         ]);
