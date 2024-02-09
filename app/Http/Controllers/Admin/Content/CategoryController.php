@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;
 use App\Http\Services\Image\ImageService;
 use App\Models\Admin\Content\PostCategory;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -119,5 +120,12 @@ class CategoryController extends Controller
                 'status' => false
             ]);
         }
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input("search");
+        $postCategories = PostCategory::query()->where("name","like","%".$search."%")->get();
+        return view("admin.content.category.searched-records",compact("postCategories"))->render();
     }
 }

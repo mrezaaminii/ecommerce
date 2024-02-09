@@ -206,6 +206,7 @@ Route::prefix('admin')->namespace('Admin')->group(function (){
     Route::prefix('content')->namespace('Content')->group(function (){
         Route::prefix('category')->group(function (){
             Route::get('/',[ContentCategoryController::class,'index'])->name('admin.content.category.index');
+            Route::get('/search',[ContentCategoryController::class,'search'])->name('admin.content.category.search');
             Route::get('/create',[ContentCategoryController::class,'create'])->name('admin.content.category.create');
             Route::post('/store',[ContentCategoryController::class,'store'])->name('admin.content.category.store');
             Route::get('/edit/{postCategory}',[ContentCategoryController::class,'edit'])->name('admin.content.category.edit');
